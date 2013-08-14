@@ -371,8 +371,8 @@ static void yy_fatal_error (yyconst char msg[]  );
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
 
-#define YY_NUM_RULES 39
-#define YY_END_OF_BUFFER 40
+#define YY_NUM_RULES 38
+#define YY_END_OF_BUFFER 39
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -382,23 +382,23 @@ struct yy_trans_info
 	};
 static yyconst flex_int16_t yy_accept[157] =
     {   0,
-        0,    0,   40,   38,   37,   37,   24,   38,   26,   27,
-       28,   22,   21,   26,   34,   23,   25,   35,   35,   30,
-       29,   35,   35,   35,   35,   35,   35,   35,   35,   35,
-       35,   35,   35,   35,   35,   35,   31,   32,   37,    0,
-        0,   36,   34,   35,   35,   35,   35,   35,   35,   35,
-       35,   35,   12,   35,   35,   35,   35,   35,   35,   35,
-       35,   35,   35,   35,    0,    0,    0,   36,   35,   35,
-       35,   35,   35,   35,   35,   35,   11,   35,   35,    9,
-       35,   35,   35,   35,   35,   35,   35,    0,   36,   35,
-       35,   35,   35,   35,   13,   35,   35,   35,    5,   35,
+        0,    0,   39,   37,   36,   36,   23,   37,   25,   26,
+       27,   21,   20,   25,   33,   22,   24,   34,   34,   29,
+       28,   34,   34,   34,   34,   34,   34,   34,   34,   34,
+       34,   34,   34,   34,   34,   34,   30,   31,   36,    0,
+        0,   35,   33,   34,   34,   34,   34,   34,   34,   34,
+       34,   34,   11,   34,   34,   34,   34,   34,   34,   34,
+       34,   34,   34,   34,    0,    0,    0,   35,   34,   34,
+       34,   34,   34,   34,   34,   34,   10,   34,   34,   15,
+       34,   34,   34,   34,   34,   34,   34,    0,   35,   34,
+       34,   34,   34,   34,   12,   34,   34,   34,    5,   34,
 
-       35,   35,   15,   33,    3,   35,    0,   35,   35,   35,
-        1,   35,   35,   35,   35,   35,   35,   14,    0,    6,
-       35,   35,   17,   35,   18,    2,   10,    4,   20,    0,
-       35,   19,    8,    0,   35,    0,   35,    0,   35,    0,
-       35,    0,   35,    0,   35,    0,   35,    0,   35,    0,
-       35,    0,   35,    7,    7,    0
+       34,   34,   14,   32,    3,   34,    0,   34,   34,   34,
+        1,   34,   34,   34,   34,   34,   34,   13,    0,    6,
+       34,   34,   16,   34,   17,    2,    9,    4,   19,    0,
+       34,   18,    8,    0,   34,    0,   34,    0,   34,    0,
+       34,    0,   34,    0,   34,    0,   34,    0,   34,    0,
+       34,    0,   34,    7,    7,    0
     } ;
 
 static yyconst flex_int32_t yy_ec[256] =
@@ -921,242 +921,235 @@ case 9:
 YY_RULE_SETUP
 #line 50 "parser.l"
 {
-	printf("NEW %s\n",yytext);
-	}
-	YY_BREAK
-case 10:
-YY_RULE_SETUP
-#line 53 "parser.l"
-{
 	printf("RETURN  %s\n",yytext);
 	return RETURN; 
 	}
 	YY_BREAK
-case 11:
+case 10:
 YY_RULE_SETUP
-#line 57 "parser.l"
+#line 54 "parser.l"
 { 
 	printf("INT  %s\n",yytext);
 	return INT;
 	}
 	YY_BREAK
-case 12:
+case 11:
 YY_RULE_SETUP
-#line 61 "parser.l"
+#line 58 "parser.l"
 { 
 	printf("IF  %s\n",yytext);
 	return IF; 
 	}
 	YY_BREAK
-case 13:
+case 12:
 YY_RULE_SETUP
-#line 65 "parser.l"
+#line 62 "parser.l"
 {	
 	printf("ELSE  %s\n",yytext);
 	return ELSE;
 	}
 	YY_BREAK
-case 14:
+case 13:
 YY_RULE_SETUP
-#line 69 "parser.l"
+#line 66 "parser.l"
 { 
 	printf("WHILE  %s\n",yytext);
 	return WHILE;
 	}
 	YY_BREAK
-case 15:
+case 14:
 YY_RULE_SETUP
-#line 73 "parser.l"
+#line 70 "parser.l"
 { 
 	printf("THIS  %s\n",yytext);
 	return THIS; 
 	}
 	YY_BREAK
-case 16:
+case 15:
 YY_RULE_SETUP
-#line 77 "parser.l"
+#line 74 "parser.l"
 { 
 	printf("NEW  %s\n",yytext); 
 	return NEW;
 	}
 	YY_BREAK
-case 17:
+case 16:
 YY_RULE_SETUP
-#line 81 "parser.l"
+#line 78 "parser.l"
 {
 	printf("DEFINE  %s\n",yytext);
 	return DEFINE;
 	}
 	YY_BREAK
-case 18:
+case 17:
 YY_RULE_SETUP
-#line 85 "parser.l"
+#line 82 "parser.l"
 {
 	printf("LENGTH  %s\n",yytext);
 	return LENGTH;
 	}
 	YY_BREAK
-case 19:
+case 18:
 YY_RULE_SETUP
-#line 89 "parser.l"
+#line 86 "parser.l"
 { 
 	printf("BOOLEAN  %s\n",yytext); 
 	return BOOLEAN; 
 	}
 	YY_BREAK
-case 20:
+case 19:
 YY_RULE_SETUP
-#line 93 "parser.l"
+#line 90 "parser.l"
 {
 	printf("DEFINE  %s\n",yytext);
 	return HASH_DEFINE; 
 	}
 	YY_BREAK
-case 21:
+case 20:
 YY_RULE_SETUP
-#line 97 "parser.l"
+#line 94 "parser.l"
 {
 	printf("DOT  %s\n",yytext);
 	return DOT;
 	}
 	YY_BREAK
-case 22:
+case 21:
 YY_RULE_SETUP
-#line 101 "parser.l"
+#line 98 "parser.l"
 { 
 	printf("COMMA  %s\n",yytext);
 	return COMMA;
 	}
 	YY_BREAK
-case 23:
+case 22:
 YY_RULE_SETUP
-#line 105 "parser.l"
+#line 102 "parser.l"
 { 
 	printf("SEMICOLON  %s\n",yytext);
 	return SEMICOLON; 
 	}
 	YY_BREAK
-case 24:
+case 23:
 YY_RULE_SETUP
-#line 109 "parser.l"
+#line 106 "parser.l"
 { 
 	printf("NOT  %s\n",yytext);
 	return NOT;
 	}
 	YY_BREAK
-case 25:
+case 24:
 YY_RULE_SETUP
-#line 113 "parser.l"
+#line 110 "parser.l"
 { 
 	printf("ASSIGNMENT  %s\n",yytext);
 	return ASSIGNMENT; 
 	}
 	YY_BREAK
-case 26:
+case 25:
 YY_RULE_SETUP
-#line 117 "parser.l"
+#line 114 "parser.l"
 {
 	printf("OPERATOR  %s\n",yytext);
 	return OPERATOR;
 	}
 	YY_BREAK
-case 27:
+case 26:
 YY_RULE_SETUP
-#line 122 "parser.l"
+#line 119 "parser.l"
 { 
 	printf("(  %s\n",yytext);
 	return LEFT_PARANTHESIS;
 	}
 	YY_BREAK
-case 28:
+case 27:
 YY_RULE_SETUP
-#line 127 "parser.l"
+#line 124 "parser.l"
 { 
 	printf(")  %s\n",yytext);
 	return RIGHT_PARANTHESIS;
 	}
 	YY_BREAK
-case 29:
+case 28:
 YY_RULE_SETUP
-#line 131 "parser.l"
+#line 128 "parser.l"
 {
 	printf("]  %s\n",yytext);
 	return RIGHT_BRACKET; 
 	}
 	YY_BREAK
-case 30:
+case 29:
 YY_RULE_SETUP
-#line 135 "parser.l"
+#line 132 "parser.l"
 { 
 	printf("[  %s\n",yytext);
 	return LEFT_BRACKET;
 	}
 	YY_BREAK
-case 31:
+case 30:
 YY_RULE_SETUP
-#line 139 "parser.l"
+#line 136 "parser.l"
 { 
 	printf("{  %s\n",yytext);
 	return LEFT_BRACE;
 	}
 	YY_BREAK
-case 32:
+case 31:
 YY_RULE_SETUP
-#line 143 "parser.l"
+#line 140 "parser.l"
 { 
 	printf("}  %s\n",yytext);
 	return RIGHT_BRACE; 
 	}
 	YY_BREAK
-case 33:
+case 32:
 YY_RULE_SETUP
-#line 148 "parser.l"
+#line 145 "parser.l"
 {
 	printf("BOOLEAN_VALUE  %s\n",yytext);
 	return BOOLEAN_VALUE;
 	}
 	YY_BREAK
-case 34:
+case 33:
 YY_RULE_SETUP
-#line 152 "parser.l"
+#line 149 "parser.l"
 { 
 	printf("INTEGER  %s\n",yytext);
 	return INTEGER; 
 	}
 	YY_BREAK
-case 35:
+case 34:
 YY_RULE_SETUP
-#line 156 "parser.l"
+#line 153 "parser.l"
 { 
 	printf("IDENTIFIER  %s\n",yytext);
 	return IDENTIFIER; 
 	} 
 	YY_BREAK
-case 36:
-/* rule 36 can match eol */
+case 35:
+/* rule 35 can match eol */
 YY_RULE_SETUP
-#line 162 "parser.l"
+#line 159 "parser.l"
 { 
 	printf("COMMENT %s\n",yytext);
 	}
 	YY_BREAK
-case 37:
-/* rule 37 can match eol */
+case 36:
+/* rule 36 can match eol */
 YY_RULE_SETUP
-#line 165 "parser.l"
+#line 162 "parser.l"
+
+	YY_BREAK
+case 37:
+YY_RULE_SETUP
+#line 163 "parser.l"
 
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 166 "parser.l"
-
-	YY_BREAK
-case 39:
-YY_RULE_SETUP
-#line 167 "parser.l"
+#line 164 "parser.l"
 ECHO;
 	YY_BREAK
-#line 1160 "lex.yy.c"
+#line 1153 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2154,7 +2147,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 167 "parser.l"
+#line 164 "parser.l"
 
 
 

@@ -47,9 +47,6 @@ extends {
 	printf("EXTENDS  %s\n",yytext);
 	return EXTENDS; 
 	}
-new {
-	printf("NEW %s\n",yytext);
-	}
 return {
 	printf("RETURN  %s\n",yytext);
 	return RETURN; 

@@ -157,10 +157,7 @@ boolean {
 	printf("IDENTIFIER  %s\n",yytext);
 	return IDENTIFIER; 
 	} 
-// { 
-//	printf("EOF %s\n",yytext);
-	//return EOF_TOKEN;
-//	} 
+ 
 
 {ONELINE_COMMENT}|{COMMENT} { 
 	printf("COMMENT %s\n",yytext);
