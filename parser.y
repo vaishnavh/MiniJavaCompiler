@@ -53,36 +53,18 @@ void yyerror(char *message);
 %token BOOLEAN_VALUE
 %token INTEGER
 %token IDENTIFIER
-//%start Goal 
+%start Goal 
 //%start Expression
 //%start MethodDeclaration
 //%start Statements
-%start Check
+//%start Check
+//%start TypeIdentifierStatements
+
 %%
 
 Check:
-     Check A C
-     | X
+     TypeIdentifierStatements Statements RETURN Expression SEMICOLON
      ;
-
-X:
- X A B
- | 
- ;
-
-A:
- IDENTIFIER
- ;
-
-B:
- NOT 
- ;
-
-
-C:
- ASSIGNMENT
- ;
-
 //MacroDefinition*
 MacroDefinitions:
 	       MacroDefinitions MacroDefinition
@@ -153,7 +135,7 @@ IdentifiersList:
 
 
 MethodDeclaration:
-		 PUBLIC Type IDENTIFIER TypeIdentifiersList LEFT_BRACE TypeIdentifierStatements { printf("HiHiHi\n");} Statements RETURN Expression SEMICOLON RIGHT_BRACE 
+		 PUBLIC Type IDENTIFIER TypeIdentifiersList LEFT_BRACE TypeIdentifierStatements Statements RETURN Expression SEMICOLON RIGHT_BRACE 
 		;
 //MethodDeclarations*
 MethodDeclarations:
@@ -162,19 +144,19 @@ MethodDeclarations:
 		  ;
 //(Statement)*
 Statements:
-	  Statements Statement { printf("Encountered Statement"); }
+	  Statement Statements 
 	  |	  
 	  ;
 Type:
     INT LEFT_BRACKET RIGHT_BRACKET
     | BOOLEAN
     | INT
-    | IDENTIFIER { printf("Hi01\n");}
+    | IDENTIFIER 
     ;
 Statement:
 	 LEFT_BRACE Statements RIGHT_BRACE
 	 | SYSTEMOUTPRINTLN LEFT_PARANTHESIS Expression RIGHT_PARANTHESIS SEMICOLON
-	 | IDENTIFIER {printf("Hi\n");} ASSIGNMENT Expression SEMICOLON
+	 | IDENTIFIER ASSIGNMENT  Expression SEMICOLON
 	 | IDENTIFIER LEFT_BRACKET Expression RIGHT_BRACKET ASSIGNMENT Expression SEMICOLON
 	 | IF LEFT_PARANTHESIS Expression RIGHT_PARANTHESIS Statement
 	 | IF LEFT_PARANTHESIS Expression RIGHT_PARANTHESIS Statement ELSE Statement
