@@ -17,4 +17,5 @@ void print(struct StringArray*);
 int locate(struct StringArray*, char*);
 void append(struct StringArray*, char*);
 void merge(struct StringArray*, int, struct StringArray*);
+void cat(struct StringArray*, struct StringArray*);
 #endif

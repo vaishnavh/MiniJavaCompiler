@@ -857,299 +857,367 @@ case 1:
 YY_RULE_SETUP
 #line 18 "parser.l"
 { 
-	printf("CLASS  %s\n",yytext);
+	//printf("CLASS  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return CLASS; 
 	}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 22 "parser.l"
+#line 24 "parser.l"
 {
-	printf("PUBLIC  %s\n",yytext);
+	//printf("PUBLIC  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return PUBLIC; 
 	}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 26 "parser.l"
+#line 30 "parser.l"
 {
-	printf("VOID  %s\n",yytext);
+	//printf("VOID  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return VOID; 
 	}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 30 "parser.l"
+#line 36 "parser.l"
 {
-	printf("STATIC  %s\n",yytext);
+	//printf("STATIC  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return STATIC;
 	}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 34 "parser.l"
+#line 42 "parser.l"
 { 	
-	printf("MAIN  %s\n",yytext);
+	//printf("MAIN  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return MAIN;
 	}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 38 "parser.l"
+#line 48 "parser.l"
 { 
-	printf("STRING  %s\n",yytext);
+	//printf("STRING  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return STRING;
 	}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 42 "parser.l"
+#line 54 "parser.l"
 {
-	printf("SYSTEMOUTPRINTLN  %s\n",yytext);
+	//printf("SYSTEMOUTPRINTLN  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return SYSTEMOUTPRINTLN; 
 	}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 46 "parser.l"
+#line 60 "parser.l"
 { 
-	printf("EXTENDS  %s\n",yytext);
+	//printf("EXTENDS  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return EXTENDS; 
 	}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 50 "parser.l"
+#line 66 "parser.l"
 {
-	printf("RETURN  %s\n",yytext);
+	//printf("RETURN  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return RETURN; 
 	}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 54 "parser.l"
+#line 72 "parser.l"
 { 
-	printf("INT  %s\n",yytext);
+	//printf("INT  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return INT;
 	}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 58 "parser.l"
+#line 78 "parser.l"
 { 
-	printf("IF  %s\n",yytext);
+	//printf("IF  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return IF; 
 	}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 62 "parser.l"
+#line 84 "parser.l"
 {	
-	printf("ELSE  %s\n",yytext);
+	//printf("ELSE  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return ELSE;
 	}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 66 "parser.l"
+#line 90 "parser.l"
 { 
-	printf("WHILE  %s\n",yytext);
+	//printf("WHILE  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return WHILE;
 	}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 70 "parser.l"
+#line 96 "parser.l"
 { 
-	printf("THIS  %s\n",yytext);
+	//printf("THIS  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return THIS; 
 	}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 74 "parser.l"
+#line 102 "parser.l"
 { 
-	printf("NEW  %s\n",yytext); 
+	//printf("NEW  %s\n",strdup(yytext)); 
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return NEW;
 	}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 78 "parser.l"
+#line 108 "parser.l"
 {
-	printf("DEFINE  %s\n",yytext);
+	//printf("DEFINE  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return DEFINE;
 	}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 82 "parser.l"
+#line 114 "parser.l"
 {
-	printf("LENGTH  %s\n",yytext);
+	//printf("LENGTH  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return LENGTH;
 	}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 86 "parser.l"
+#line 120 "parser.l"
 { 
-	printf("BOOLEAN  %s\n",yytext); 
+	//printf("BOOLEAN  %s\n",strdup(yytext)); 
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return BOOLEAN; 
 	}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 90 "parser.l"
+#line 126 "parser.l"
 {
-	printf("DEFINE  %s\n",yytext);
+	//printf("DEFINE  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return HASH_DEFINE; 
 	}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 94 "parser.l"
+#line 132 "parser.l"
 {
-	printf("DOT  %s\n",yytext);
+	//printf("DOT  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return DOT;
 	}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 98 "parser.l"
+#line 138 "parser.l"
 { 
-	printf("COMMA  %s\n",yytext);
+	//printf("COMMA  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return COMMA;
 	}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 102 "parser.l"
+#line 144 "parser.l"
 { 
-	printf("SEMICOLON  %s\n",yytext);
+	//printf("SEMICOLON  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return SEMICOLON; 
 	}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 106 "parser.l"
+#line 150 "parser.l"
 { 
-	printf("NOT  %s\n",yytext);
+	//printf("NOT  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return NOT;
 	}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 110 "parser.l"
+#line 156 "parser.l"
 { 
-	printf("ASSIGNMENT  %s\n",yytext);
+	//printf("ASSIGNMENT  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return ASSIGNMENT; 
 	}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 114 "parser.l"
+#line 162 "parser.l"
 {
-	printf("OPERATOR  %s\n",yytext);
+	//printf("OPERATOR  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return OPERATOR;
 	}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 119 "parser.l"
+#line 169 "parser.l"
 { 
-	printf("(  %s\n",yytext);
+	//printf("(  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return LEFT_PARANTHESIS;
 	}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 124 "parser.l"
+#line 176 "parser.l"
 { 
-	printf(")  %s\n",yytext);
+	//printf(")  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return RIGHT_PARANTHESIS;
 	}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 128 "parser.l"
+#line 182 "parser.l"
 {
-	printf("]  %s\n",yytext);
+	//printf("]  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return RIGHT_BRACKET; 
 	}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 132 "parser.l"
+#line 188 "parser.l"
 { 
-	printf("[  %s\n",yytext);
+	//printf("[  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return LEFT_BRACKET;
 	}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 136 "parser.l"
+#line 194 "parser.l"
 { 
-	printf("{  %s\n",yytext);
+	//printf("{  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return LEFT_BRACE;
 	}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 140 "parser.l"
+#line 200 "parser.l"
 { 
-	printf("}  %s\n",yytext);
+	//printf("}  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return RIGHT_BRACE; 
 	}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 145 "parser.l"
+#line 207 "parser.l"
 {
-	printf("BOOLEAN_VALUE  %s\n",yytext);
+	//printf("BOOLEAN_VALUE  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return BOOLEAN_VALUE;
 	}
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 149 "parser.l"
+#line 213 "parser.l"
 { 
-	printf("INTEGER  %s\n",yytext);
+	//printf("INTEGER  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return INTEGER; 
 	}
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 153 "parser.l"
+#line 219 "parser.l"
 { 
-	printf("IDENTIFIER  %s\n",yytext);
+	//printf("IDENTIFIER  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return IDENTIFIER; 
 	} 
 	YY_BREAK
 case 35:
 /* rule 35 can match eol */
 YY_RULE_SETUP
-#line 159 "parser.l"
+#line 227 "parser.l"
 { 
-	printf("COMMENT %s\n",yytext);
+	//printf("COMMENT %s\n",strdup(yytext));
 	}
 	YY_BREAK
 case 36:
 /* rule 36 can match eol */
 YY_RULE_SETUP
-#line 162 "parser.l"
+#line 230 "parser.l"
 
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 163 "parser.l"
+#line 231 "parser.l"
 
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 164 "parser.l"
+#line 232 "parser.l"
 ECHO;
 	YY_BREAK
-#line 1153 "lex.yy.c"
+#line 1221 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2147,7 +2215,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 164 "parser.l"
+#line 232 "parser.l"
 
 
 

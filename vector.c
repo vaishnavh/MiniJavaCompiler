@@ -49,7 +49,7 @@ int in_range(struct StringArray* z, int p){
 void print(struct StringArray* z){
 	int i;	
 	for(i=0; i<z->size; i++){
-		printf("%s ",z->p[i]);
+		printf("<%s> ",z->p[i]);
 	}
 	printf("\n");
 }
@@ -74,7 +74,7 @@ void append(struct StringArray* z, char* input){
 void merge(struct StringArray* z, int index, struct StringArray* y){
 //inserts y string array at the given position of z
 	if(in_range(z, index)){ //array is non-empty
-		z->size+ = y->size;
+		z->size+= y->size;
 		z->p = (char**)realloc(z->p,z->size*sizeof(char*));
 		int i = z->size-1;
 		for(; i>=index+y->size; i--){
@@ -84,6 +84,12 @@ void merge(struct StringArray* z, int index, struct StringArray* y){
 			z->p[i] = y->p[i-index];
 		}
 	}else if(end(z)==0 && index == 0){ //insert first element
+	/*	z->size+=y->size;
+		z->p =  (char**)malloc(z->size*sizeof(char*));
+		int i;
+		for(i=0; i<z->size; i++){
+			z->p[i] = y->p[i];
+		}*/
 		z = y;
 	}
 
@@ -91,4 +97,6 @@ void merge(struct StringArray* z, int index, struct StringArray* y){
 
 
 
-
+void cat(struct StringArray* z, struct StringArray* y){
+	merge(z, z->size, y);
+}

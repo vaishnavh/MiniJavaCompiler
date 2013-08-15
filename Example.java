@@ -3,6 +3,7 @@
 #define print(arg) {System.out.println(arg);} 
 #define LARGE() (9999+0)
 #define INPUT() (20+0)
+#define TRIAL(A, B, C) (1)
 class BinarySearch{
     public static void main(String[] a){
 	System.out.println(new BS().Start(INPUT()));

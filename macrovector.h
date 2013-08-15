@@ -13,6 +13,6 @@ void macro_delete(struct MacroArray*, int);
 int macro_end(struct MacroArray*);
 int macro_in_range(struct MacroArray*, int);
 void macro_print(struct MacroArray*);
-int macro_locate(struct MacroArray*, struct Macro*);
+struct Macro* macro_locate(struct MacroArray*, char*);
 void macro_append(struct MacroArray*, struct Macro*);
 #endif

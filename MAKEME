@@ -1,6 +1,6 @@
-check.out: main.o vector.o
-	gcc -o check.out main.o vector.o macro.o 
-main.o: main.c
+check.out: main.o vector.o macrovector.o macro.o 
+	gcc -o check.out main.o vector.o macrovector.o macro.o 
+main.o: main.c vector.o macro.o macrovector.o
 	gcc -c main.c
 vector.o: vector.c vector.h
 	gcc -c vector.c

@@ -16,148 +16,216 @@ INTEGER {DIGIT}+
 
 %%
 class { 
-	printf("CLASS  %s\n",yytext);
+	//printf("CLASS  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return CLASS; 
 	}
 public {
-	printf("PUBLIC  %s\n",yytext);
+	//printf("PUBLIC  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return PUBLIC; 
 	}
 void {
-	printf("VOID  %s\n",yytext);
+	//printf("VOID  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return VOID; 
 	}
 static {
-	printf("STATIC  %s\n",yytext);
+	//printf("STATIC  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return STATIC;
 	}
 main { 	
-	printf("MAIN  %s\n",yytext);
+	//printf("MAIN  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return MAIN;
 	}
 String { 
-	printf("STRING  %s\n",yytext);
+	//printf("STRING  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return STRING;
 	}
 System.out.println {
-	printf("SYSTEMOUTPRINTLN  %s\n",yytext);
+	//printf("SYSTEMOUTPRINTLN  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return SYSTEMOUTPRINTLN; 
 	}
 extends { 
-	printf("EXTENDS  %s\n",yytext);
+	//printf("EXTENDS  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return EXTENDS; 
 	}
 return {
-	printf("RETURN  %s\n",yytext);
+	//printf("RETURN  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return RETURN; 
 	}
 int { 
-	printf("INT  %s\n",yytext);
+	//printf("INT  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return INT;
 	}
 if { 
-	printf("IF  %s\n",yytext);
+	//printf("IF  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return IF; 
 	}
 else {	
-	printf("ELSE  %s\n",yytext);
+	//printf("ELSE  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return ELSE;
 	}
 while { 
-	printf("WHILE  %s\n",yytext);
+	//printf("WHILE  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return WHILE;
 	}
 this { 
-	printf("THIS  %s\n",yytext);
+	//printf("THIS  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return THIS; 
 	}
 new { 
-	printf("NEW  %s\n",yytext); 
+	//printf("NEW  %s\n",strdup(yytext)); 
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return NEW;
 	}
 define {
-	printf("DEFINE  %s\n",yytext);
+	//printf("DEFINE  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return DEFINE;
 	}
 length {
-	printf("LENGTH  %s\n",yytext);
+	//printf("LENGTH  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return LENGTH;
 	}
 boolean { 
-	printf("BOOLEAN  %s\n",yytext); 
+	//printf("BOOLEAN  %s\n",strdup(yytext)); 
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return BOOLEAN; 
 	}
 #define {
-	printf("DEFINE  %s\n",yytext);
+	//printf("DEFINE  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return HASH_DEFINE; 
 	}
 "." {
-	printf("DOT  %s\n",yytext);
+	//printf("DOT  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return DOT;
 	}
 "," { 
-	printf("COMMA  %s\n",yytext);
+	//printf("COMMA  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return COMMA;
 	}
 ";" { 
-	printf("SEMICOLON  %s\n",yytext);
+	//printf("SEMICOLON  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return SEMICOLON; 
 	}
 "!" { 
-	printf("NOT  %s\n",yytext);
+	//printf("NOT  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return NOT;
 	}
 "=" { 
-	printf("ASSIGNMENT  %s\n",yytext);
+	//printf("ASSIGNMENT  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return ASSIGNMENT; 
 	}
 {OPERATOR} {
-	printf("OPERATOR  %s\n",yytext);
+	//printf("OPERATOR  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return OPERATOR;
 	}
 
 "(" { 
-	printf("(  %s\n",yytext);
+	//printf("(  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return LEFT_PARANTHESIS;
 	}
 
 ")" { 
-	printf(")  %s\n",yytext);
+	//printf(")  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return RIGHT_PARANTHESIS;
 	}
 "]" {
-	printf("]  %s\n",yytext);
+	//printf("]  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return RIGHT_BRACKET; 
 	}
 "[" { 
-	printf("[  %s\n",yytext);
+	//printf("[  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return LEFT_BRACKET;
 	}
 "{" { 
-	printf("{  %s\n",yytext);
+	//printf("{  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return LEFT_BRACE;
 	}
 "}" { 
-	printf("}  %s\n",yytext);
+	//printf("}  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return RIGHT_BRACE; 
 	}
 
 {BOOLEAN_VALUE} {
-	printf("BOOLEAN_VALUE  %s\n",yytext);
+	//printf("BOOLEAN_VALUE  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return BOOLEAN_VALUE;
 	}
 {INTEGER} { 
-	printf("INTEGER  %s\n",yytext);
+	//printf("INTEGER  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return INTEGER; 
 	}
 {IDENTIFIER} { 
-	printf("IDENTIFIER  %s\n",yytext);
+	//printf("IDENTIFIER  %s\n",strdup(yytext));
+	yylval.word = strdup(yytext);
+	yylval.word[strlen(yytext)]='\0';
 	return IDENTIFIER; 
 	} 
  
 
 {ONELINE_COMMENT}|{COMMENT} { 
-	printf("COMMENT %s\n",yytext);
+	//printf("COMMENT %s\n",strdup(yytext));
 	}
 {BLANKS}
 .

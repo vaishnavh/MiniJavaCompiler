@@ -1,70 +1,80 @@
 
 %{
 #include<stdio.h>
+#include "vector.h"
+#include "macrovector.h"
+#include "macro.h"
+#include<string.h>
 FILE *yyin;
 void yyerror(char *message);
+
+struct MacroArray* macros;
+char* getCopy(char *buff){
+	char* res = (char*)malloc(strlen(buff)*sizeof(char));
+	strcpy(res, buff);
+	return res;
+}
 %}
 
 %union{
-	char* word;	
+	char *word;
+	struct Macro* macro;
+	struct StringArray* arguments;
+	struct StringArray** inputs;
 }
 
 
 //Keywords
-%token CLASS
-%token PUBLIC
-%token STATIC
-%token VOID
-%token MAIN
-%token STRING
-%token SYSTEMOUTPRINTLN
-%token OUT
-%token PRINTLN
-%token EXTENDS
-%token RETURN
-%token INT
-%token IF 
-%token ELSE
-%token WHILE
-%token THIS
-%token NEW
-%token DEFINE
-%token LENGTH
-%token BOOLEAN
-%token HASH_DEFINE
-%token EOF_TOKEN
+%token <word> CLASS
+%token <word> PUBLIC
+%token <word> STATIC
+%token <word> VOID
+%token <word> MAIN
+%token <word> STRING
+%token <word> SYSTEMOUTPRINTLN
+%token <word> OUT
+%token <word> PRINTLN
+%token <word> EXTENDS
+%token <word> RETURN
+%token <word> INT
+%token <word> IF 
+%token <word> ELSE
+%token <word> WHILE
+%token <word> THIS
+%token <word> NEW
+%token <word> DEFINE
+%token <word> LENGTH
+%token <word> BOOLEAN
+%token <word> HASH_DEFINE
+%token <word> EOF_TOKEN
 //Operators etc.,
-%token DOT
-%token COMMA
-%token SEMICOLON
-%token ASSIGNMENT 
-%token NOT
-%token OPERATOR
+%token <word> DOT
+%token <word> COMMA
+%token <word> SEMICOLON
+%token <word> ASSIGNMENT 
+%token <word> NOT
+%token <word> OPERATOR
 
 //Brackets
-%token LEFT_PARANTHESIS
-%token RIGHT_PARANTHESIS
-%token LEFT_BRACKET
-%token RIGHT_BRACKET
-%token LEFT_BRACE
-%token RIGHT_BRACE
+%token <word> LEFT_PARANTHESIS
+%token <word> RIGHT_PARANTHESIS
+%token <word> LEFT_BRACKET
+%token <word> RIGHT_BRACKET
+%token <word> LEFT_BRACE
+%token <word> RIGHT_BRACE
 
 
-%token BOOLEAN_VALUE
-%token INTEGER
-%token IDENTIFIER
+%token <word> BOOLEAN_VALUE
+%token <word> INTEGER
+%token <word> IDENTIFIER
+
+%type <macro> MacroDefStatement MacroDefExpression
+%type <arguments> Expression PrimaryExpression Expressions ExpressionsList
+%type <arguments> IdentifiersList Identifiers
 %start Goal 
-//%start Expression
-//%start MethodDeclaration
-//%start Statements
-//%start Check
-//%start TypeIdentifierStatements
 
 %%
 
-Check:
-     TypeIdentifierStatements Statements RETURN Expression SEMICOLON
-     ;
 //MacroDefinition*
 MacroDefinitions:
 	       MacroDefinitions MacroDefinition
@@ -110,26 +120,49 @@ TypeIdentifiersList:
 		   ;
 //Expression (,Expression)*
 Expressions:
-	       Expressions COMMA Expression
-	       | Expression
+	       Expressions COMMA Expression {
+	       		$$ = $1;
+			cat($$, $3);
+	       }
+	       | Expression {
+	       		$$ = $1;
+	       }
 	       ;
 
 //((Expression (,Expression)*)?)
 ExpressionsList:
-		   LEFT_PARANTHESIS Expressions RIGHT_PARANTHESIS
-		   | LEFT_PARANTHESIS RIGHT_PARANTHESIS
+		   LEFT_PARANTHESIS Expressions RIGHT_PARANTHESIS {
+		   	$$ = $2;
+			insert($2, $1, 0);
+			append($2, $3)
+		   }
+		   | LEFT_PARANTHESIS RIGHT_PARANTHESIS {
+		   	$$ = new_string_array();
+			append($$, $1);
+			append($$, $2);
+		   }
 		   ;
 
 //Identifier (,Identifier)*
 Identifiers:
-	       Identifiers COMMA IDENTIFIER
-	       | IDENTIFIER
+	       Identifiers COMMA IDENTIFIER {
+	       		$$ = $1;
+			append($$, $3);	
+	       }
+	       | IDENTIFIER {
+	       		$$  = new_string_array();
+			append($$, $1);
+	       }
 	       ;
 
 //((Identifier (,Identifier)*)?)
 IdentifiersList:
-		   LEFT_PARANTHESIS Identifiers RIGHT_PARANTHESIS
-		   | LEFT_PARANTHESIS RIGHT_PARANTHESIS
+		   LEFT_PARANTHESIS Identifiers RIGHT_PARANTHESIS{
+		   	$$ = $2;
+		   }
+		   | LEFT_PARANTHESIS RIGHT_PARANTHESIS	   {
+		   	$$ = new_string_array();
+		   }
 		   ;
 
 
@@ -144,44 +177,167 @@ MethodDeclarations:
 		  ;
 //(Statement)*
 Statements:
-	  Statement Statements 
-	  |	  
+	  Statement Statements  {
+	       		$$ = $1;
+			append($$, $3);	
+	       }
+	  |{
+		$$ = new_string_array();
+	  }
+
 	  ;
 Type:
-    INT LEFT_BRACKET RIGHT_BRACKET
-    | BOOLEAN
-    | INT
-    | IDENTIFIER 
+    INT LEFT_BRACKET RIGHT_BRACKET {
+    	$$ = new_string_array();
+	append($$, $1);
+	append($$, $2);
+	append($$, $3);
+    }
+    | BOOLEAN {
+    	$$ = new_string_array();
+	append($$, $1);
+    }
+    | INT {
+    	$$ = new_string_array();
+	append($$, $1);
+    }
+    | IDENTIFIER  {
+    	$$ = new_string_array();
+	append($$, $1);
+    }
     ;
 
 Statement:
-	 LEFT_BRACE Statements RIGHT_BRACE
-	 | SYSTEMOUTPRINTLN LEFT_PARANTHESIS Expression RIGHT_PARANTHESIS SEMICOLON
-	 | IDENTIFIER ASSIGNMENT  Expression SEMICOLON
-	 | IDENTIFIER LEFT_BRACKET Expression RIGHT_BRACKET ASSIGNMENT Expression SEMICOLON
-	 | IF LEFT_PARANTHESIS Expression RIGHT_PARANTHESIS Statement
-	 | IF LEFT_PARANTHESIS Expression RIGHT_PARANTHESIS Statement ELSE Statement
-	 | WHILE LEFT_PARANTHESIS Expression RIGHT_PARANTHESIS Statement
-	 | IDENTIFIER ExpressionsList SEMICOLON
+	 LEFT_BRACE Statements RIGHT_BRACE{
+	 	$$ = $2;
+		insert($$, $1, 0);
+	 	append($$, $3);
+	 }
+	 | SYSTEMOUTPRINTLN LEFT_PARANTHESIS Expression RIGHT_PARANTHESIS SEMICOLON{
+	 	$$ = $3;
+		insert($$, $2 ,0);
+		insert($$, $1, 0);
+		append($$, $4);
+		append($$, $5);
+	 }
+	 | IDENTIFIER ASSIGNMENT  Expression SEMICOLON{
+	 	$$ = $3;
+		insert($$, $2, 0);
+		insert($$, $1, 0);
+		append($$, $4);
+	 }
+	 | IDENTIFIER LEFT_BRACKET Expression RIGHT_BRACKET ASSIGNMENT Expression SEMICOLON {
+	 	$$ = $3;	 
+		insert($$, $2, 0);
+		insert($$, $1, 0);
+		append($$, $4);
+		append($$, $5);
+		cat($$, $6);
+		append($$,$7);
+	 }
+	 | IF LEFT_PARANTHESIS Expression RIGHT_PARANTHESIS Statement {
+	 	$$ = $3;
+		insert($$, $2, 0);
+		insert($$, $1, 0);
+		append($$, $4);
+		cat($$, $5);
+	 }
+	 | IF LEFT_PARANTHESIS Expression RIGHT_PARANTHESIS Statement ELSE Statement{
+	 	$$ = $3;
+		insert($$, $2, 0);
+		insert($$, $1, 0);
+		append($$, $4);
+		cat($$, $5);
+	 	append($$, $6);
+	 	cat($$, $7);
+	 }
+	 | WHILE LEFT_PARANTHESIS Expression RIGHT_PARANTHESIS Statement{
+	 	$$ = $3;;
+		insert($$, $2, 0);
+		insert($$, $1, 0);
+		append($$, $4);
+		cat($$, $5);
+	 }
+	 | IDENTIFIER ExpressionsList SEMICOLON{
+	 	//macro statement
+	 }
 	 ;
 
 Expression:
-	  PrimaryExpression OPERATOR PrimaryExpression
-	  | PrimaryExpression LEFT_BRACKET PrimaryExpression RIGHT_BRACKET 
-	  | PrimaryExpression DOT LENGTH
-	  | PrimaryExpression
-	  | PrimaryExpression DOT IDENTIFIER ExpressionsList
-	  | IDENTIFIER ExpressionsList
+	  PrimaryExpression OPERATOR PrimaryExpression {
+	  	$$ = $1;
+		append($$, $2);
+		cat($$, $3);
+	  }
+	  | PrimaryExpression LEFT_BRACKET PrimaryExpression RIGHT_BRACKET{
+	  	$$ = $1;
+		append($$, $2);
+		cat($$, $3);
+	  	append($$, $4);
+	  } 
+	  | PrimaryExpression DOT LENGTH{
+	  	$$ = $1;
+		append($$, $2);
+		append($$, $3);
+	  }
+	  | PrimaryExpression{
+	  	$$ = $1;
+	  }
+	  | PrimaryExpression DOT IDENTIFIER ExpressionsList{
+	  	$$ = $1;
+		append($$, $1);
+		append($$, $2);
+		append($$, $3);
+		cat($$, $4);
+	  }
+	  | IDENTIFIER ExpressionsList{
+	 	 //macro statement call	
+	  }
 	  ;
 PrimaryExpression:
-		 INTEGER
-		 | BOOLEAN_VALUE
-		 | IDENTIFIER
-		 | THIS
-		 | NEW INT LEFT_BRACKET Expression RIGHT_BRACKET
-		 | NEW IDENTIFIER LEFT_PARANTHESIS RIGHT_PARANTHESIS
-		 | NOT Expression
-		 | LEFT_PARANTHESIS Expression RIGHT_PARANTHESIS
+		 INTEGER {
+		 	$$ = new_string_array();
+			append($$, $1);
+		 }
+		 | BOOLEAN_VALUE {
+		 	$$ = new_string_array();
+			append($$, $1);
+		 }
+		 | IDENTIFIER {
+		 	$$ = new_string_array();
+			append($$, $1);
+		 }
+		 | THIS {
+		 	$$ = new_string_array();
+			append($$, $1);
+		 }
+		 | NEW INT LEFT_BRACKET Expression RIGHT_BRACKET{
+		 	$$ = new_string_array();
+			append($$, $1);
+			append($$, $2);
+			append($$, $3);
+			cat($$, $4);
+			append($$, $5);
+		 }
+		 | NEW IDENTIFIER LEFT_PARANTHESIS RIGHT_PARANTHESIS{
+		 	$$ = new_string_array();
+			append($$, $1);
+			append($$, $2);
+			append($$, $3);
+			append($$, $4);
+			
+		 }
+		 | NOT Expression{
+		 	$$ = new_string_array();
+			append($$, $1);
+			cat($$, $1);
+		 }
+		 | LEFT_PARANTHESIS Expression RIGHT_PARANTHESIS{
+		 	$$ = new_string_array();
+			append($$, $1);
+			cat($$, $2);
+			append($$, $3);
+		 }
 		 ;
 MacroDefinition:
 	       MacroDefExpression
@@ -189,12 +345,23 @@ MacroDefinition:
 	       ;
 
 MacroDefStatement:
-		 HASH_DEFINE IDENTIFIER IdentifiersList LEFT_BRACE Statements RIGHT_BRACE
+		HASH_DEFINE IDENTIFIER IdentifiersList LEFT_BRACE Statements RIGHT_BRACE{
+			$$ = new_macro();
+			$$->name = $2;
+			$$->args = $3;
+			macro_append(macros, $$);	
+		}
 		 ;
 
 
+
 MacroDefExpression:
-		 HASH_DEFINE IDENTIFIER IdentifiersList LEFT_PARANTHESIS Expression RIGHT_PARANTHESIS
+		 HASH_DEFINE  IDENTIFIER IdentifiersList LEFT_PARANTHESIS Expression RIGHT_PARANTHESIS{
+		 	$$ = new_macro();
+			$$->name = $2;
+			$$->args = $3; 
+			macro_append(macros, $$);
+		 }
 		 ;
 
 
@@ -204,6 +371,8 @@ MacroDefExpression:
 %%
 
 int main(){
+	macros = new_macro_array(); 
+	check = new_string_array();
 	yyparse();
 }
 

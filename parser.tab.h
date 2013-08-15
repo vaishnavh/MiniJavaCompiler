@@ -84,14 +84,17 @@ typedef union YYSTYPE
 {
 
 /* Line 2068 of yacc.c  */
-#line 9 "parser.y"
+#line 20 "parser.y"
 
-	char* word;	
+	char *word;
+	struct Macro* macro;
+	struct StringArray* arguments;
+	struct StringArray** inputs;
 
 
 
 /* Line 2068 of yacc.c  */
-#line 95 "parser.tab.h"
+#line 98 "parser.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

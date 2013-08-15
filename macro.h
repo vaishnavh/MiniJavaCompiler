@@ -13,9 +13,8 @@ struct Macro{
 };
 struct Macro* new_macro();
 void append_arg(struct Macro*, char*);
-void append_token(struct Macro*, char *);
-void compare(struct Macro*, char*);
-void append_input(struct Macro*, struct StringArray*);
-
-struct StringArray* substitute(struct Macro* , struct StringArray** )
+void append_token(struct Macro*, char*);
+int compare_macros(struct Macro*, char*);
+struct StringArray* substitute(struct Macro*, struct StringArray**);
+void print_a_macro(struct Macro*);
 #endif

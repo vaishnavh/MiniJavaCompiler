@@ -70,12 +70,23 @@
 
 #include<stdio.h>
 #include "vector.h"
+#include "macrovector.h"
+#include "macro.h"
+#include<string.h>
 FILE *yyin;
 void yyerror(char *message);
+int* x;
+struct StringArray* check;
+
+char* getCopy(char *buff){
+	char* res = (char*)malloc(strlen(buff)*sizeof(char));
+	strcpy(res, buff);
+	return res;
+}
 
 
 /* Line 268 of yacc.c  */
-#line 79 "parser.tab.c"
+#line 90 "parser.tab.c"
 
 /* Enabling traces.  */
 #ifndef YYDEBUG
@@ -149,14 +160,17 @@ typedef union YYSTYPE
 {
 
 /* Line 293 of yacc.c  */
-#line 9 "parser.y"
+#line 20 "parser.y"
 
-	char* word;	
+	char *word;
+	struct Macro* macro;
+	struct StringArray* arguments;
+	struct StringArray** inputs;
 
 
 
 /* Line 293 of yacc.c  */
-#line 160 "parser.tab.c"
+#line 174 "parser.tab.c"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -168,7 +182,7 @@ typedef union YYSTYPE
 
 
 /* Line 343 of yacc.c  */
-#line 172 "parser.tab.c"
+#line 186 "parser.tab.c"
 
 #ifdef short
 # undef short
@@ -486,12 +500,12 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    67,    71,    72,    77,    78,    83,    88,    93,    94,
-      98,    99,   103,   104,   109,   110,   114,   115,   120,   121,
-     126,   127,   132,   133,   139,   143,   144,   148,   149,   152,
-     153,   154,   155,   159,   160,   161,   162,   163,   164,   165,
-     166,   170,   171,   172,   173,   174,   175,   178,   179,   180,
-     181,   182,   183,   184,   185,   188,   189,   193,   198
+       0,    80,    80,    81,    86,    87,    92,    97,   102,   103,
+     107,   108,   112,   113,   118,   119,   123,   124,   129,   130,
+     135,   139,   147,   150,   158,   162,   163,   167,   168,   171,
+     172,   173,   174,   178,   179,   180,   181,   182,   183,   184,
+     185,   189,   190,   191,   192,   193,   194,   197,   198,   199,
+     200,   201,   202,   203,   204,   207,   208,   212,   218
 };
 #endif
 
@@ -1517,10 +1531,61 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-      
+        case 20:
 
 /* Line 1806 of yacc.c  */
-#line 1524 "parser.tab.c"
+#line 135 "parser.y"
+    {
+	       		(yyval.arguments) = (yyvsp[(1) - (3)].arguments);
+			append((yyval.arguments), (yyvsp[(3) - (3)].word));	
+	       }
+    break;
+
+  case 21:
+
+/* Line 1806 of yacc.c  */
+#line 139 "parser.y"
+    {
+	       		(yyval.arguments)  = new_string_array();
+			append((yyval.arguments), (yyvsp[(1) - (1)].word));
+	       }
+    break;
+
+  case 22:
+
+/* Line 1806 of yacc.c  */
+#line 147 "parser.y"
+    {
+		   	(yyval.arguments) = (yyvsp[(2) - (3)].arguments);
+		   }
+    break;
+
+  case 23:
+
+/* Line 1806 of yacc.c  */
+#line 150 "parser.y"
+    {
+		   	(yyval.arguments) = new_string_array();
+		   }
+    break;
+
+  case 58:
+
+/* Line 1806 of yacc.c  */
+#line 218 "parser.y"
+    {
+		 	(yyval.macro) = new_macro();
+			(yyval.macro)->name = (yyvsp[(2) - (6)].word);
+			(yyval.macro)->args = (yyvsp[(3) - (6)].arguments); 
+			print_a_macro((yyval.macro));
+			print((yyval.macro)->args);
+		 }
+    break;
+
+
+
+/* Line 1806 of yacc.c  */
+#line 1589 "parser.tab.c"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1751,11 +1816,15 @@ yyreturn:
 
 
 /* Line 2067 of yacc.c  */
-#line 205 "parser.y"
+#line 231 "parser.y"
 
 
 int main(){
+	x = (int*)malloc(sizeof(int));
+	*x = 0;
+	 check = new_string_array();
 	yyparse();
+//	printf("%d",x);
 }
 
 
