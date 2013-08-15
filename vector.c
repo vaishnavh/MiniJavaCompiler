@@ -84,9 +84,11 @@ void merge(struct StringArray* z, int index, struct StringArray* y){
 			z->p[i] = y->p[i-index];
 		}
 	}else if(end(z)==0 && index == 0){ //insert first element
-		z->p = (char**)malloc(sizeof(char*));
-		z->p[0] = input;		
-		z->size = 1;	
+		z = y;
 	}
 
 }
+
+
+
+

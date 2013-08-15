@@ -80,11 +80,17 @@ void merge(struct StringArray* z, int index, struct StringArray* y){
 		for(; i>=index+y->size; i--){
 			z->p[i] = z->p[i-y->size];
 		}
-		for(; i)
+		for(; i>=index; i--){
+			z->p[i] = y->p[i-index];
+		}
 	}else if(end(z)==0 && index == 0){ //insert first element
-		z->p = (char**)malloc(sizeof(char*));
-		z->p[0] = input;		
-		z->size = 1;	
+		z = y;
 	}
 
+}
+
+
+
+void replace(struct StringArray* z, char* to_replace, struct StringArray* y){
+	//replace all occurences of to_replace with y
 }
