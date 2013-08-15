@@ -1,6 +1,7 @@
 
 %{
 #include<stdio.h>
+#include "vector.h"
 FILE *yyin;
 void yyerror(char *message);
 %}
@@ -153,6 +154,7 @@ Type:
     | INT
     | IDENTIFIER 
     ;
+
 Statement:
 	 LEFT_BRACE Statements RIGHT_BRACE
 	 | SYSTEMOUTPRINTLN LEFT_PARANTHESIS Expression RIGHT_PARANTHESIS SEMICOLON
@@ -163,6 +165,7 @@ Statement:
 	 | WHILE LEFT_PARANTHESIS Expression RIGHT_PARANTHESIS Statement
 	 | IDENTIFIER ExpressionsList SEMICOLON
 	 ;
+
 Expression:
 	  PrimaryExpression OPERATOR PrimaryExpression
 	  | PrimaryExpression LEFT_BRACKET PrimaryExpression RIGHT_BRACKET 

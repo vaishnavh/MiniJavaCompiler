@@ -21,7 +21,7 @@ void array::INSERT(int input, position index) {
         }
         p[i]=input; //new element is stored
     }
- }
+}
 void array::DELETE(position index){
     if(INRANGE(index)){
         for(int i=index-1;i<size-1;i++){

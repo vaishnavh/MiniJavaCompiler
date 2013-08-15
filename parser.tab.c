@@ -69,12 +69,13 @@
 #line 2 "parser.y"
 
 #include<stdio.h>
+#include "vector.h"
 FILE *yyin;
 void yyerror(char *message);
 
 
 /* Line 268 of yacc.c  */
-#line 78 "parser.tab.c"
+#line 79 "parser.tab.c"
 
 /* Enabling traces.  */
 #ifndef YYDEBUG
@@ -148,14 +149,14 @@ typedef union YYSTYPE
 {
 
 /* Line 293 of yacc.c  */
-#line 8 "parser.y"
+#line 9 "parser.y"
 
 	char* word;	
 
 
 
 /* Line 293 of yacc.c  */
-#line 159 "parser.tab.c"
+#line 160 "parser.tab.c"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -167,7 +168,7 @@ typedef union YYSTYPE
 
 
 /* Line 343 of yacc.c  */
-#line 171 "parser.tab.c"
+#line 172 "parser.tab.c"
 
 #ifdef short
 # undef short
@@ -485,12 +486,12 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    66,    70,    71,    76,    77,    82,    87,    92,    93,
-      97,    98,   102,   103,   108,   109,   113,   114,   119,   120,
-     125,   126,   131,   132,   138,   142,   143,   147,   148,   151,
-     152,   153,   154,   157,   158,   159,   160,   161,   162,   163,
-     164,   167,   168,   169,   170,   171,   172,   175,   176,   177,
-     178,   179,   180,   181,   182,   185,   186,   190,   195
+       0,    67,    71,    72,    77,    78,    83,    88,    93,    94,
+      98,    99,   103,   104,   109,   110,   114,   115,   120,   121,
+     126,   127,   132,   133,   139,   143,   144,   148,   149,   152,
+     153,   154,   155,   159,   160,   161,   162,   163,   164,   165,
+     166,   170,   171,   172,   173,   174,   175,   178,   179,   180,
+     181,   182,   183,   184,   185,   188,   189,   193,   198
 };
 #endif
 
@@ -1519,7 +1520,7 @@ yyreduce:
       
 
 /* Line 1806 of yacc.c  */
-#line 1523 "parser.tab.c"
+#line 1524 "parser.tab.c"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1750,7 +1751,7 @@ yyreturn:
 
 
 /* Line 2067 of yacc.c  */
-#line 202 "parser.y"
+#line 205 "parser.y"
 
 
 int main(){

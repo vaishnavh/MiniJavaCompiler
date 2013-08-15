@@ -11,6 +11,9 @@
 
 typedef int position;
     
+    array();
+    array(const array& orig);
+    virtual ~array();
     void DELETE(position);
     void INSERT(int, position);
     int RETRIEVE(position);

@@ -1,0 +1,6 @@
+#include<stdio.h>
+#include "macro.h"
+#include "macrovector.h"
+int main(){
+	return 0;
+}

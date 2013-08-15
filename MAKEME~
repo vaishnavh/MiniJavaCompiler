@@ -1,0 +1,10 @@
+check.out: main.o vector.o
+	gcc -o check.out main.o vector.o macro.o macrovector.o
+main.o: main.c
+	gcc -c main.c
+vector.o: vector.c vector.h
+	gcc -c vector.c
+macro.o: macro.c macro.h vector.o
+	gcc -c macro.c
+macrovector.o: macrovector.c macrovector.h macro.o
+	gcc -c macrovector.c
