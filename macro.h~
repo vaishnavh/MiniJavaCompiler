@@ -16,5 +16,5 @@ void append_arg(struct Macro*, char*);
 void append_token(struct Macro*, char*);
 int compare_macros(struct Macro*, char*);
 struct StringArray* substitute(struct Macro*, struct StringArray**);
-void print_a_macro(struct MacroArray*);
+void print_a_macro(struct Macro*);
 #endif

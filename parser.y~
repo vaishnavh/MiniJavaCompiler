@@ -7,19 +7,16 @@
 #include<string.h>
 FILE *yyin;
 void yyerror(char *message);
-
+int max_args;
+int i;
 struct MacroArray* macros;
-char* getCopy(char *buff){
-	char* res = (char*)malloc(strlen(buff)*sizeof(char));
-	strcpy(res, buff);
-	return res;
-}
+struct StringArray** list_of_expressions;
 %}
 
 %union{
 	char *word;
 	struct Macro* macro;
-	struct StringArray* arguments;
+	struct StringArray* list_of_tokens;
 	struct StringArray** inputs;
 }
 
@@ -69,8 +66,9 @@ char* getCopy(char *buff){
 %token <word> IDENTIFIER
 
 %type <macro> MacroDefStatement MacroDefExpression
-%type <arguments> Expression PrimaryExpression Expressions ExpressionsList
-%type <arguments> IdentifiersList Identifiers
+%type <list_of_tokens> Expression PrimaryExpression 
+%type <inputs> Expressions ExpressionsList
+%type <list_of_tokens> IdentifiersList Identifiers Statements Statement Type
 %start Goal 
 
 %%
@@ -122,10 +120,21 @@ TypeIdentifiersList:
 Expressions:
 	       Expressions COMMA Expression {
 	       		$$ = $1;
-			cat($$, $3);
+	       		$$[i++] = $3;
 	       }
-	       | Expression {
-	       		$$ = $1;
+	       | Expression {		
+	       		if(list_of_expressions != NULL){
+				free(list_of_expressions);
+			}
+			list_of_expressions = (struct StringArray**)malloc(max_args*sizeof(struct StringArray*));
+			int j=0;
+			for(; j<max_args; j++){
+				list_of_expressions[j] = NULL;
+			}
+			i = 0;
+			list_of_expressions[i++] = $1;
+			
+			$$ = list_of_expressions;
 	       }
 	       ;
 
@@ -133,13 +142,12 @@ Expressions:
 ExpressionsList:
 		   LEFT_PARANTHESIS Expressions RIGHT_PARANTHESIS {
 		   	$$ = $2;
-			insert($2, $1, 0);
-			append($2, $3)
 		   }
 		   | LEFT_PARANTHESIS RIGHT_PARANTHESIS {
-		   	$$ = new_string_array();
-			append($$, $1);
-			append($$, $2);
+			int j=0;
+			for(; j<max_args; j++){
+				list_of_expressions[j] = NULL;
+			}
 		   }
 		   ;
 
@@ -179,7 +187,8 @@ MethodDeclarations:
 Statements:
 	  Statement Statements  {
 	       		$$ = $1;
-			append($$, $3);	
+			cat($$, $2);
+			free($2);
 	       }
 	  |{
 		$$ = new_string_array();
@@ -234,6 +243,7 @@ Statement:
 		append($$, $5);
 		cat($$, $6);
 		append($$,$7);
+		free($6);
 	 }
 	 | IF LEFT_PARANTHESIS Expression RIGHT_PARANTHESIS Statement {
 	 	$$ = $3;
@@ -250,6 +260,8 @@ Statement:
 		cat($$, $5);
 	 	append($$, $6);
 	 	cat($$, $7);
+		free($5);
+		free($7);
 	 }
 	 | WHILE LEFT_PARANTHESIS Expression RIGHT_PARANTHESIS Statement{
 	 	$$ = $3;;
@@ -257,9 +269,22 @@ Statement:
 		insert($$, $1, 0);
 		append($$, $4);
 		cat($$, $5);
+		free($5);
 	 }
 	 | IDENTIFIER ExpressionsList SEMICOLON{
 	 	//macro statement
+		 struct Macro* sub = macro_locate(macros, $1);
+		 if(sub == NULL){
+		 	yyerror("Macro not found");
+		 }else{
+		 	struct StringArray* result = substitute(sub, $2);
+			//struct StringArray* result = new_string_array();
+			$$ = result;
+			//append($$, "MACRO");
+			//$$ = result;
+			append($$,$3);
+			i = 0;
+		 }
 	 }
 	 ;
 
@@ -268,29 +293,55 @@ Expression:
 	  	$$ = $1;
 		append($$, $2);
 		cat($$, $3);
+		free($3);
 	  }
 	  | PrimaryExpression LEFT_BRACKET PrimaryExpression RIGHT_BRACKET{
 	  	$$ = $1;
 		append($$, $2);
 		cat($$, $3);
 	  	append($$, $4);
+		free($3);
 	  } 
 	  | PrimaryExpression DOT LENGTH{
 	  	$$ = $1;
 		append($$, $2);
 		append($$, $3);
+		
 	  }
 	  | PrimaryExpression{
 	  	$$ = $1;
 	  }
 	  | PrimaryExpression DOT IDENTIFIER ExpressionsList{
 	  	$$ = $1;
-		append($$, $1);
 		append($$, $2);
 		append($$, $3);
-		cat($$, $4);
+		//Convert expression list to a single array
+		int j=0;
+		append($$, "(");
+		for(; j<i; j++){
+			cat($$, $4[j]);
+			if(j+1<i){
+				append($$,",");
+			}
+		}
+		append($$, ")");
+		i = 0;
+		
 	  }
 	  | IDENTIFIER ExpressionsList{
+	  	 struct Macro* sub = macro_locate(macros, $1);
+		 if(sub == NULL){
+		 	yyerror("Macro not found");
+		 }else{
+			//print_a_macro(sub);
+		 	struct StringArray* result = substitute(sub, $2);
+			//struct StringArray* result = new_string_array();
+			$$ = result;
+			//append($$, "MACRO");
+			//print($$);
+			i = 0;
+		 }
+		
 	 	 //macro statement call	
 	  }
 	  ;
@@ -318,6 +369,7 @@ PrimaryExpression:
 			append($$, $3);
 			cat($$, $4);
 			append($$, $5);
+			free($4);
 		 }
 		 | NEW IDENTIFIER LEFT_PARANTHESIS RIGHT_PARANTHESIS{
 		 	$$ = new_string_array();
@@ -330,13 +382,15 @@ PrimaryExpression:
 		 | NOT Expression{
 		 	$$ = new_string_array();
 			append($$, $1);
-			cat($$, $1);
+			cat($$, $2);
+			free($2);
 		 }
 		 | LEFT_PARANTHESIS Expression RIGHT_PARANTHESIS{
 		 	$$ = new_string_array();
 			append($$, $1);
 			cat($$, $2);
 			append($$, $3);
+			free($2);
 		 }
 		 ;
 MacroDefinition:
@@ -349,7 +403,11 @@ MacroDefStatement:
 			$$ = new_macro();
 			$$->name = $2;
 			$$->args = $3;
-			macro_append(macros, $$);	
+			$$->expr = $4;
+			macro_append(macros, $$);
+			if($$->args->size > max_args){
+				max_args = $$->args->size;
+			}
 		}
 		 ;
 
@@ -360,7 +418,11 @@ MacroDefExpression:
 		 	$$ = new_macro();
 			$$->name = $2;
 			$$->args = $3; 
+			$$->expr = $5;
 			macro_append(macros, $$);
+			if($$->args->size > max_args){
+				max_args = $$->args->size;
+			}
 		 }
 		 ;
 
@@ -371,8 +433,10 @@ MacroDefExpression:
 %%
 
 int main(){
+	max_args = 0;
+	list_of_expressions = NULL;
+	i = 0;
 	macros = new_macro_array(); 
-	check = new_string_array();
 	yyparse();
 }
 

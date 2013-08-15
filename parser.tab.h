@@ -84,11 +84,11 @@ typedef union YYSTYPE
 {
 
 /* Line 2068 of yacc.c  */
-#line 20 "parser.y"
+#line 16 "parser.y"
 
 	char *word;
 	struct Macro* macro;
-	struct StringArray* arguments;
+	struct StringArray* list_of_tokens;
 	struct StringArray** inputs;
 
 

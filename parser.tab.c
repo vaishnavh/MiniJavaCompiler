@@ -75,18 +75,14 @@
 #include<string.h>
 FILE *yyin;
 void yyerror(char *message);
-int* x;
-struct StringArray* check;
-
-char* getCopy(char *buff){
-	char* res = (char*)malloc(strlen(buff)*sizeof(char));
-	strcpy(res, buff);
-	return res;
-}
+int max_args;
+int i;
+struct MacroArray* macros;
+struct StringArray** list_of_expressions;
 
 
 /* Line 268 of yacc.c  */
-#line 90 "parser.tab.c"
+#line 86 "parser.tab.c"
 
 /* Enabling traces.  */
 #ifndef YYDEBUG
@@ -160,17 +156,17 @@ typedef union YYSTYPE
 {
 
 /* Line 293 of yacc.c  */
-#line 20 "parser.y"
+#line 16 "parser.y"
 
 	char *word;
 	struct Macro* macro;
-	struct StringArray* arguments;
+	struct StringArray* list_of_tokens;
 	struct StringArray** inputs;
 
 
 
 /* Line 293 of yacc.c  */
-#line 174 "parser.tab.c"
+#line 170 "parser.tab.c"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -182,7 +178,7 @@ typedef union YYSTYPE
 
 
 /* Line 343 of yacc.c  */
-#line 186 "parser.tab.c"
+#line 182 "parser.tab.c"
 
 #ifdef short
 # undef short
@@ -498,14 +494,14 @@ static const yytype_int8 yyrhs[] =
 };
 
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
-static const yytype_uint8 yyrline[] =
+static const yytype_uint16 yyrline[] =
 {
-       0,    80,    80,    81,    86,    87,    92,    97,   102,   103,
-     107,   108,   112,   113,   118,   119,   123,   124,   129,   130,
-     135,   139,   147,   150,   158,   162,   163,   167,   168,   171,
-     172,   173,   174,   178,   179,   180,   181,   182,   183,   184,
-     185,   189,   190,   191,   192,   193,   194,   197,   198,   199,
-     200,   201,   202,   203,   204,   207,   208,   212,   218
+       0,    78,    78,    79,    84,    85,    90,    95,   100,   101,
+     105,   106,   110,   111,   116,   117,   121,   125,   143,   146,
+     156,   160,   168,   171,   179,   183,   184,   188,   193,   199,
+     205,   209,   213,   220,   225,   232,   238,   248,   255,   266,
+     274,   289,   295,   302,   308,   311,   328,   343,   347,   351,
+     355,   359,   368,   376,   382,   391,   392,   396,   411
 };
 #endif
 
@@ -1531,61 +1527,489 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-        case 20:
+        case 16:
 
 /* Line 1806 of yacc.c  */
-#line 135 "parser.y"
+#line 121 "parser.y"
     {
-	       		(yyval.arguments) = (yyvsp[(1) - (3)].arguments);
-			append((yyval.arguments), (yyvsp[(3) - (3)].word));	
+	       		(yyval.inputs) = (yyvsp[(1) - (3)].inputs);
+	       		(yyval.inputs)[i++] = (yyvsp[(3) - (3)].list_of_tokens);
+	       }
+    break;
+
+  case 17:
+
+/* Line 1806 of yacc.c  */
+#line 125 "parser.y"
+    {		
+	       		if(list_of_expressions != NULL){
+				free(list_of_expressions);
+			}
+			list_of_expressions = (struct StringArray**)malloc(max_args*sizeof(struct StringArray*));
+			int j=0;
+			for(; j<max_args; j++){
+				list_of_expressions[j] = NULL;
+			}
+			i = 0;
+			list_of_expressions[i++] = (yyvsp[(1) - (1)].list_of_tokens);
+			
+			(yyval.inputs) = list_of_expressions;
+	       }
+    break;
+
+  case 18:
+
+/* Line 1806 of yacc.c  */
+#line 143 "parser.y"
+    {
+		   	(yyval.inputs) = (yyvsp[(2) - (3)].inputs);
+		   }
+    break;
+
+  case 19:
+
+/* Line 1806 of yacc.c  */
+#line 146 "parser.y"
+    {
+			int j=0;
+			for(; j<max_args; j++){
+				list_of_expressions[j] = NULL;
+			}
+		   }
+    break;
+
+  case 20:
+
+/* Line 1806 of yacc.c  */
+#line 156 "parser.y"
+    {
+	       		(yyval.list_of_tokens) = (yyvsp[(1) - (3)].list_of_tokens);
+			append((yyval.list_of_tokens), (yyvsp[(3) - (3)].word));	
 	       }
     break;
 
   case 21:
 
 /* Line 1806 of yacc.c  */
-#line 139 "parser.y"
+#line 160 "parser.y"
     {
-	       		(yyval.arguments)  = new_string_array();
-			append((yyval.arguments), (yyvsp[(1) - (1)].word));
+	       		(yyval.list_of_tokens)  = new_string_array();
+			append((yyval.list_of_tokens), (yyvsp[(1) - (1)].word));
 	       }
     break;
 
   case 22:
 
 /* Line 1806 of yacc.c  */
-#line 147 "parser.y"
+#line 168 "parser.y"
     {
-		   	(yyval.arguments) = (yyvsp[(2) - (3)].arguments);
+		   	(yyval.list_of_tokens) = (yyvsp[(2) - (3)].list_of_tokens);
 		   }
     break;
 
   case 23:
 
 /* Line 1806 of yacc.c  */
-#line 150 "parser.y"
+#line 171 "parser.y"
     {
-		   	(yyval.arguments) = new_string_array();
+		   	(yyval.list_of_tokens) = new_string_array();
 		   }
+    break;
+
+  case 27:
+
+/* Line 1806 of yacc.c  */
+#line 188 "parser.y"
+    {
+	       		(yyval.list_of_tokens) = (yyvsp[(1) - (2)].list_of_tokens);
+			cat((yyval.list_of_tokens), (yyvsp[(2) - (2)].list_of_tokens));
+			free((yyvsp[(2) - (2)].list_of_tokens));
+	       }
+    break;
+
+  case 28:
+
+/* Line 1806 of yacc.c  */
+#line 193 "parser.y"
+    {
+		(yyval.list_of_tokens) = new_string_array();
+	  }
+    break;
+
+  case 29:
+
+/* Line 1806 of yacc.c  */
+#line 199 "parser.y"
+    {
+    	(yyval.list_of_tokens) = new_string_array();
+	append((yyval.list_of_tokens), (yyvsp[(1) - (3)].word));
+	append((yyval.list_of_tokens), (yyvsp[(2) - (3)].word));
+	append((yyval.list_of_tokens), (yyvsp[(3) - (3)].word));
+    }
+    break;
+
+  case 30:
+
+/* Line 1806 of yacc.c  */
+#line 205 "parser.y"
+    {
+    	(yyval.list_of_tokens) = new_string_array();
+	append((yyval.list_of_tokens), (yyvsp[(1) - (1)].word));
+    }
+    break;
+
+  case 31:
+
+/* Line 1806 of yacc.c  */
+#line 209 "parser.y"
+    {
+    	(yyval.list_of_tokens) = new_string_array();
+	append((yyval.list_of_tokens), (yyvsp[(1) - (1)].word));
+    }
+    break;
+
+  case 32:
+
+/* Line 1806 of yacc.c  */
+#line 213 "parser.y"
+    {
+    	(yyval.list_of_tokens) = new_string_array();
+	append((yyval.list_of_tokens), (yyvsp[(1) - (1)].word));
+    }
+    break;
+
+  case 33:
+
+/* Line 1806 of yacc.c  */
+#line 220 "parser.y"
+    {
+	 	(yyval.list_of_tokens) = (yyvsp[(2) - (3)].list_of_tokens);
+		insert((yyval.list_of_tokens), (yyvsp[(1) - (3)].word), 0);
+	 	append((yyval.list_of_tokens), (yyvsp[(3) - (3)].word));
+	 }
+    break;
+
+  case 34:
+
+/* Line 1806 of yacc.c  */
+#line 225 "parser.y"
+    {
+	 	(yyval.list_of_tokens) = (yyvsp[(3) - (5)].list_of_tokens);
+		insert((yyval.list_of_tokens), (yyvsp[(2) - (5)].word) ,0);
+		insert((yyval.list_of_tokens), (yyvsp[(1) - (5)].word), 0);
+		append((yyval.list_of_tokens), (yyvsp[(4) - (5)].word));
+		append((yyval.list_of_tokens), (yyvsp[(5) - (5)].word));
+	 }
+    break;
+
+  case 35:
+
+/* Line 1806 of yacc.c  */
+#line 232 "parser.y"
+    {
+	 	(yyval.list_of_tokens) = (yyvsp[(3) - (4)].list_of_tokens);
+		insert((yyval.list_of_tokens), (yyvsp[(2) - (4)].word), 0);
+		insert((yyval.list_of_tokens), (yyvsp[(1) - (4)].word), 0);
+		append((yyval.list_of_tokens), (yyvsp[(4) - (4)].word));
+	 }
+    break;
+
+  case 36:
+
+/* Line 1806 of yacc.c  */
+#line 238 "parser.y"
+    {
+	 	(yyval.list_of_tokens) = (yyvsp[(3) - (7)].list_of_tokens);	 
+		insert((yyval.list_of_tokens), (yyvsp[(2) - (7)].word), 0);
+		insert((yyval.list_of_tokens), (yyvsp[(1) - (7)].word), 0);
+		append((yyval.list_of_tokens), (yyvsp[(4) - (7)].word));
+		append((yyval.list_of_tokens), (yyvsp[(5) - (7)].word));
+		cat((yyval.list_of_tokens), (yyvsp[(6) - (7)].list_of_tokens));
+		append((yyval.list_of_tokens),(yyvsp[(7) - (7)].word));
+		free((yyvsp[(6) - (7)].list_of_tokens));
+	 }
+    break;
+
+  case 37:
+
+/* Line 1806 of yacc.c  */
+#line 248 "parser.y"
+    {
+	 	(yyval.list_of_tokens) = (yyvsp[(3) - (5)].list_of_tokens);
+		insert((yyval.list_of_tokens), (yyvsp[(2) - (5)].word), 0);
+		insert((yyval.list_of_tokens), (yyvsp[(1) - (5)].word), 0);
+		append((yyval.list_of_tokens), (yyvsp[(4) - (5)].word));
+		cat((yyval.list_of_tokens), (yyvsp[(5) - (5)].list_of_tokens));
+	 }
+    break;
+
+  case 38:
+
+/* Line 1806 of yacc.c  */
+#line 255 "parser.y"
+    {
+	 	(yyval.list_of_tokens) = (yyvsp[(3) - (7)].list_of_tokens);
+		insert((yyval.list_of_tokens), (yyvsp[(2) - (7)].word), 0);
+		insert((yyval.list_of_tokens), (yyvsp[(1) - (7)].word), 0);
+		append((yyval.list_of_tokens), (yyvsp[(4) - (7)].word));
+		cat((yyval.list_of_tokens), (yyvsp[(5) - (7)].list_of_tokens));
+	 	append((yyval.list_of_tokens), (yyvsp[(6) - (7)].word));
+	 	cat((yyval.list_of_tokens), (yyvsp[(7) - (7)].list_of_tokens));
+		free((yyvsp[(5) - (7)].list_of_tokens));
+		free((yyvsp[(7) - (7)].list_of_tokens));
+	 }
+    break;
+
+  case 39:
+
+/* Line 1806 of yacc.c  */
+#line 266 "parser.y"
+    {
+	 	(yyval.list_of_tokens) = (yyvsp[(3) - (5)].list_of_tokens);;
+		insert((yyval.list_of_tokens), (yyvsp[(2) - (5)].word), 0);
+		insert((yyval.list_of_tokens), (yyvsp[(1) - (5)].word), 0);
+		append((yyval.list_of_tokens), (yyvsp[(4) - (5)].word));
+		cat((yyval.list_of_tokens), (yyvsp[(5) - (5)].list_of_tokens));
+		free((yyvsp[(5) - (5)].list_of_tokens));
+	 }
+    break;
+
+  case 40:
+
+/* Line 1806 of yacc.c  */
+#line 274 "parser.y"
+    {
+	 	//macro statement
+		 struct Macro* sub = macro_locate(macros, (yyvsp[(1) - (3)].word));
+		 if(sub == NULL){
+		 	yyerror("Macro not found");
+		 }else{
+		 	struct StringArray* result = substitute(sub, (yyvsp[(2) - (3)].inputs));
+			(yyval.list_of_tokens) = result;
+			append((yyval.list_of_tokens),(yyvsp[(3) - (3)].word));
+			i = 0;
+		 }
+	 }
+    break;
+
+  case 41:
+
+/* Line 1806 of yacc.c  */
+#line 289 "parser.y"
+    {
+	  	(yyval.list_of_tokens) = (yyvsp[(1) - (3)].list_of_tokens);
+		append((yyval.list_of_tokens), (yyvsp[(2) - (3)].word));
+		cat((yyval.list_of_tokens), (yyvsp[(3) - (3)].list_of_tokens));
+		free((yyvsp[(3) - (3)].list_of_tokens));
+	  }
+    break;
+
+  case 42:
+
+/* Line 1806 of yacc.c  */
+#line 295 "parser.y"
+    {
+	  	(yyval.list_of_tokens) = (yyvsp[(1) - (4)].list_of_tokens);
+		append((yyval.list_of_tokens), (yyvsp[(2) - (4)].word));
+		cat((yyval.list_of_tokens), (yyvsp[(3) - (4)].list_of_tokens));
+	  	append((yyval.list_of_tokens), (yyvsp[(4) - (4)].word));
+		free((yyvsp[(3) - (4)].list_of_tokens));
+	  }
+    break;
+
+  case 43:
+
+/* Line 1806 of yacc.c  */
+#line 302 "parser.y"
+    {
+	  	(yyval.list_of_tokens) = (yyvsp[(1) - (3)].list_of_tokens);
+		append((yyval.list_of_tokens), (yyvsp[(2) - (3)].word));
+		append((yyval.list_of_tokens), (yyvsp[(3) - (3)].word));
+		
+	  }
+    break;
+
+  case 44:
+
+/* Line 1806 of yacc.c  */
+#line 308 "parser.y"
+    {
+	  	(yyval.list_of_tokens) = (yyvsp[(1) - (1)].list_of_tokens);
+	  }
+    break;
+
+  case 45:
+
+/* Line 1806 of yacc.c  */
+#line 311 "parser.y"
+    {
+	  	(yyval.list_of_tokens) = (yyvsp[(1) - (4)].list_of_tokens);
+		append((yyval.list_of_tokens), (yyvsp[(2) - (4)].word));
+		append((yyval.list_of_tokens), (yyvsp[(3) - (4)].word));
+		//Convert expression list to a single array
+		int j=0;
+		append((yyval.list_of_tokens), "(");
+		for(; j<i; j++){
+			cat((yyval.list_of_tokens), (yyvsp[(4) - (4)].inputs)[j]);
+			if(j+1<i){
+				append((yyval.list_of_tokens),",");
+			}
+		}
+		append((yyval.list_of_tokens), ")");
+		i = 0;
+		
+	  }
+    break;
+
+  case 46:
+
+/* Line 1806 of yacc.c  */
+#line 328 "parser.y"
+    {
+	  	 struct Macro* sub = macro_locate(macros, (yyvsp[(1) - (2)].word));
+		 if(sub == NULL){
+		 	yyerror("Macro not found");
+		 }else{
+		 	struct StringArray* result = substitute(sub, (yyvsp[(2) - (2)].inputs));
+			(yyval.list_of_tokens) = result;
+			print((yyval.list_of_tokens));
+			i = 0;
+		 }
+		
+	 	 //macro statement call	
+	  }
+    break;
+
+  case 47:
+
+/* Line 1806 of yacc.c  */
+#line 343 "parser.y"
+    {
+		 	(yyval.list_of_tokens) = new_string_array();
+			append((yyval.list_of_tokens), (yyvsp[(1) - (1)].word));
+		 }
+    break;
+
+  case 48:
+
+/* Line 1806 of yacc.c  */
+#line 347 "parser.y"
+    {
+		 	(yyval.list_of_tokens) = new_string_array();
+			append((yyval.list_of_tokens), (yyvsp[(1) - (1)].word));
+		 }
+    break;
+
+  case 49:
+
+/* Line 1806 of yacc.c  */
+#line 351 "parser.y"
+    {
+		 	(yyval.list_of_tokens) = new_string_array();
+			append((yyval.list_of_tokens), (yyvsp[(1) - (1)].word));
+		 }
+    break;
+
+  case 50:
+
+/* Line 1806 of yacc.c  */
+#line 355 "parser.y"
+    {
+		 	(yyval.list_of_tokens) = new_string_array();
+			append((yyval.list_of_tokens), (yyvsp[(1) - (1)].word));
+		 }
+    break;
+
+  case 51:
+
+/* Line 1806 of yacc.c  */
+#line 359 "parser.y"
+    {
+		 	(yyval.list_of_tokens) = new_string_array();
+			append((yyval.list_of_tokens), (yyvsp[(1) - (5)].word));
+			append((yyval.list_of_tokens), (yyvsp[(2) - (5)].word));
+			append((yyval.list_of_tokens), (yyvsp[(3) - (5)].word));
+			cat((yyval.list_of_tokens), (yyvsp[(4) - (5)].list_of_tokens));
+			append((yyval.list_of_tokens), (yyvsp[(5) - (5)].word));
+			free((yyvsp[(4) - (5)].list_of_tokens));
+		 }
+    break;
+
+  case 52:
+
+/* Line 1806 of yacc.c  */
+#line 368 "parser.y"
+    {
+		 	(yyval.list_of_tokens) = new_string_array();
+			append((yyval.list_of_tokens), (yyvsp[(1) - (4)].word));
+			append((yyval.list_of_tokens), (yyvsp[(2) - (4)].word));
+			append((yyval.list_of_tokens), (yyvsp[(3) - (4)].word));
+			append((yyval.list_of_tokens), (yyvsp[(4) - (4)].word));
+			
+		 }
+    break;
+
+  case 53:
+
+/* Line 1806 of yacc.c  */
+#line 376 "parser.y"
+    {
+		 	(yyval.list_of_tokens) = new_string_array();
+			append((yyval.list_of_tokens), (yyvsp[(1) - (2)].word));
+			cat((yyval.list_of_tokens), (yyvsp[(2) - (2)].list_of_tokens));
+			free((yyvsp[(2) - (2)].list_of_tokens));
+		 }
+    break;
+
+  case 54:
+
+/* Line 1806 of yacc.c  */
+#line 382 "parser.y"
+    {
+		 	(yyval.list_of_tokens) = new_string_array();
+			append((yyval.list_of_tokens), (yyvsp[(1) - (3)].word));
+			cat((yyval.list_of_tokens), (yyvsp[(2) - (3)].list_of_tokens));
+			append((yyval.list_of_tokens), (yyvsp[(3) - (3)].word));
+			free((yyvsp[(2) - (3)].list_of_tokens));
+		 }
+    break;
+
+  case 57:
+
+/* Line 1806 of yacc.c  */
+#line 396 "parser.y"
+    {
+			(yyval.macro) = new_macro();
+			(yyval.macro)->name = (yyvsp[(2) - (6)].word);
+			(yyval.macro)->args = (yyvsp[(3) - (6)].list_of_tokens);
+			(yyval.macro)->expr = (yyvsp[(4) - (6)].word);
+			macro_append(macros, (yyval.macro));
+			if((yyval.macro)->args->size > max_args){
+				max_args = (yyval.macro)->args->size;
+			}
+		}
     break;
 
   case 58:
 
 /* Line 1806 of yacc.c  */
-#line 218 "parser.y"
+#line 411 "parser.y"
     {
 		 	(yyval.macro) = new_macro();
 			(yyval.macro)->name = (yyvsp[(2) - (6)].word);
-			(yyval.macro)->args = (yyvsp[(3) - (6)].arguments); 
-			print_a_macro((yyval.macro));
-			print((yyval.macro)->args);
+			(yyval.macro)->args = (yyvsp[(3) - (6)].list_of_tokens); 
+			(yyval.macro)->expr = (yyvsp[(5) - (6)].list_of_tokens);
+			macro_append(macros, (yyval.macro));
+			if((yyval.macro)->args->size > max_args){
+				max_args = (yyval.macro)->args->size;
+			}
 		 }
     break;
 
 
 
 /* Line 1806 of yacc.c  */
-#line 1589 "parser.tab.c"
+#line 2013 "parser.tab.c"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1816,15 +2240,15 @@ yyreturn:
 
 
 /* Line 2067 of yacc.c  */
-#line 231 "parser.y"
+#line 427 "parser.y"
 
 
 int main(){
-	x = (int*)malloc(sizeof(int));
-	*x = 0;
-	 check = new_string_array();
+	max_args = 0;
+	list_of_expressions = NULL;
+	i = 0;
+	macros = new_macro_array(); 
 	yyparse();
-//	printf("%d",x);
 }
 
 

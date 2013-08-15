@@ -2,8 +2,8 @@
 struct Macro* new_macro(){
 	struct Macro* z;
 	z = (struct Macro*)malloc(sizeof(struct Macro));
-	z->args = new_string_array();
-	z->expr = new_string_array();
+	//z->args = new_string_array();
+	//z->expr = new_string_array();
 	return z;
 }
 void append_arg(struct Macro* z,char *arg){
@@ -42,3 +42,5 @@ struct StringArray* substitute(struct Macro* z, struct StringArray** input){
 void print_a_macro(struct Macro* z){
 	printf("#define %s\n",z->name);	
 }
+
+
