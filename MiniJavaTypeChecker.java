@@ -1,4 +1,7 @@
-
+//TODO
+//Subtyping at all places
+//& on int
+//Overloading
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -15,6 +18,7 @@ public class MiniJavaTypeChecker {
 	         
 	         SymbolTableVisitor stv = new SymbolTableVisitor();
 	         root.accept(stv); // Your assignment part is invoked here.
+	         transitiveClosure(stv.classes);
 	         merge(stv.classes);
 	         TypeCheckVisitor tcv = new TypeCheckVisitor();
 	         tcv.classes = stv.classes;
@@ -26,12 +30,19 @@ public class MiniJavaTypeChecker {
 	      }
 	   }
 	
+	public static void transitiveClosure(HashMap<String, ClassSymbol> h){
+		Iterator<String> iter = h.keySet().iterator();
+		while(iter.hasNext()){
+			String key = iter.next();
+			h.get(key).transitiveClosure(h);	
+		}
+	}
+	
 	public static void merge(HashMap<String, ClassSymbol> h){
 		Iterator<String> iter = h.keySet().iterator();
 		while(iter.hasNext()){
 			String key = iter.next();
 			h.get(key).merge(h);	
-			h.get(key).print();
 		}
 	}
 	

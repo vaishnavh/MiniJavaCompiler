@@ -1,34 +1,24 @@
 class Check{
     public static void main(String[] a){
-        System.out.println(new A().check());
-    }
-}
-
-class Check2 extends Check{
-    public int lol(int a){
-        System.out.println(new A().check());
-        return 1;
+        System.out.println(new C().check());
     }
 }
 
 class A{
         int x;
-        public int check(){
-            int[] a;
+        public int check(int y){
             x=0;
             if(x<0){
                 x = 1;
             }else{
                 x = 2;
             }
-            
             return 0;
         }
 }
 
 class B extends A{
     boolean y;
-    int x;
     public int check(){
         int[] D;
         y = false;
@@ -43,34 +33,23 @@ class B extends A{
     }
 }
 
-
 class C extends B{
     public int check(){
         A x;
         B y;
-        C z; 
-        //z = this.check();
-        y = new B();
-        //x = new D().trial(this); 
-        return 1;
-    }
-    
-    public B trial(B x){
         B z;
-        return z;
+        z = this.y  ;
+        y = new B();
+        z = new D().trial(); 
+        return y.check();
     }
-    
-    
 }
 
 
-class D extends C{
-    public C trial(B x){
-        D r;
-        int[] a;
-        r = new D();
+class D{
+    public C trial(){
+        C r;
+        r = new C();
         return r;
     }
 }
-
-

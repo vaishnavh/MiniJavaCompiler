@@ -50,4 +50,17 @@ public class MethodSymbol {
 			variables.get(key).print();
 		}
 	}
+	
+	public boolean matchSignatures(MethodSymbol m){
+		if(formals.size()!=m.formals.size()){
+			return false;
+		}
+		for(int i=0; i<formals.size(); i++){
+			if(formals.elementAt(i).type.compareTo(m.formals.elementAt(i).type)!=0){
+				//Even if there's subtyping it implies overloading
+				return false;
+			}
+		}
+		return true;
+	}
 }

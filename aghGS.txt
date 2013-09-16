@@ -1,0 +1,36 @@
+Class : MT4
+Variables : 0
+Methods : 2
+Method : Start Type : int
+Formals : 6
+p1 int
+p2 int
+p3 int
+p4 int
+p5 int
+p6 int
+Variables :  7
+p6 int
+p5 int
+p4 int
+p3 int
+p2 int
+p1 int
+aux int
+Method : Change Type : int
+Formals : 6
+p1 int
+p2 int
+p3 int
+p4 int
+p5 int
+p6 int
+Variables :  6
+p6 int
+p5 int
+p4 int
+p3 int
+p2 int
+p1 int
+int
+Program type checked successfully

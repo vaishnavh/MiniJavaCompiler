@@ -50,6 +50,11 @@ public class SymbolTableVisitor extends  GJNoArguDepthFirst<String> {
 	   public String visit(MainClass n) {
 	      String _ret=null;
 	      className = n.f1.f0.toString();
+	      if(classes.containsKey(className)){
+			  TypeCheckVisitor.error("Already existing class");
+		  }
+		  ClassSymbol newClassSymbol = new ClassSymbol(className);		 
+		  classes.put(className, newClassSymbol);
 	      n.f0.accept(this);
 	      n.f1.accept(this);
 	      n.f2.accept(this);
@@ -59,6 +64,9 @@ public class SymbolTableVisitor extends  GJNoArguDepthFirst<String> {
 	      n.f6.accept(this);
 	      inMethod = true;
 	      methodName = "main";
+	      newClassSymbol.addMethod(methodName, "void");
+	      newClassSymbol.addParameterToMethod("String[]", "a", methodName);
+	      
 	      n.f7.accept(this);
 	      n.f8.accept(this);
 	      n.f9.accept(this);
@@ -85,7 +93,11 @@ public class SymbolTableVisitor extends  GJNoArguDepthFirst<String> {
 	public String visit(ClassDeclaration n) {
 		inMethod = false;		
 		  className = n.f1.f0.toString();
+		  if(classes.containsKey(className)){
+			  TypeCheckVisitor.error("Already existing class");
+		  }
 		  ClassSymbol newClassSymbol = new ClassSymbol(className);
+		 
 		  classes.put(className, newClassSymbol);
 	      n.f0.accept(this);
 	      n.f1.accept(this);
@@ -110,6 +122,9 @@ public class SymbolTableVisitor extends  GJNoArguDepthFirst<String> {
 	public String visit(ClassExtendsDeclaration n) { 
 		inMethod = false;
 		  className = n.f1.f0.toString();
+		  if(classes.containsKey(className)){
+			  TypeCheckVisitor.error("Already existing class");
+		  }
 		  ClassSymbol newClassSymbol = new ClassSymbol(className);
 		  newClassSymbol.parentName = n.f3.f0.toString();
 		  classes.put(className, newClassSymbol);

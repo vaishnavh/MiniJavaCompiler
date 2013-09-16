@@ -4,31 +4,22 @@ class Check{
     }
 }
 
-class Check2 extends Check{
-    public int lol(int a){
-        System.out.println(new A().check());
-        return 1;
-    }
-}
-
 class A{
         int x;
         public int check(){
-            int[] a;
+            int a[];
             x=0;
             if(x<0){
                 x = 1;
             }else{
                 x = 2;
             }
-            
             return 0;
         }
 }
 
 class B extends A{
     boolean y;
-    int x;
     public int check(){
         int[] D;
         y = false;
@@ -43,7 +34,6 @@ class B extends A{
     }
 }
 
-
 class C extends B{
     public int check(){
         A x;
@@ -51,26 +41,16 @@ class C extends B{
         C z; 
         //z = this.check();
         y = new B();
-        //x = new D().trial(this); 
+        z = new D().trial(this); 
         return 1;
     }
-    
-    public B trial(B x){
-        B z;
-        return z;
-    }
-    
-    
 }
 
 
-class D extends C{
+class D{
     public C trial(B x){
-        D r;
-        int[] a;
-        r = new D();
+        C r;
+        r = new C();
         return r;
     }
 }
-
-

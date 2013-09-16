@@ -1,6 +1,5 @@
 package visitor;
 
-import java.awt.TrayIcon.MessageType;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -12,7 +11,9 @@ import symboltable.Message;
 import symboltable.Message.ReturnType;
 import symboltable.MethodSymbol;
 import symboltable.VariableSymbol;
+import syntaxtree.AllocationExpression;
 import syntaxtree.AndExpression;
+import syntaxtree.ArrayAllocationExpression;
 import syntaxtree.ArrayAssignmentStatement;
 import syntaxtree.ArrayLength;
 import syntaxtree.ArrayLookup;
@@ -59,7 +60,7 @@ public class TypeCheckVisitor extends GJDepthFirst<String,Message>{
 			System.exit(0);
 		}	
 	 public static void error(String option){
-			System.out.println("Type error "+option);
+			System.out.println("Type error");
 			System.exit(0);
 		}
 	   
@@ -79,6 +80,16 @@ public class TypeCheckVisitor extends GJDepthFirst<String,Message>{
 	 }
 	 public boolean isArray(String check){
 		 return (check.compareTo("int[]")==0);
+	 }
+	 
+	 public boolean isSameType(String A, String B){ //Eitehr A = B or B must be subtype of A
+		 if(A.compareTo(B)==0){
+			 return true;
+		 }
+		 if(classes.containsKey(B)){
+			 return (classes.get(B).parents.containsKey(A));
+		 }
+		 return false;
 	 }
 		/**
 	    * f0 -> "class"
@@ -198,7 +209,10 @@ public class TypeCheckVisitor extends GJDepthFirst<String,Message>{
 		      n.f7.accept(this, A);
 		      n.f8.accept(this, A);
 		      n.f9.accept(this, A);
-		      if(n.f1.accept(this, new Message(className, methodName, Message.IdentifierType.CLASS, Message.ReturnType.NAME)).compareTo(n.f10.accept(this, new Message (className, methodName, Message.IdentifierType.NONE, Message.ReturnType.TYPE)))!=0){
+		      //Type matching
+		      String definedReturnType = n.f1.accept(this, new Message(className, methodName, Message.IdentifierType.CLASS, Message.ReturnType.NAME));
+		      String actualReturnType = n.f10.accept(this, new Message (className, methodName, Message.IdentifierType.NONE, Message.ReturnType.TYPE));
+		      if(!this.isSameType(definedReturnType, actualReturnType)){
 		    	  error("Wrong return");
 		      }
 		      n.f11.accept(this, A);
@@ -253,8 +267,8 @@ public class TypeCheckVisitor extends GJDepthFirst<String,Message>{
 	      String _ret=null;
 	      String leftType = n.f0.accept(this, new Message(className, methodName, Message.IdentifierType.VARIABLE, Message.ReturnType.TYPE));
 	      String  rightType = n.f2.accept(this, new Message (className, methodName, Message.IdentifierType.NONE, Message.ReturnType.TYPE));
-	      System.out.println(leftType);
-	      if(leftType.compareTo(rightType)!=0)
+	      //System.out.println(leftType);
+	      if(!this.isSameType(leftType, rightType))
 	    	  error("Mismatching assignment types");
 	      n.f1.accept(this, A);	      
 	      n.f3.accept(this, A);
@@ -370,7 +384,7 @@ public class TypeCheckVisitor extends GJDepthFirst<String,Message>{
 	    */
 	   public String visit(AndExpression n, Message A) {
 		      String _ret="boolean";
-		      System.out.println(A.returnType);
+		      //System.out.println(A.returnType);
 		      if(!isBool(n.f0.accept(this, A))) error("Anded should be boolean");
 		      
 		      n.f1.accept(this, A);
@@ -385,7 +399,7 @@ public class TypeCheckVisitor extends GJDepthFirst<String,Message>{
 	    * f2 -> PrimaryExpression()
 	    */
 	   public String visit(CompareExpression n, Message A) {
-	      String _ret="int";
+	      String _ret="boolean";
 	      if(!isInt(n.f0.accept(this, A))) error("Compared should be integer");
 	      n.f1.accept(this, A);
 	      if(!isInt(n.f2.accept(this, A))) error("Compared should be integer");
@@ -441,7 +455,9 @@ public class TypeCheckVisitor extends GJDepthFirst<String,Message>{
 	   public String visit(ArrayLookup n, Message A) {
 		   	//TODO!
 	      String _ret="int";
-	      n.f0.accept(this, A);
+	      if(!this.isArray(n.f0.accept(this, A))){
+	    	  error("Lookup operates of arrays only");
+	      }
 	      n.f1.accept(this, A);
 	      if(!isInt(n.f2.accept(this, A))) error("Index should be integer");
 	      n.f3.accept(this, A);
@@ -456,8 +472,9 @@ public class TypeCheckVisitor extends GJDepthFirst<String,Message>{
 	    */
 	   public String visit(ArrayLength n, Message A) {
 	      String _ret="int";
-	      //TODO
-	      n.f0.accept(this, A);
+	      if(!this.isArray(n.f0.accept(this, A))){
+	    	  error("Length operates of arrays only");
+	      }
 	      n.f1.accept(this, A);
 	      n.f2.accept(this, A);
 	      return _ret;
@@ -579,6 +596,47 @@ public class TypeCheckVisitor extends GJDepthFirst<String,Message>{
 	  }
 	   
 	   
+
+	   /**
+	    * f0 -> "new"
+	    * f1 -> "int"
+	    * f2 -> "["
+	    * f3 -> Expression()
+	    * f4 -> "]"
+	    */
+	   public String visit(ArrayAllocationExpression n, Message A) {
+	      String _ret="int[]";
+	      n.f0.accept(this, A);
+	      n.f1.accept(this, A);
+	      n.f2.accept(this, A);
+	      String indexType = n.f3.accept(this, new Message(className, methodName, IdentifierType.NONE, ReturnType.TYPE));
+	      if(!isInt(indexType)){
+	    	  error("Array allocation must be integral");
+	      }
+	      n.f4.accept(this, A);
+	      return _ret;
+	   }
+
+	   /**
+	    * f0 -> "new"
+	    * f1 -> Identifier()
+	    * f2 -> "("
+	    * f3 -> ")"
+	    */
+	   public String visit(AllocationExpression n, Message A) {
+	      
+	      n.f0.accept(this, A);
+	      String tempClass = n.f1.accept(this, new Message(className, methodName, IdentifierType.CLASS, ReturnType.NAME));
+	      if(!classes.containsKey(tempClass)){
+	    	  error("Undefined class");
+	      }
+	      String _ret = tempClass;
+	      n.f2.accept(this, A);
+	      n.f3.accept(this, A);
+	      return _ret;
+	   }
+	   
+	   
 	   /**
 	    * f0 -> Expression()
 	    * f1 -> ( ExpressionRest() )*
@@ -593,8 +651,10 @@ public class TypeCheckVisitor extends GJDepthFirst<String,Message>{
 	      if(m.formals.size()==0){
 	    	  error("Too many arguments");
 	      }
-	      if(argType.compareTo(m.formals.elementAt(A.arg++).type)!=0){
-	    	  error("Mismcatched argument");
+	      if(!this.isSameType(m.formals.elementAt(A.arg++).type, argType)){
+	    	  //String t = n.f0.accept(this, new Message(className, methodName, Message.IdentifierType.NONE, Message.ReturnType.NAME ));
+	    	  //error("Mismcatched argument"+argType+" "+m.formals.elementAt(A.arg-1).type+" "+A.className+" "+A.methodName+" "+t+"@"+className+methodName);
+	    	  error("Mismatched argument");
 	      }
 	      n.f1.accept(this, A);	     
 	      return _ret;
@@ -611,7 +671,7 @@ public class TypeCheckVisitor extends GJDepthFirst<String,Message>{
 	      if(A.arg >= m.formals.size()){
 	    	  error("Too many arguments");
 	      }
-	      if(argType.compareTo(m.formals.elementAt(A.arg++).type)!=0){
+	      if(!this.isSameType(argType, m.formals.elementAt(A.arg++).type)){
 	    	  error("Mismatched types");
 	      }
 	      return _ret;
