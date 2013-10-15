@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<!-- saved from url=(0060)http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>minijava specification</title>
+</head>
+<body>
+<h1 align="CENTER">minijava spec</h1>
+<table>
+ <!-- Special token -->
+ <tbody><tr>
+  <td>
+  </td>
+ </tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod1">Goal</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod2">MainClass</a> ( <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod3">TypeDeclaration</a> )* &lt;EOF&gt;</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod2">MainClass</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">class <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod4">Identifier</a> {
+	public static void main ( String [] <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod4">Identifier</a> ) { System.out.println ( <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod13">Expression</a> ); } }</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod3">TypeDeclaration</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">class <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod4">Identifier</a> { ( <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod10">Type</a> <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod4">Identifier</a> ;)* ( <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod9">MethodDeclaration</a> )* }</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">class <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod4">Identifier</a> extends <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod4">Identifier</a> { ( <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod10">Type</a> <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod4">Identifier</a>;)* ( <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod9">MethodDeclaration</a> )* }</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod9">MethodDeclaration</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">public <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod10">Type</a> <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod4">Identifier</a> ( ( <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod10">Type</a> <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod4">Identifier</a> (, <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod10">Type</a> <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod4">Identifier</a>)*)? ) { ( <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod10">Type</a> <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod4">Identifier</a> ;)* ( <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod12">Statement</a> )* return <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod13">Expression</a> ; }</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod10">Type</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">int [ ]</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">boolean</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">int</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod4">Identifier</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod12">Statement</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">{ ( <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod12">Statement</a> )* }</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod4">Identifier</a> = <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod13">Expression</a> ;</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod4">Identifier</a> [ <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod13">Expression</a> ] = <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod13">Expression</a> ;</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">if ( <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod13">Expression</a> ) <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod12">Statement</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">if ( <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod13">Expression</a> ) <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod12">Statement</a> else <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod12">Statement</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">while ( <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod13">Expression</a> ) <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod12">Statement</a></td>
+</tr><tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod13">Expression</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod35">PrimaryExpression</a>
+	&amp; <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod35">PrimaryExpression</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod35">PrimaryExpression</a> &lt; <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod35">PrimaryExpression</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod35">PrimaryExpression</a> + <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod35">PrimaryExpression</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod35">PrimaryExpression</a> - <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod35">PrimaryExpression</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod35">PrimaryExpression</a> * <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod35">PrimaryExpression</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod35">PrimaryExpression</a> / <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod35">PrimaryExpression</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod35">PrimaryExpression</a> [ <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod35">PrimaryExpression</a> ]</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod35">PrimaryExpression</a> . length</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod35">PrimaryExpression</a> .
+	<a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod4">Identifier</a> ( (<a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod36">Expression</a> (, <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod36">Expression</a> )*)? )</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod35">PrimaryExpression</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">&lt;INTEGER_LITERAL&gt;</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">true</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">false</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">&lt;IDENTIFIER&gt;</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">this</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">new int [ <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod13">Expression</a> ]</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">new <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod4">Identifier</a> ( )</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">! <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod13">Expression</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">( <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/minijava-spec.html#prod13">Expression</a> )</td>
+</tr>
+</tbody></table>
+
+
+</body></html>

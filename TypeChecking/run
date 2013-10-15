@@ -1,0 +1,3 @@
+#! /bin/bash
+javac MiniJavaTypeChecker.java
+java MiniJavaTypeChecker  < MiniJava/Check.java 
