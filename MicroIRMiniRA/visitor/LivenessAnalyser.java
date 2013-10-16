@@ -140,7 +140,7 @@ public class LivenessAnalyser extends GJNoArguDepthFirst<String>{
 	public String visit(HLoadStmt n) {
 		String _ret=null;
 		this.currentBlock.define(n.f1.accept(this));
-		this.currentBlock.use(n.f3.accept(this));
+		this.currentBlock.use(n.f2.accept(this));
 		n.f0.accept(this);
 		n.f1.accept(this);
 		n.f2.accept(this);
@@ -155,6 +155,7 @@ public class LivenessAnalyser extends GJNoArguDepthFirst<String>{
 	 */
 	public String visit(MoveStmt n) {
 		this.currentBlock.define(n.f1.accept(this));
+		n.f2.accept(this);
 		return null;
 	}
 
@@ -242,8 +243,8 @@ public class LivenessAnalyser extends GJNoArguDepthFirst<String>{
 	 *       | Label()
 	 */
 	public String visit(SimpleExp n) {
-		String _ret=null;		
-		return n.f0.accept(this);
+		this.currentBlock.use(n.f0.accept(this));		
+		return null;
 	}
 
 	/**
@@ -282,7 +283,7 @@ public class LivenessAnalyser extends GJNoArguDepthFirst<String>{
 	    */
 	   public String visit(CJumpStmt n) {
 	      this.currentBlock.use(n.f1.accept(this));
-	      this.currentBlock.jumpTo(n.f2.toString());
+	      this.currentBlock.jumpTo(n.f2.f0.toString());
 	      return null;
 	   }
 
@@ -291,8 +292,26 @@ public class LivenessAnalyser extends GJNoArguDepthFirst<String>{
 	    * f1 -> Label()
 	    */
 	   public String visit(JumpStmt n) {
-		  this.currentBlock.jumpTo(n.f1.toString());
+		  this.currentBlock.jumpTo(n.f1.f0.toString());
 		  this.currentBlock.snapFlow(); 
+	      return null;
+	   }
+
+	   
+	   /**
+	    * f0 -> "BEGIN"
+	    * f1 -> StmtList()
+	    * f2 -> "RETURN"
+	    * f3 -> SimpleExp()
+	    * f4 -> "END"
+	    */
+	   public String visit(StmtExp n) {
+	      n.f0.accept(this);
+	      n.f1.accept(this);
+	      n.f2.accept(this);
+	      this.currentBlock.unsetLabel();
+	      this.beginNewStatement();	      
+	      n.f3.accept(this);
 	      return null;
 	   }
 

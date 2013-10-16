@@ -39,9 +39,22 @@ public class Block {
 		for(Block i: this.predecessors){
 			System.out.println(i.index);
 		}
-		System.out.println("DEFINED : ");
+		System.out.println("SUCCESSORS : ");
 		for(Block i: this.successors){
 			System.out.println(i.index);
 		}
+		System.out.println("IN : ");
+		for(Integer i: this.in){
+			System.out.println(i);
+		}
+		System.out.println("OUT : ");
+		for(Integer i: this.out){
+			System.out.println(i);
+		}
+	}
+	
+	public boolean before(Block b){
+		return (this.index <= b.index);
+		
 	}
 }
