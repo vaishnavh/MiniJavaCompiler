@@ -52,6 +52,7 @@ public class LivenessAnalyser extends GJNoArguDepthFirst<String>{
 		ProcedureBlock mainBlock = new ProcedureBlock();
 		this.livenesses.put("MAIN", mainBlock);
 		currentBlock = mainBlock;
+		mainBlock.procedureName = "MAIN";
 		n.f0.accept(this);
 		n.f1.accept(this);
 		n.f2.accept(this);
@@ -92,13 +93,15 @@ public class LivenessAnalyser extends GJNoArguDepthFirst<String>{
 		ProcedureBlock newBlock = new ProcedureBlock();
 		this.livenesses.put(n.f0.f0.toString(), newBlock);
 		currentBlock = newBlock;
-		String _ret=null;
+	    newBlock.procedureName = n.f0.f0.toString();
+		//Empty statement for parameters passed
+		currentBlock.initializeArguments(n.f2.f0.toString());
 		n.f0.accept(this);
 		n.f1.accept(this);
 		n.f2.accept(this);
 		n.f3.accept(this);
 		n.f4.accept(this);
-		return _ret;
+		return null;
 	}
 
 	/**
@@ -210,6 +213,9 @@ public class LivenessAnalyser extends GJNoArguDepthFirst<String>{
 	        	}	            
 	            _count++;
 	         }
+	         if(called){
+	        	 this.currentBlock.setMaxArg(_count);
+	         }
 	         return null;
 	      }
 	      else
@@ -309,6 +315,7 @@ public class LivenessAnalyser extends GJNoArguDepthFirst<String>{
 	      n.f0.accept(this);
 	      n.f1.accept(this);
 	      n.f2.accept(this);
+	      //Return statements
 	      this.currentBlock.unsetLabel();
 	      this.beginNewStatement();	      
 	      n.f3.accept(this);

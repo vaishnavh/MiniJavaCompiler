@@ -1,11 +1,13 @@
 package datastore;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
 public class Block {
 	//A block refers to a line
 	int index;
+	String label;
 	Block(int index){
 		this.index = index;
 	}
@@ -15,7 +17,8 @@ public class Block {
 	Set<Integer> use = new HashSet<Integer>();
 	Set<Block> predecessors = new HashSet<Block>();
 	Set<Block> successors = new HashSet<Block>();
-	
+	public  HashMap<Register, Register> callerSave = new HashMap<Register, Register>();
+
 	public void precede(Block predecessor){
 		this.predecessors.add(predecessor);
 		predecessor.succeed(this);

@@ -1,11 +1,11 @@
 package datastore;
 
-import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 public class Register {
 	public enum Type{
-		SPILLED, S, T
+		SPILLED, S, T, A, V
 	}
 	int index;
 	Type type;
@@ -32,15 +32,51 @@ public class Register {
 		}
 	}
 	
-	public static Queue<Register> generatePool(){
-		Queue<Register> pool = new LinkedList<Register>();
-		for(int i=0; i<=7; i++){
-			pool.add(new Register(i, Type.S));
-		}
-		for(int i=0; i<=9; i++){
+	public static Stack<Register> generatePool(){
+		Stack<Register> pool = new Stack<Register>();
+		for(int i=9; i>=0; i--){
 			pool.add(new Register(i, Type.T));
+		}
+		for(int i=7; i>=0; i--){
+			pool.add(new Register(i, Type.S));
 		}
 		return pool;
 	}
+	
+	
+	public void print(){
+		System.out.print(this.toString());
+	}
+	
+	
+	public static void move(Register r1, Register r2){
+		if(r1.type == Type.SPILLED){
+			System.out.print("\nASTORE "); 					
+		}else if(r2.type == Type.SPILLED){
+			System.out.print("\nALOAD ");
+		}else{
+			System.out.print("\nMOVE ");
+		}
+		r1.print();	
+		System.out.print(' ');
+		r2.print();
+		
+	}
+	
+	
+	public String toString(){
+		if(type == Type.S){
+			return ("s"+this.index);
+		}else if(type==Type.T){
+			return ("t"+this.index);
+		}else if(type==Type.A){
+			return ("a"+this.index);
+		}else if(type == Type.V){
+			return ("v"+this.index);
+		}else{
+			return ("SPILLEDARG "+this.index);
+		}
+	}
+	
 	
 }
