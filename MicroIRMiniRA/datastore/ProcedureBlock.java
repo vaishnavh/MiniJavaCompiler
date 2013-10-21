@@ -140,14 +140,18 @@ public class ProcedureBlock {
 
 
 	public void computeIntervals(){
-		for(Block block : blocks){			
-			for(Integer outgoingTemp : block.out){
+		for(Block block : blocks){		
+			Set<Integer> outSet = new HashSet<Integer>();
+			outSet.addAll(block.out);
+			outSet.addAll(block.definitions);
+			for(Integer outgoingTemp : outSet){
 				//System.out.println("Outgoing : "+outgoingTemp);
 				if(!tempMap.containsKey(outgoingTemp)){
 					//First out
 					Interval newInterval = new Interval(block, outgoingTemp);
 					tempMap.put(outgoingTemp, newInterval);
 					intervals.add(newInterval);
+					newInterval.endLine = block;
 				}else{ 
 					//Already present
 					Interval oldInterval = tempMap.get(outgoingTemp);
@@ -296,13 +300,13 @@ public class ProcedureBlock {
 		int initialSpill = spillIndex;
 		//System.out.println("Saving Caller . . . ");
 		for(Integer temp : this.currentStatement.out){
-			if(!this.currentStatement.definitions.contains(temp)){ //not present in definitons
+			//if(!this.currentStatement.definitions.contains(temp)){ //not present in definitons
 				Interval tempInterval = this.tempMap.get(temp);
 				if(tempInterval.register.type == Type.T){
 					Register save  = new Register(incSpill(), Type.SPILLED);
 					callerSave.put(tempInterval.register, save);
 				}
-			}			
+			//}			
 		}
 		spillIndex = initialSpill;
 		currentStatement.callerSave = callerSave;
