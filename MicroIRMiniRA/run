@@ -1,0 +1,8 @@
+#! /bin/bash
+java MiniRATranslator < MicroIR/$1.microIR > MiniRA-Check/Output.txt
+cd MicroIR
+java -jar pgi.jar < $1.microIR > ../A.txt
+cd ../MiniRA-Check
+java -jar kgi.jar < Output.txt > ../B.txt
+cd ..
+diff A.txt B.txt

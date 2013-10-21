@@ -73,6 +73,7 @@ public class RegisterSaver extends GJNoArguDepthFirst<String>{
 	public String visit(StmtList n) {
 		//Assumes that currentBlock is set			   
 		n.f0.accept(this);
+		
 		return null;
 	}
 
@@ -121,6 +122,7 @@ public class RegisterSaver extends GJNoArguDepthFirst<String>{
 	 */
 	public String visit(Stmt n) {
 		this.beginNewStatement();
+		//System.out.println("New statement?"); //COMMENT
 		n.f0.accept(this);
 		return null;
 	}
@@ -135,6 +137,7 @@ public class RegisterSaver extends GJNoArguDepthFirst<String>{
 	 * f4 -> ")"
 	 */
 	public String visit(Call n) {
+		//System.out.println("Hi?"); //COMMENT
 		this.currentBlock.enumerateCallerRegisters();
 	
 
@@ -222,7 +225,7 @@ public class RegisterSaver extends GJNoArguDepthFirst<String>{
 
 		
 	      n.f1.accept(this);
-	      n.f2.accept(this);
+	     
 	      //Return statements
 	     // this.currentBlock.unsetLabel();
 	      this.beginNewStatement();	    
@@ -298,7 +301,8 @@ public class RegisterSaver extends GJNoArguDepthFirst<String>{
 		 */
 
 		public String visit(MoveStmt n) {
-
+			//System.out.print("Hi at move" );
+			n.f2.accept(this);
 			return null;
 		}
 

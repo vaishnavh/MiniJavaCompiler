@@ -80,6 +80,7 @@ public class ProcedureBlock {
 	}
 
 	public void jumpTo(String label){
+		//System.out.println("Putting "+label+" for "+currentStatement.index+" in "+this.procedureName);
 		jumps.put(this.currentStatement, label);
 	}
 
@@ -91,18 +92,21 @@ public class ProcedureBlock {
 	public void print(){
 		System.out.println(this.procedureName+" >> "+this.argNo);
 		for(Block b : this.blocks){
-			//b.print();
+			b.print();
 
 		}
-		System.out.println("\n*************\nINTERVALS : ");
+		System.out.println("\n*************\nINTERVALS for "+this.procedureName);
 		for(Interval i: this.intervals){
 			i.print();
 		}
+		System.out.println("\n--------------------------------------");
 	}
 
 	public void dissolveJumps(){
 		for(Block b: jumps.keySet()){
-			//System.out.println("Finding label"+jumps.get(b));
+//			System.out.println("Finding label "+jumps.get(b));
+//			System.out.println(" for "+b.index);
+//			System.out.println(" found "+labels.get(jumps.get(b)).index);
 			labels.get(jumps.get(b)).precede(b);
 		}
 	}
@@ -216,7 +220,8 @@ public class ProcedureBlock {
 	public void initializeArguments(String number){
 		this.argNo = Integer.parseInt(number);
 		createNewStatement();		
-		this.spillIndex = argNo-4;
+		this.spillIndex = argNo-3;
+		spillIndex = (spillIndex>0) ? spillIndex:0;
 		for(int i=0; i<argNo; i++){
 			this.currentStatement.definitions.add(i);
 		}
@@ -231,7 +236,7 @@ public class ProcedureBlock {
 	public Block getNextStatement(){
 		if(this.currentStatement==null){
 			traverse = 0;
-			
+
 		}else{
 			traverse++;
 		}
@@ -249,7 +254,7 @@ public class ProcedureBlock {
 		}
 	}
 	public void printSpecs(){		
-	
+
 		System.out.println("\n"+this.procedureName+" ["+this.argNo+"]["+this.maxSpillIndex+"]["+this.maxArg+"]");
 
 	}
@@ -277,17 +282,19 @@ public class ProcedureBlock {
 	}
 
 
-	
+
 	public void saveCallerRegisters(){
 		HashMap<Register, Register> callerSave = this.currentStatement.callerSave;
 		for(Register r : callerSave.keySet()){
 			Register.move(callerSave.get(r), r);
 		}
 	}
-	
-	
+
+
 	public void enumerateCallerRegisters(){
 		HashMap<Register, Register> callerSave = new HashMap<Register, Register>();
+		int initialSpill = spillIndex;
+		//System.out.println("Saving Caller . . . ");
 		for(Integer temp : this.currentStatement.out){
 			if(!this.currentStatement.definitions.contains(temp)){ //not present in definitons
 				Interval tempInterval = this.tempMap.get(temp);
@@ -297,46 +304,47 @@ public class ProcedureBlock {
 				}
 			}			
 		}
+		spillIndex = initialSpill;
 		currentStatement.callerSave = callerSave;
 	}
-	
-	
-	
+
+
+
 	public void loadCallerRegisters(){
 		HashMap<Register, Register> callerSave = this.currentStatement.callerSave;
 		for(Register r : callerSave.keySet()){
 			Register.move(r, callerSave.get(r));
 		}
 	}
-	
+
 	public HashMap<Register, Register> calleeSave = new HashMap<Register, Register>();
-	
+
 	public void saveCalleeRegisters(){
 		for(Register r : calleeSave.keySet()){			
 			Register.move(calleeSave.get(r), r);
 		}
 	}
-	
-	
+
+
 	public void loadCalleeRegisters(){
 		for(Register r : calleeSave.keySet()){
 			Register.move(r, calleeSave.get(r));
-			spillIndex--;
+			//spillIndex--;
 		}
 		calleeSave.clear();
 	}
-	
-	
+
+
 	public void returnValue(String temp){
 		Register v = new Register(0, Type.V);
 		Register.move(v, getRegister(temp));
 	}
-	
-	
+
+
 	public  Register getRegister(String temp){
 		return this.tempMap.get(Integer.parseInt(temp)).register;
 	}
-	
+
 	public Register obtainRegister(String temp, boolean second){ //Specifically a register. Not spilled.
 		int tempInt = Integer.parseInt(temp);
 		if(!tempMap.containsKey(tempInt)){

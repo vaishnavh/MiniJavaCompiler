@@ -93,7 +93,7 @@ public class Translator extends GJNoArguDepthFirst<String>{
 		if ( n.present() ){
 			String label = n.node.accept(this);
 			if(label!=null){
-				System.out.println(label);
+				print("\n"+label);
 			}
 			return null;
 		}
@@ -401,7 +401,7 @@ public class Translator extends GJNoArguDepthFirst<String>{
 	    * f0 -> "ERROR"
 	    */
 	   public String visit(ErrorStmt n) {
-		   System.out.println("ERRORP");
+		   System.out.println("ERROR");
 		      return null;
 	   }
 

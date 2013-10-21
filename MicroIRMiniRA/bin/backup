@@ -393,45 +393,32 @@ PRINT 2011111
 PRINT t0
 
 CJUMP s7 L19
-PRINT 192000
-PRINT t0 //No trouble here
+
 MOVE s7 s1 
 HLOAD t1 s7 0 
 HLOAD t2 t1 16 
-PRINT t0 //No trobule ehre
 MOVE a0 s7
 MOVE a1 s0
-PRINT 56789
-PRINT t0 //No trouble here
-
 CALL t2 
-PRINT t0 //No trouble here
 MOVE t1 v0 
-PRINT t0 //Trouble starting here
 CJUMP t1 L21
 
 MOVE s3 1 
 MOVE t1 0 
 MOVE t2 LT s5 t1 
 CJUMP t2 L23
-PRINT 942358 
-PRINT t0
+
 MOVE t2 s4 
 HLOAD t1 t2 0 
 HLOAD s7 t1 32 
 MOVE a0 t2
 CALL s7 
 MOVE t1 v0 
-MOVE s2 t1
-
-PRINT  2420000 
-PRINT t0
+MOVE s2 t1 
 JUMP L24
 
 L23 NOOP
 PRINT 230000
-PRINT t0
-
 MOVE t1 0 
 MOVE s7 555 
 MOVE t2 MINUS t1 s7 

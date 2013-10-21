@@ -20,12 +20,14 @@ public class Block {
 	public  HashMap<Register, Register> callerSave = new HashMap<Register, Register>();
 
 	public void precede(Block predecessor){
+		//System.out.println("Hi");
 		this.predecessors.add(predecessor);
 		predecessor.succeed(this);
 	}
 	public void succeed(Block successor){
 		this.successors.add(successor);
-		
+		//System.out.println("Done..");
+
 	}
 	
 	public void print(){
