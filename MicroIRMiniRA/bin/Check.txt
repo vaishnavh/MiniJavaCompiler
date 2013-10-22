@@ -61,6 +61,7 @@ PRINT 567
 PRINT t0
 
 
+; !var_end 
 MOVE t2 MINUS t1 t0
 
 PRINT 67
@@ -69,8 +70,10 @@ PRINT 7
 
 CJUMP t2 L20
 
+; !ret_val
 MOVE t2 1 
 MOVE t1 MINUS t2 s3 
+
 CJUMP t1 L20
 
 MOVE s7 1 

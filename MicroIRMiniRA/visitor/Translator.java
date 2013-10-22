@@ -93,7 +93,7 @@ public class Translator extends GJNoArguDepthFirst<String>{
 		if ( n.present() ){
 			String label = n.node.accept(this);
 			if(label!=null){
-				print("\n"+label);
+				print("\n"+this.currentBlock.procedureName+"_"+label);
 			}
 			return null;
 		}
@@ -344,7 +344,7 @@ public class Translator extends GJNoArguDepthFirst<String>{
 	   public String visit(CJumpStmt n) {
 		   n.f1.accept(this);
 		   Register r = this.currentBlock.obtainRegister(n.f1.accept(this),true);
-		   System.out.println("\nCJUMP "+r.toString()+" "+n.f2.f0.toString());
+		   System.out.println("\nCJUMP "+r.toString()+" "+this.currentBlock.procedureName+"_"+n.f2.f0.toString());
 		  
 	      return null;
 	   }
@@ -356,7 +356,7 @@ public class Translator extends GJNoArguDepthFirst<String>{
 	   public String visit(JumpStmt n) {
 		 //this.currentBlock.jumpTo(n.f1.f0.toString());
 		 // this.currentBlock.snapFlow(); 
-		  System.out.println("\nJUMP " + n.f1.f0.toString());
+		  System.out.println("\nJUMP " +this.currentBlock.procedureName+"_"+ n.f1.f0.toString());
 	      return null;
 	   }
 

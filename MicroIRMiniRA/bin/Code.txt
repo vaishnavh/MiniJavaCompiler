@@ -1,0 +1,45 @@
+ 
+    // Delete an element e from the list
+    public List Delete(Element e){
+	List my_head ;   s2
+	boolean ret_val ; s3
+	boolean aux05;
+	List aux01 ;
+	List prev ;
+	boolean var_end ; t0
+	Element var_elem ; s0
+	int aux04 ;  s5
+	int nt ;
+
+
+	my_head = this ;
+	ret_val = false ;
+	aux04 = 0 - 1 ;
+	aux01 = this ;
+	prev = this ;
+	var_end = end;
+	var_elem = elem ;
+	while ((!var_end) & (!ret_val)){
+	    if (e.Equal(var_elem)){
+		ret_val = true ;
+		if (aux04 < 0) { 
+		    // delete first element
+		    my_head = aux01.GetNext() ;
+		} 
+		else{ // delete a non first element
+		    System.out.println(0-555);
+		    aux05 = prev.SetNext(aux01.GetNext());
+		    System.out.println(0-555);
+		    
+		}
+	    } else nt = 0 ;
+	    if (!ret_val){
+		prev = aux01 ;
+		aux01 = aux01.GetNext() ;
+		var_end = aux01.GetEnd();
+		var_elem = aux01.GetElem();
+		aux04 = 1 ; 
+	    } else nt = 0 ;
+	}
+	return my_head ;
+    }
