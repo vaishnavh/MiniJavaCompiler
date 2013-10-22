@@ -26,6 +26,7 @@ public class MiniRATranslator {
 			Translator t = new Translator();
 			t.livenesses = la.livenesses;
 			root.accept(t);
+			
 		}catch (ParseException e){
 			System.out.println("Parse error");
 		}

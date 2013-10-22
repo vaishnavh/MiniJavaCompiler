@@ -1,0 +1,94 @@
+<project name="MiniRA-Translator" default = "compile" basedir =".">
+	<!-- Properties -->
+	<!-- Directory Name Variables -->
+	<property name ="build" location="build"/>
+	<property name ="visitor" value="visitor"/>
+	<property name ="datastore" value = "datastore"/>
+	<property name ="syntaxtree" value = "syntaxtree"/>
+	<!-- File Name variables-->
+	<property name ="main" value="MiniRATranslator.java"/>
+	<property name = "tree-generator" value = "microIRParser.java"/>
+	<property name = "code-generator" value="Translator.java"/>
+	<property name = "register-analyser" value="RegisterSaver.java"/>
+	<property name = "liveness-analyser" value="LivenessAnalyser.java"/>
+	<!-- Source files -->
+	<property name = "src" location = "."/>
+	<property name ="visitor.src" location="${visitor}"/>
+	<property name ="datastore.src" location="${datastore}"/>
+	<property name ="syntaxtree.src" location="${syntaxtree}"/>
+	<!-- Destination files-->
+	<property name = "dest" location="${build}"/>
+	<property name ="visitor.dest" location="${dest}/${visitor}"/>
+	<property name ="datastore.dest" location="${dest}/${datastore}"/>
+	<property name ="syntaxtree.dest" location="${dest}/${syntaxtree}"/>
+	
+	<!-- **************************** -->
+
+	<!-- Targets -->
+	<target name = "compile" depends = "main, compile-visitor, compile-datastore, compile-syntaxtree">
+	</target>
+
+	<!-- Compilation -->
+	<target name = "main" depends = "makedest">
+		<javac srcdir="."
+			destdir = "${build}"
+			includes = "*.java"
+			includeantruntime="false" />
+	</target>
+
+	<target name ="compile-visitor" depends = "make-visitor">
+		<javac srcdir="${visitor.src}"
+			destdir ="${visitor.dest}"
+			includes ="${liveness-analyser}, ${register-analyser}, ${code-analyser}"
+			includeantruntime="false" />
+	</target>
+
+	<target name = "compile-datastore" depends = "make-datastore">
+		<javac srcdir="${datastore.src}"
+			destdir="${datastore.dest}"  
+			includeantruntime="false" />
+	</target>
+
+	<target name = "compile-syntaxtree" depends = "make-syntaxtree">
+		<javac srcdir="${syntaxtree.src}"
+			includeantruntime="false" 
+			destdir="${syntaxtree.dest}"/>
+
+	</target>
+
+
+	<!-- Creates destination folders -->
+	<target name ="makedest">
+		<mkdir dir="${dest}"/>
+	</target>
+
+
+	<target name = "make-visitor"> 
+		<mkdir dir="${visitor.dest}"/>
+	</target>
+
+	<target name = "make-syntaxtree"> 
+		<mkdir dir="${syntaxtree.dest}"/>
+	</target>
+
+	<target name = "make-datastore"> 
+		<mkdir dir="${datastore.dest}"/>
+	</target>
+	<!-- **************************** -->
+	<!-- Cleans destination folder-->
+	<target  name="clean" depends = "clean-visitor, clean-datastore, clean-syntaxtree">
+		<delete dir="${build}"/>
+	</target>
+
+	<target name = "clean-visitor"> 
+		<delete dir="${visitor.dest}"/>
+	</target>
+
+	<target name = "clean-syntaxtree"> 
+		<delete dir="${syntaxtree.dest}"/>
+	</target>
+
+	<target name = "clean-datastore"> 
+		<delete dir="${datastore.dest}"/>
+	</target>
+</project>

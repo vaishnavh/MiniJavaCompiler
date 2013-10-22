@@ -1,0 +1,24 @@
+<pre><p>1) Have you tarred + zipped the file as XXXXXXXX.P5.tar.gz (your 8-digit roll number) ?
+
+2) Does your tar.gz file expand (by using the command tar xvzf) to the directory named XXXXXXXX (your 8-digit roll number) ?
+
+3) Does the directory named XXXXXXXX(your 8-digit roll number) contain exactly one subdirectory named P5?
+
+4) Does your folder P5 contain P5.java, as the main file, that can be compiled using javac?
+
+5) Does your folder P5 contain Checklist.txt?
+
+6) Have you removed all the class files and jar files from your tar ball?
+
+7) Does your P5.java take input from Standard Input (for usage of redirection) ?
+
+8) Does your P5.java write output to Standard Output (for usage of redirection) ?
+
+9) Have you removed all the debugging messages that your program may output?
+
+10) Have you included the ANT file as per the specifications given on Moodle, to get bonus marks?
+
+11) Is (some part of) the assignment plagiarized? 
+
+12) Any other comments?
+</p></pre>
