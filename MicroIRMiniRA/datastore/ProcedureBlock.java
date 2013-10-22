@@ -44,7 +44,7 @@ public class ProcedureBlock {
 		blocks.add(newStatement);
 
 		if(this.label!=null){
-			//System.out.println("Beginning label "+label);
+			//System.out.println("Beginning label "+label);//COMMENTS
 			labels.put(label, newStatement);
 			newStatement.label = label;
 		}
@@ -104,9 +104,9 @@ public class ProcedureBlock {
 
 	public void dissolveJumps(){
 		for(Block b: jumps.keySet()){
-//			System.out.println("Finding label "+jumps.get(b));
-//			System.out.println(" for "+b.index);
-//			System.out.println(" found "+labels.get(jumps.get(b)).index);
+			//System.out.println("Finding label "+jumps.get(b));
+			//System.out.println(" for "+b.index);
+			//System.out.println(" found "+labels.get(jumps.get(b)).index);
 			labels.get(jumps.get(b)).precede(b);
 		}
 	}
@@ -301,11 +301,11 @@ public class ProcedureBlock {
 		//System.out.println("Saving Caller . . . ");
 		for(Integer temp : this.currentStatement.out){
 			//if(!this.currentStatement.definitions.contains(temp)){ //not present in definitons
-				Interval tempInterval = this.tempMap.get(temp);
-				if(tempInterval.register.type == Type.T){
-					Register save  = new Register(incSpill(), Type.SPILLED);
-					callerSave.put(tempInterval.register, save);
-				}
+			Interval tempInterval = this.tempMap.get(temp);
+			if(tempInterval.register.type == Type.T){
+				Register save  = new Register(incSpill(), Type.SPILLED);
+				callerSave.put(tempInterval.register, save);
+			}
 			//}			
 		}
 		spillIndex = initialSpill;
@@ -349,23 +349,27 @@ public class ProcedureBlock {
 		return this.tempMap.get(Integer.parseInt(temp)).register;
 	}
 
-	public Register obtainRegister(String temp, boolean second){ //Specifically a register. Not spilled.
+	public Register obtainRegister(String temp, boolean second, boolean toLoad){ //Specifically a register. Not spilled.
 		int tempInt = Integer.parseInt(temp);
 		if(!tempMap.containsKey(tempInt)){
 			return null;
 		}
 		Register r = this.tempMap.get(tempInt).register;
-		Register v;
-		if(r.type == Type.SPILLED){
-			if(second){
-				v = new Register(1, Type.V);
+		if(toLoad){
+			Register v;
+			if(r.type == Type.SPILLED){
+				if(second){
+					v = new Register(1, Type.V);
+				}else{
+					v = new Register(0, Type.V);
+				}
+				Register.move(v, r);
 			}else{
-				v = new Register(0, Type.V);
+				v = r;
 			}
-			Register.move(v, r);
+			return v;
 		}else{
-			v = r;
+			return r;
 		}
-		return v;
 	}
 }

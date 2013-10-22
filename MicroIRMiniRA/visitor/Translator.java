@@ -98,7 +98,7 @@ public class Translator extends GJNoArguDepthFirst<String>{
 			return null;
 		}
 		else{
-			
+
 			return null;
 		}
 	}
@@ -115,7 +115,7 @@ public class Translator extends GJNoArguDepthFirst<String>{
 		currentBlock.printSpecs();
 		//Empty statement for parameters passed
 		//currentBlock.initializeArguments(n.f2.f0.toString());
-		
+
 		n.f0.accept(this);
 		n.f1.accept(this);
 		n.f2.accept(this);
@@ -149,13 +149,15 @@ public class Translator extends GJNoArguDepthFirst<String>{
 	 * f3 -> Temp()
 	 */
 	public String visit(HStoreStmt n) {
-		Register r1 = this.currentBlock.obtainRegister(n.f1.accept(this), false);
+		Register r1 = this.currentBlock.obtainRegister(n.f1.accept(this), false, true);
 		if(r1 == null){
 			return null;
 		}
-		Register r2 = this.currentBlock.obtainRegister(n.f3.accept(this), true);		
+		Register r2 = this.currentBlock.obtainRegister(n.f3.accept(this), true, true);	//Either 	some s/t or v1
+
 		print("\nHSTORE");
 		print(r1.toString());
+
 		print(n.f2.accept(this));
 		print(r2.toString());
 		return null;
@@ -168,15 +170,24 @@ public class Translator extends GJNoArguDepthFirst<String>{
 	 * f3 -> IntegerLiteral()
 	 */
 	public String visit(HLoadStmt n) {
-		Register r1 = this.currentBlock.obtainRegister(n.f1.accept(this), false);
+		Register r1 = this.currentBlock.obtainRegister(n.f1.accept(this), false, false);// s or t or SPILLED
 		if(r1 == null){
 			return null;
 		}
-		Register r2 = this.currentBlock.obtainRegister(n.f2.accept(this), true);
-		print("\nHLOAD");
-		print(r1.toString());
-		print(r2.toString());
-		print(n.f3.accept(this));
+		Register r2 = this.currentBlock.obtainRegister(n.f2.accept(this), true, true); //v1 or s or t
+		if(r1.type == Type.SPILLED){
+
+			print("\nHLOAD v0 ");
+			print(r2.toString());
+			print(n.f3.accept(this));
+			Register v = new Register(0, Type.V);
+			Register.move(r1, v);
+		}else{
+			print("\nHLOAD");
+			print(r1.toString());
+			print(r2.toString());
+			print(n.f3.accept(this));
+		}
 		return null;
 	}
 
@@ -188,14 +199,16 @@ public class Translator extends GJNoArguDepthFirst<String>{
 
 	public String visit(MoveStmt n) {
 		String temp = n.f1.accept(this);
-		Register r = this.currentBlock.obtainRegister(temp, true);
+		Register r = this.currentBlock.obtainRegister(temp, true,  false); //SPILLED or s or t
 		String  ret = n.f2.accept(this);
 		if(r==null){ //Useless move
 			return null;
 		}
-		print("\nMOVE "+r.toString()+" "+ret);
-		if(ret.compareTo("v1")==0){
+		if(r.type == Type.SPILLED){
+			print("\nMOVE v1"); print(ret);
 			Register.move(r, new Register(1,Type.V));		
+		}else{
+			print("\nMOVE "+r.toString()+" "+ret); //ret is either v0 or  HALLOCATE 4 or PLUS s0 s1
 		}
 		return null;
 	}
@@ -208,7 +221,7 @@ public class Translator extends GJNoArguDepthFirst<String>{
 		String ret = n.f1.accept(this);		
 		print("\nPRINT");
 		print(ret);
-		
+
 		return null;
 	}
 
@@ -222,7 +235,7 @@ public class Translator extends GJNoArguDepthFirst<String>{
 		return  n.f0.accept(this);
 	}
 
-	
+
 	/**
 	 * f0 -> "CALL"
 	 * f1 -> SimpleExp()
@@ -243,28 +256,28 @@ public class Translator extends GJNoArguDepthFirst<String>{
 	}
 
 
-	   public String visit(NodeListOptional n) {
-	      if ( n.present() ) {
-	         int _count=0;	         
-	         for ( Enumeration<Node> e = n.elements(); e.hasMoreElements(); ) {
-	        	 String ret = e.nextElement().accept(this);
-	        	if(called){
-	        		Register r = this.currentBlock.obtainRegister(ret, false);
-	        		if(_count<4){
-	        			Register.move(new Register(_count, Type.A), r);
-	        		}else{
-	        			int x = _count-3;
-	        			print("\nPASSARG "+x +" "+r.toString());
-	        		}
-	        	}	            
-	            _count++;
-	         }
-	         return null;
-	      }
-	      else
-	         return null;
-	   }
-	
+	public String visit(NodeListOptional n) {
+		if ( n.present() ) {
+			int _count=0;	         
+			for ( Enumeration<Node> e = n.elements(); e.hasMoreElements(); ) {
+				String ret = e.nextElement().accept(this);
+				if(called){
+					Register r = this.currentBlock.obtainRegister(ret, false, true);
+					if(_count<4){
+						Register.move(new Register(_count, Type.A), r);
+					}else{
+						int x = _count-3;
+						print("\nPASSARG "+x +" "+r.toString());
+					}
+				}	            
+				_count++;
+			}
+			return null;
+		}
+		else
+			return null;
+	}
+
 	/**
 	 * f0 -> "HALLOCATE"
 	 * f1 -> SimpleExp()
@@ -280,9 +293,9 @@ public class Translator extends GJNoArguDepthFirst<String>{
 	 * f2 -> SimpleExp()
 	 */
 	public String visit(BinOp n) {
-		
+
 		String ret = n.f2.accept(this);
-		Register r = this.currentBlock.obtainRegister(n.f1.accept(this), true);
+		Register r = this.currentBlock.obtainRegister(n.f1.accept(this), true, true);
 		String op ="";
 		switch(n.f0.f0.which){
 		case 0: op = "LT"; break;
@@ -303,7 +316,7 @@ public class Translator extends GJNoArguDepthFirst<String>{
 		unset();
 		String ret = n.f0.accept(this);
 		if(currTemp){
-			Register r = this.currentBlock.obtainRegister(ret, false);
+			Register r = this.currentBlock.obtainRegister(ret, false, true); //Always be used for loading; If storing we wouldn't have called this?
 			ret = r.toString();
 		}
 		unset();
@@ -334,75 +347,75 @@ public class Translator extends GJNoArguDepthFirst<String>{
 		return n.f0.toString();
 	}
 
-	
 
-	   /**
-	    * f0 -> "CJUMP"
-	    * f1 -> Temp()
-	    * f2 -> Label()
-	    */
-	   public String visit(CJumpStmt n) {
-		   n.f1.accept(this);
-		   Register r = this.currentBlock.obtainRegister(n.f1.accept(this),true);
-		   System.out.println("\nCJUMP "+r.toString()+" "+this.currentBlock.procedureName+"_"+n.f2.f0.toString());
-		  
-	      return null;
-	   }
 
-	   /**
-	    * f0 -> "JUMP"
-	    * f1 -> Label()
-	    */
-	   public String visit(JumpStmt n) {
-		 //this.currentBlock.jumpTo(n.f1.f0.toString());
-		 // this.currentBlock.snapFlow(); 
-		  System.out.println("\nJUMP " +this.currentBlock.procedureName+"_"+ n.f1.f0.toString());
-	      return null;
-	   }
+	/**
+	 * f0 -> "CJUMP"
+	 * f1 -> Temp()
+	 * f2 -> Label()
+	 */
+	public String visit(CJumpStmt n) {
+		n.f1.accept(this);
+		Register r = this.currentBlock.obtainRegister(n.f1.accept(this),true, true);
+		System.out.println("\nCJUMP "+r.toString()+" "+this.currentBlock.procedureName+"_"+n.f2.f0.toString());
 
-	   
-	   /**
-	    * f0 -> "BEGIN"
-	    * f1 -> StmtList()
-	    * f2 -> "RETURN"
-	    * f3 -> SimpleExp()
-	    * f4 -> "END"
-	    */
-	   public String visit(StmtExp n) {
+		return null;
+	}
+
+	/**
+	 * f0 -> "JUMP"
+	 * f1 -> Label()
+	 */
+	public String visit(JumpStmt n) {
+		//this.currentBlock.jumpTo(n.f1.f0.toString());
+		// this.currentBlock.snapFlow(); 
+		System.out.println("\nJUMP " +this.currentBlock.procedureName+"_"+ n.f1.f0.toString());
+		return null;
+	}
+
+
+	/**
+	 * f0 -> "BEGIN"
+	 * f1 -> StmtList()
+	 * f2 -> "RETURN"
+	 * f3 -> SimpleExp()
+	 * f4 -> "END"
+	 */
+	public String visit(StmtExp n) {
 		currentBlock.saveCalleeRegisters();
 		currentBlock.movArguments();		
 
-		
-	      n.f1.accept(this);
-	      n.f2.accept(this);
-	      //Return statements
-	     // this.currentBlock.unsetLabel();
-	      this.beginNewStatement();	    
-	    
-	      String ret=n.f3.accept(this);
-	      print("\nMOVE v0 "+ret);
-	  	  currentBlock.loadCalleeRegisters();
-	      print("\nEND");
-	      return null;
-	   }
 
-	   
-	   
-	   
+		n.f1.accept(this);
+		n.f2.accept(this);
+		//Return statements
+		// this.currentBlock.unsetLabel();
+		this.beginNewStatement();	    
+
+		String ret=n.f3.accept(this);
+		print("\nMOVE v0 "+ret);
+		currentBlock.loadCalleeRegisters();
+		print("\nEND");
+		return null;
+	}
+
+
+
+
 	/**
-	    * f0 -> "NOOP"
-	    */
-	   public String visit(NoOpStmt n) {
-		   System.out.println("NOOP");
-		      return null;
-	   }
+	 * f0 -> "NOOP"
+	 */
+	public String visit(NoOpStmt n) {
+		System.out.println("NOOP");
+		return null;
+	}
 
-	   /**
-	    * f0 -> "ERROR"
-	    */
-	   public String visit(ErrorStmt n) {
-		   System.out.println("ERROR");
-		      return null;
-	   }
+	/**
+	 * f0 -> "ERROR"
+	 */
+	public String visit(ErrorStmt n) {
+		System.out.println("ERROR");
+		return null;
+	}
 
 }

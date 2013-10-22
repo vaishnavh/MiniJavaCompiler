@@ -8,7 +8,7 @@ public class Register {
 		SPILLED, S, T, A, V
 	}
 	int index;
-	Type type;
+	public Type type;
 	public Register(int index, Type type){
 		this.index = index;
 		this.type = type;
