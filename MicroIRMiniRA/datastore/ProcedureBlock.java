@@ -107,7 +107,8 @@ public class ProcedureBlock {
 			//System.out.println("Finding label "+jumps.get(b));
 			//System.out.println(" for "+b.index);
 			//System.out.println(" found "+labels.get(jumps.get(b)).index);
-			labels.get(jumps.get(b)).precede(b);
+			if(labels.containsKey(jumps.get(b)))
+				labels.get(jumps.get(b)).precede(b);
 		}
 	}
 

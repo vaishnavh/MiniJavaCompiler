@@ -1,7 +1,7 @@
 <project name="MiniRA-Translator" default = "compile" basedir =".">
 	<!-- Properties -->
 	<!-- Directory Name Variables -->
-	<property name ="build" location="build"/>
+	<property name ="build" location="."/>
 	<property name ="visitor" value="visitor"/>
 	<property name ="datastore" value = "datastore"/>
 	<property name ="syntaxtree" value = "syntaxtree"/>
