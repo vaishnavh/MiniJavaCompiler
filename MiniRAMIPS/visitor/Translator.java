@@ -78,7 +78,7 @@ public class Translator extends GJNoArguDepthFirst<String>{
 	public String visit(NodeOptional n) {
 		if ( n.present() )
 		{
-			print("\n"+n.node.accept(this)+"\t");
+			print("\n"+n.node.accept(this)+":\t");
 			return null;
 		}
 			
@@ -295,12 +295,23 @@ public class Translator extends GJNoArguDepthFirst<String>{
 	 * f1 -> Reg()
 	 * f2 -> Exp()
 	 */
+	
+
 	//TODO
 	public String visit(MoveStmt n) {
 		String _ret=null;
-		n.f0.accept(this);
-		n.f1.accept(this);
-		n.f2.accept(this);
+		switch(n.f2.f0.which){
+		case 0:	n.f2.accept(this); //Priint Hallocate
+				instruct("move "+n.f1.accept(this)+", v0");
+				break;
+		case 1: //An expression
+				this.to = n.f1.accept(this);
+				n.f2.accept(this);
+			    break;
+		case 2: instruct("move "+n.f1.accept(this)+", "+n.f2.accept(this));
+			    break;
+		}
+		
 		return _ret;
 	}
 
@@ -370,9 +381,8 @@ public class Translator extends GJNoArguDepthFirst<String>{
 	
 	//TODO
 	public String visit(Exp n) {
-		String _ret=null;
-		n.f0.accept(this);
-		return _ret;
+		
+		return n.f0.accept(this);
 	}
 
 	/**
@@ -388,17 +398,28 @@ public class Translator extends GJNoArguDepthFirst<String>{
 		return "v0";
 	}
 
+	String to, op;
 	/**
 	 * f0 -> Operator()
 	 * f1 -> Reg()
 	 * f2 -> SimpleExp()
 	 */
+	
 	public String visit(BinOp n) {
 		//TODO
 		String _ret=null;
-		n.f0.accept(this);
-		n.f1.accept(this);
-		n.f2.accept(this);
+		switch(n.f0.f0.which){
+		case 0: op = "slt";//instruct("slt "+this.to+", "+n.f1.accept(this)+n.f2.accept(this));
+		case 1: op = "add";
+		case 2: op = "sub";
+		case 3: op = "mul";
+		case 4: op = "or";
+		case 5: op = "and";
+		case 6: op = "sll";
+		case 7: op = "srl";
+		case 8: op = "xor";
+		}
+		instruct(op+" "+to+", "+n.f1.accept(this)+", "+n.f2.accept(this));
 		return _ret;
 	}
 
