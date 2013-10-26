@@ -1,0 +1,372 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<!-- saved from url=(0053)http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>BNF for miniRA.jj</title>
+</head>
+<body>
+<h1 align="CENTER">BNF for miniRA.jj</h1>
+<table>
+<tbody><tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod1">Goal</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">"MAIN" "[" <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod2">IntegerLiteral</a> "]" "[" <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod2">IntegerLiteral</a> "]" "[" <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod2">IntegerLiteral</a> "]" <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod3">StmtList</a> "END" ( <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod4">Procedure</a> )* <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod5">VariablePackingInfo</a> &lt;EOF&gt;</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod3">StmtList</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">( ( <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod6">Label</a> )? <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod7">Stmt</a> )*</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod4">Procedure</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod6">Label</a> "[" <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod2">IntegerLiteral</a> "]" "[" <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod2">IntegerLiteral</a> "]" "[" <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod2">IntegerLiteral</a> "]" <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod3">StmtList</a> "END"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod7">Stmt</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod8">NoOpStmt</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod9">ErrorStmt</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod10">CJumpStmt</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod11">JumpStmt</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod12">HStoreStmt</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod13">HLoadStmt</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod14">MoveStmt</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod15">PrintStmt</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod16">ALoadStmt</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod17">AStoreStmt</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod18">PassArgStmt</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod19">CallStmt</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod8">NoOpStmt</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">"NOOP"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod9">ErrorStmt</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">"ERROR"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod10">CJumpStmt</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">"CJUMP" <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod20">Reg</a> <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod6">Label</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod11">JumpStmt</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">"JUMP" <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod6">Label</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod12">HStoreStmt</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">"HSTORE" <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod20">Reg</a> <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod2">IntegerLiteral</a> <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod20">Reg</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod13">HLoadStmt</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">"HLOAD" <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod20">Reg</a> <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod20">Reg</a> <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod2">IntegerLiteral</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod14">MoveStmt</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">"MOVE" <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod20">Reg</a> <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod21">Exp</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod15">PrintStmt</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">"PRINT" <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod22">SimpleExp</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod16">ALoadStmt</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">"ALOAD" <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod20">Reg</a> <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod23">SpilledArg</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod17">AStoreStmt</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">"ASTORE" <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod23">SpilledArg</a> <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod20">Reg</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod18">PassArgStmt</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">"PASSARG" <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod2">IntegerLiteral</a> <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod20">Reg</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod19">CallStmt</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">"CALL" <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod22">SimpleExp</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod21">Exp</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod24">HAllocate</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod25">BinOp</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod22">SimpleExp</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod24">HAllocate</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">"HALLOCATE" <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod22">SimpleExp</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod25">BinOp</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod26">Operator</a> <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod20">Reg</a> <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod22">SimpleExp</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod26">Operator</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">"LT"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"PLUS"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"MINUS"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"TIMES"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"BITOR"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"BITAND"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"LSHIFT"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"RSHIFT"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"BITXOR"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod23">SpilledArg</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">"SPILLEDARG" <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod2">IntegerLiteral</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod22">SimpleExp</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod20">Reg</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod2">IntegerLiteral</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod6">Label</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod20">Reg</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">"a0"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"a1"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"a2"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"a3"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"t0"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"t1"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"t2"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"t3"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"t4"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"t5"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"t6"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"t7"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"s0"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"s1"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"s2"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"s3"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"s4"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"s5"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"s6"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"s7"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"t8"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"t9"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"v0"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"v1"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod2">IntegerLiteral</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">&lt;INTEGER_LITERAL&gt;</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod6">Label</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">&lt;IDENTIFIER&gt;</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod5">VariablePackingInfo</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">"// Number of  vars after packing =" <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod2">IntegerLiteral</a>"; Number of Spilled vars =" <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/miniRA.html#prod2">IntegerLiteral</a></td>
+</tr>
+</tbody></table>
+
+
+</body></html>

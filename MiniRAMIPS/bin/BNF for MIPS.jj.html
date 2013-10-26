@@ -1,0 +1,2479 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<!-- saved from url=(0051)http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>BNF for MIPS.jj</title>
+</head>
+<body>
+<h1 align="CENTER">BNF for MIPS.jj</h1>
+<h2 align="CENTER">NON-TERMINALS</h2>
+<table>
+<tbody><tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod1">Goal</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod2">StmtList</a> &lt;EOF&gt;</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod2">StmtList</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod3">Stmt</a> ( <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod2">StmtList</a> )?</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod3">Stmt</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod4">Stat</a> ( ";" )?</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod4">Stat</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod5">Label</a> <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod6">Instruction</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod5">Label</a> <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod7">Data</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod5">Label</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod6">Instruction</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod7">Data</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod8">SymDef</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod9">Directive</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod5">Label</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">&lt;IDENTIFIER_COLON&gt;</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">&lt;DECIMAL_COLON&gt;</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod6">Instruction</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod10">OpCode</a> ( <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod11">Operand</a> ( "," <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod11">Operand</a> ( "," <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod11">Operand</a> )? )? )?</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod11">Operand</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod12">Register</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"(" <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod12">Register</a> ")"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod13">FloatRegister</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod14">AddrImmed</a> ( "(" <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod12">Register</a> ")" )?</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">&lt;FLOAT&gt;</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod12">Register</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">&lt;DOLLAR_DECIMAL&gt;</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod15">RegisterName</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod16">DollarRegisterName</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod13">FloatRegister</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">&lt;DOLLAR_F_DECIMAL&gt;</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod14">AddrImmed</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod17">LabelExpr</a> ( ( "+" | "-" ) <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod18">Expr</a> )?</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod18">Expr</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod17">LabelExpr</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod19">LabelRef</a> ( "-" <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod19">LabelRef</a> )?</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod19">LabelRef</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">&lt;DECIMAL_B&gt;</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">&lt;DECIMAL_F&gt;</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">&lt;IDENTIFIER&gt;</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"."</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod7">Data</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod20">DataMode</a> <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod21">DataList</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">".ascii" &lt;STRING&gt;</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">".asciiz" &lt;STRING&gt;</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">".space" <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod18">Expr</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod20">DataMode</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">".byte"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">".half"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">".word"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">".float"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">".double"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod21">DataList</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod22">DataExpr</a> ( "," <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod21">DataList</a> )*</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod22">DataExpr</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod18">Expr</a> ( ":" <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod18">Expr</a> )?</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">&lt;FLOAT&gt; ( ":" &lt;FLOAT&gt; )?</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod8">SymDef</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">&lt;IDENTIFIER_EQUAL&gt; <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod18">Expr</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod9">Directive</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod23">SetDir</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod24">SegmentDir</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod25">AlignDir</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod26">SymbolDir</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod27">BlockDir</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod28">CompilerDir</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod23">SetDir</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">".set" <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod29">SetDirArgs</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod29">SetDirArgs</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">"volatile"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"novolatile"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"reorder"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"noreorder"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"at"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"noat"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"macro"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"nomacro"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"bopt"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"nobopt"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"move"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"nomove"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod24">SegmentDir</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">".text"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">".data"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">".rdata"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">".sdata"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod25">AlignDir</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">".align" <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod18">Expr</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod26">SymbolDir</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">".globl" &lt;IDENTIFIER&gt;</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">".extern" &lt;IDENTIFIER&gt; "," <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod30">Constant</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">".comm" &lt;IDENTIFIER&gt; "," <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod30">Constant</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">".lcomm" &lt;IDENTIFIER&gt; "," <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod30">Constant</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod27">BlockDir</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">".ent" &lt;IDENTIFIER&gt; ( "," <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod30">Constant</a> )?</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">".aent" &lt;IDENTIFIER&gt; "," <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod30">Constant</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">".mask" <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod18">Expr</a> "," <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod18">Expr</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">".fmask" <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod18">Expr</a> "," <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod18">Expr</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">".frame" <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod12">Register</a> "," <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod18">Expr</a> "," <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod12">Register</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">".end" ( &lt;IDENTIFIER&gt; )?</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod28">CompilerDir</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">".alias" <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod12">Register</a> "," <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod12">Register</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">".bgnb" <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod18">Expr</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">".endb" <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod18">Expr</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">".file" <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod30">Constant</a> &lt;STRING&gt;</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">".galive"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">".gjaldef"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">".gjrlive"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">".lab" &lt;IDENTIFIER&gt;</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">".livereg" <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod18">Expr</a> "," <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod18">Expr</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">".noalias" <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod12">Register</a> "," <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod12">Register</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">".option" "flag"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">".verstamp" <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod30">Constant</a> <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod30">Constant</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">".vreg" <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod18">Expr</a> "," <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod18">Expr</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod18">Expr</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod31">Term</a> <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod32">Expr_</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod32">Expr_</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">( <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod33">BinaryOp</a> <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod18">Expr</a> <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod32">Expr_</a> )*</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod31">Term</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod34">UnaryOp</a> <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod31">Term</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod35">Primary</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod35">Primary</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE"><a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod30">Constant</a></td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"(" <a href="http://www.cse.iitm.ac.in/~krishna/cs3300/mips.html#prod18">Expr</a> ")"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod33">BinaryOp</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">"*"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"/"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"%"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"+"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"-"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"&lt;&lt;"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"&gt;&gt;"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"&amp;"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"^"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"|"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod34">UnaryOp</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">"+"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"-"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"~"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"!"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod30">Constant</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">&lt;DECIMAL&gt;</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">&lt;HEXADECIMAL&gt;</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">&lt;OCTAL&gt;</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">&lt;CHARACTER&gt;</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">&lt;IDENTIFIER&gt;</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod15">RegisterName</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">"zero"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"at"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"v0"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"v1"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"a0"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"a1"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"a2"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"a3"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"t0"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"t1"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"t2"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"t3"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"t4"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"t5"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"t6"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"t7"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"s0"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"s1"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"s2"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"s3"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"s4"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"s5"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"s6"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"s7"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"t8"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"t9"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"k0"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"k1"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"gp"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"sp"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"s8"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"fp"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"ra"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod16">DollarRegisterName</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">"$zero"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"$at"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"$v0"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"$v1"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"$a0"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"$a1"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"$a2"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"$a3"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"$t0"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"$t1"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"$t2"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"$t3"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"$t4"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"$t5"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"$t6"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"$t7"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"$s0"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"$s1"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"$s2"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"$s3"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"$s4"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"$s5"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"$s6"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"$s7"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"$t8"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"$t9"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"$k0"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"$k1"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"$gp"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"$sp"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"$s8"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"$fp"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"$ra"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"><a name="prod10">OpCode</a></td>
+<td align="CENTER" valign="BASELINE">::=</td>
+<td align="LEFT" valign="BASELINE">"abs"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"add"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"addciu"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"addu"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"and"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"b"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"bal"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"bc0f"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"bc0fl"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"bc0t"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"bc0tlbc1f"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"bc1fl"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"bc1t"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"bc1tl"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"bc2f"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"bc2fl"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"bc2t"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"bc2tl"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"beq"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"beql"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"beqz"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"beqzl"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"bge"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"bgel"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"bgeu"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"bgeul"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"bgez"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"bgezal"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"bgezall"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"bgezl"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"bgt"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"bgtl"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"bgtu"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"bgtul"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"bgtz"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"bgtzl"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"ble"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"blel"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"bleu"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"bleul"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"blez"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"blezl"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"blt"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"bltl"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"bltu"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"bltul"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"bltz"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"bltzal"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"bltzall"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"bltzl"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"bne"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"bnel"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"bnez"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"bnezl"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"break"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"cache"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"cfc0"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"cfc1"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"cfc2"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"ctc0"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"ctc1"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"ctc2"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"dabs"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"dadd"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"daddi"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"daddiu"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"daddu"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"ddiv"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"ddivd"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"ddivdu"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"ddivu"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"div"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"divd"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"divdu"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"divo"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"divou"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"divu"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"dla"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"dli"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"dmadd16"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"dmfc0"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"dmfc1"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"dmfc2"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"dmtc0"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"dmtc1"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"dmtc2"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"dmul"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"dmulo"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"dmulou"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"dmult"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"dmultu"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"dneg"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"dnegu"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"drem"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"dremu"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"dret"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"drol"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"dror"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"dsll"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"dsllv"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"dsll32"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"dsra"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"dsra32"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"dsrl"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"dsrlv"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"dsrl32"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"dsub"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"dsubu"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"eret"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"ffc"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"ffs"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"flushd"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"j"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"jr"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"jal"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"jalr"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"la"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"lb"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"lbu"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"ld"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"ldl"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"ldr"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"ldxc1"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"lh"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"lhu"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"li"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"ll"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"lld"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"lui"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"lw"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"lwc1"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"lwl"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"lwr"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"lwu"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"lwxc1"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"madd"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"maddu"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"mad"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"madu"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"madd16"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"max"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"mfc0"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"mfc1"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"mfc2"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"mfhi"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"mflo"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"min"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"move"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"movf"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"movn"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"movt"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"movz"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"msub"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"msubu"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"mtc0"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"mtc1"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"mtc2"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"mthi"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"mtlo"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"mul"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"mulu"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"mulo"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"mulou"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"mult"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"multu"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"neg"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"negu"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"nop"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"nor"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"not"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"or"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"ori"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"pref"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"prefx"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"r2u"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"radd"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"rem"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"remu"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"rfe"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"rmul"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"rol"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"ror"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"rsub"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"sb"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"sc"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"scd"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"sd"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"sdbbp"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"sdc1"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"sdl"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"sdr"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"sdxc1"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"selsl"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"selsr"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"seq"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"sge"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"sgeu"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"sgt"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"sgtu"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"sh"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"sle"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"sleu"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"sll"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"sllv"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"slt"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"slti"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"sltiu"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"sltu"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"sne"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"sra"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"srav"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"srl"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"srlv"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"standby"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"sub"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"subu"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"suspend"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"sw"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"swc1"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"swl"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"swr"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"swxc1"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"sync"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"syscall"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"teq"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"teqi"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"tge"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"tgei"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"tgeiu"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"tgeu"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"tlbp"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"tlbr"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"tlbwi"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"tlbwr"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"tlt"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"tlti"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"tltiu"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"tltu"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"tne"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"tnei"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"u2r"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"uld"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"ulh"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"ulhu"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"ulw"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"usd"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"ushusw"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"waiti"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"wb"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"xor"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"xori"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"abs.s"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"add.s"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"c.eq.s"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"c.f.s"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"c.le.s"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"c.lt.s"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"c.nge.s"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"c.ngl.s"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"c.ngt.s"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"c.ole.s"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"c.olt.s"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"c.seq.s"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"c.sf.s"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"c.ueq.s"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"c.ule.s"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"c.ult.s"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"c.un.s"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"ceil.l.d"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"ceil.l.s"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"ceil.w.d"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"ceil.w.s"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"cvt.d.l"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"cvt.d.s"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"cvt.d.w"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"cvt.l.d"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"cvt.l.s"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"cvt.s.d"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"cvt.s.l"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"cvt.s.w"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"cvt.w.d"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"cvt.w.s"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"div.s"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"floor.l.d"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"floor.l.s"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"floor.w.d"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"floor.w.s"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"l.d"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"l.s"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"ldc1"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"madd.s"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"mov.s"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"movf.s"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"movn.s"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"movt.s"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"movz.s"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"msub.s"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"mul.s"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"neg.s"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"nmadd.s"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"nmsub.s"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"recip.s"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"round.l.d"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"round.l.s"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"round.w.d"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"round.w.s"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"rsqrt.s"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"s.d"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"s.s"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"sqrt.s"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"sub.s"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"trunc.l.d"</td>
+</tr>
+<tr>
+<td align="RIGHT" valign="BASELINE"></td>
+<td align="CENTER" valign="BASELINE">|</td>
+<td align="LEFT" valign="BASELINE">"trunc.l.s"</td>
+</tr>
+</tbody></table>
+
+
+</body></html>
