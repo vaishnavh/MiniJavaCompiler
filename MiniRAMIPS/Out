@@ -1,0 +1,62 @@
+	.text
+	.globl	main
+main:
+	move $fp, $sp 
+	move $fp, $sp
+	subu $sp, $sp, 4
+	sw $ra, -4($fp)
+	sw $t2 0($t0)
+	sw $t0 0($t1)
+	lw $t1 0($t0)
+	lw $t2 0($t1)
+	move $a0, $t3
+	jal _print
+	lw $ra, -4($fp)
+	addu $sp, $sp, 4
+	j $ra
+
+	.text
+	.globl	 Fac_ComputeFac 
+ Fac_ComputeFac : 
+	sw $fp, -8($sp)
+	move $fp, $sp
+	subu $sp, $sp, 20
+	sw $ra, -4($fp)
+	lw $s0, 0($sp)
+	lw $s1, 4($sp)
+	lw $s2, 8($sp)
+	beqz $t1 L2
+	b L3
+L2	 
+	nop
+	lw $t1 0($t0)
+	lw $t2 0($t1)
+L3	 
+	nop
+	lw $s0, 0($sp)
+	lw $s1, 4($sp)
+	lw $s2, 8($sp)
+	lw $ra, -4($fp)
+	lw $fp, 12($sp)
+	addu $sp, $sp, 20
+	j $ra         .text
+         .globl _halloc
+_halloc:
+         li $v0, 9
+         syscall
+         j $ra         .text
+         .globl _print
+_print:
+         li $v0, 1
+         syscall
+         la $a0, newl
+         li $v0, 4
+         syscall
+         j $ra
+
+         .data
+         .align   0
+newl:    .asciiz "\n"
+         .data
+         .align   0
+str_er:  .asciiz " ERROR: abnormal termination\n"

@@ -405,6 +405,6 @@ void Label() :
 void VariablePackingInfo() :
 {}
 {
-   "// Number of  vars after packing =" IntegerLiteral()"; Number of Spilled vars =" IntegerLiteral() 
+   "// Number of vars after packing =" IntegerLiteral()"; Number of Spilled vars =" IntegerLiteral() 
 }
 
