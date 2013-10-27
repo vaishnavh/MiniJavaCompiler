@@ -1088,7 +1088,7 @@ L55    NOOP
        MOVE t0 s1
        HLOAD t1 t0 0
        HLOAD t2 t1 12
-       OVE a0 t0
+       MOVE a0 t0
        CALL t2
        MOVE t1 v0
        MOVE a0 s2
@@ -1251,4 +1251,4 @@ L65    NOOP
        ALOAD s0 SPILLEDARG 0
        ALOAD s1 SPILLEDARG 1
 END
-// Number of vars after packing = 0; Number of Spilled vars = 0
+// Number of  vars after packing = 0; Number of Spilled vars = 0

@@ -119,12 +119,23 @@ public class Translator extends GJNoArguDepthFirst<String>{
 	 * f13 -> VariablePackingInfo()
 	 * f14 -> <EOF>
 	 */
+	
+	Integer stackSize ;
+	Integer argSize;
+	Integer maxArgSize;
+	Integer moveSP; //ra - fp - stackSize
+	
 	public String visit(Goal n) {
-		Integer stackSize = 4*Integer.parseInt(n.f5.f0.toString());
-		Integer argSize = 4*Integer.parseInt(n.f2.f0.toString());
-		Integer maxArgSize = 4*Integer.parseInt(n.f8.f0.toString());
-		Integer moveSP = 4+stackSize; //ra - fp - stackSize
-		print("\t.text\n\t.globl\tmain\nmain:\n\tmove $fp, $sp");
+		stackSize = 4*Integer.parseInt(n.f5.f0.toString());
+		argSize = 4*Integer.parseInt(n.f2.f0.toString());
+		maxArgSize = 4*Integer.parseInt(n.f8.f0.toString());
+		moveSP = 8 + stackSize + maxArgSize; //ra - fp - stackSize
+		if(maxArgSize <= 16){
+			moveSP = moveSP - maxArgSize;
+		}else{
+			moveSP = moveSP - 16;
+		}
+		print("\t.text\n\t.globl\tmain\nmain:\n");
 		instruct("move $fp, $sp");
 		instruct("subu $sp, $sp, "+moveSP);
 		instruct("sw $ra, -4($fp)");
@@ -143,7 +154,7 @@ public class Translator extends GJNoArguDepthFirst<String>{
 		n.f11.accept(this);
 		instruct("lw $ra, -4($fp)");
 		instruct("addu $sp, $sp, "+moveSP);
-		instruct("j $ra");
+		instruct("jr $ra");
 		n.f12.accept(this);
 		n.f13.accept(this);
 		n.f14.accept(this);
@@ -175,10 +186,15 @@ public class Translator extends GJNoArguDepthFirst<String>{
 	 * f11 -> "END"
 	 */
 	public String visit(Procedure n) {
-		Integer stackSize = 4*Integer.parseInt(n.f5.f0.toString());
-		Integer argSize = 4*Integer.parseInt(n.f2.f0.toString());
-		Integer maxArgSize = 4*Integer.parseInt(n.f8.f0.toString());
-		Integer moveSP = 8+stackSize; //ra - fp - stackSize
+		stackSize = 4*Integer.parseInt(n.f5.f0.toString());
+		argSize = 4*Integer.parseInt(n.f2.f0.toString());
+		maxArgSize = 4*Integer.parseInt(n.f8.f0.toString());
+		moveSP = 8 + stackSize + maxArgSize; //ra - fp - stackSize
+		if(maxArgSize <= 16){
+			moveSP = moveSP - maxArgSize;
+		}else{
+			moveSP = moveSP - 16;
+		}
 		print("\n\n\t.text\n\t.globl\t");
 		String procName = n.f0.f0.toString();
 		print(procName);
@@ -204,7 +220,7 @@ public class Translator extends GJNoArguDepthFirst<String>{
 		instruct("lw $ra, -4($fp)");
 		instruct("lw $fp, "+stackSize+"($sp)");
 		instruct("addu $sp, $sp, "+moveSP);
-		instruct("j $ra");
+		instruct("jr $ra");
 		return null;
 	}
 
@@ -302,13 +318,22 @@ public class Translator extends GJNoArguDepthFirst<String>{
 		String _ret=null;
 		switch(n.f2.f0.which){
 		case 0:	n.f2.accept(this); //Priint Hallocate
-				instruct("move "+n.f1.accept(this)+", v0");
+				instruct("move "+n.f1.accept(this)+", $v0");
 				break;
 		case 1: //An expression
+				
 				this.to = n.f1.accept(this);
 				n.f2.accept(this);
 			    break;
-		case 2: instruct("move "+n.f1.accept(this)+", "+n.f2.accept(this));
+		case 2:label = false;
+				intValue = false;
+				String ret = n.f2.accept(this);
+				if(label){
+					instruct("la "+n.f1.accept(this)+", "+n.f2.accept(this));
+				}else if(intValue){
+					instruct("li "+n.f1.accept(this)+", "+n.f2.accept(this));
+				}else
+					instruct("move "+n.f1.accept(this)+", "+n.f2.accept(this));
 			    break;
 		}
 		
@@ -344,7 +369,7 @@ public class Translator extends GJNoArguDepthFirst<String>{
 	 */
 	public String visit(AStoreStmt n) {
 		String _ret=null;
-		instruct("lw "+n.f2.accept(this)+", "+n.f1.accept(this));
+		instruct("sw "+n.f2.accept(this)+", "+n.f1.accept(this));
 
 		return _ret;
 	}
@@ -356,7 +381,7 @@ public class Translator extends GJNoArguDepthFirst<String>{
 	 */
 	public String visit(PassArgStmt n) {
 		String _ret=null;
-		Integer pos = 4*Integer.parseInt(n.f1.toString());
+		Integer pos = 4*Integer.parseInt(n.f1.f0.toString())-4;
 		instruct("sw "+n.f2.accept(this)+", "+pos+"($sp)");
 		return _ret;
 	}
@@ -395,7 +420,7 @@ public class Translator extends GJNoArguDepthFirst<String>{
 		n.f1.accept(this);
 		instruct("li $a0, "+n.f1.accept(this));
 		instruct("jal _halloc");
-		return "v0";
+		return "$v0";
 	}
 
 	String to, op;
@@ -409,14 +434,14 @@ public class Translator extends GJNoArguDepthFirst<String>{
 		//TODO
 		String _ret=null;
 		switch(n.f0.f0.which){
-		case 0: op = "slt";//instruct("slt "+this.to+", "+n.f1.accept(this)+n.f2.accept(this));
-		case 1: op = "add";
-		case 2: op = "sub";
-		case 3: op = "mul";
-		case 4: op = "or";
-		case 5: op = "and";
-		case 6: op = "sll";
-		case 7: op = "srl";
+		case 0: op = "slt"; break;//instruct("slt "+this.to+", "+n.f1.accept(this)+n.f2.accept(this));
+		case 1: op = "add";break;
+		case 2: op = "sub";break;
+		case 3: op = "mul";break;
+		case 4: op = "or";break;
+		case 5: op = "and";break;
+		case 6: op = "sll";break;
+		case 7: op = "srl";break;
 		case 8: op = "xor";
 		}
 		instruct(op+" "+to+", "+n.f1.accept(this)+", "+n.f2.accept(this));
@@ -450,6 +475,12 @@ public class Translator extends GJNoArguDepthFirst<String>{
 		n.f0.accept(this);
 		n.f1.accept(this);
 		Integer pos = 4*Integer.parseInt(n.f1.f0.toString());
+		if(argSize>16 && pos < argSize-16){
+			return pos+"($fp)";
+		}
+		else if (maxArgSize > 16){
+			 pos = pos + maxArgSize - 16;
+		}
 		return pos+"($sp)";
 	}
 
@@ -458,9 +489,19 @@ public class Translator extends GJNoArguDepthFirst<String>{
 	 *       | IntegerLiteral()
 	 *       | Label()
 	 */
+	boolean label, intValue;
 	public String visit(SimpleExp n) {
+		if(n.f0.which == 2){
+			label = true;
+		}	else{
+			label = false;
+		}
 		
-	
+		if(n.f0.which == 1){
+			intValue = true;
+		}else {
+			intValue = false;
+		}
 		return n.f0.accept(this);
 	}
 

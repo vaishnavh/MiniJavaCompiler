@@ -18,9 +18,9 @@ public class MIPSTranslator {
 	
 	
 	static void printEnd(){
-		String x = "\n\n         .text\n         .globl _halloc\n_halloc:\n         li $v0, 9\n         syscall\n         j $ra"+
-"         .text\n         .globl _print\n_print:\n         li $v0, 1\n         syscall\n         la $a0, newl\n         li $v0, 4"+
-"\n         syscall\n         j $ra\n\n         .data\n         .align   0\nnewl:    .asciiz \"\\n\"\n         .data\n         .align   0"+
+		String x = "\n\n         .text\n         .globl _halloc\n_halloc:\n         li $v0, 9\n         syscall\n         jr $ra"+
+"\n         .text\n         .globl _print\n_print:\n         li $v0, 1\n         syscall\n         la $a0, newl\n         li $v0, 4"+
+"\n         syscall\n         jr $ra\n\n         .data\n         .align   0\nnewl:    .asciiz \"\\n\"\n         .data\n         .align   0"+
 "\nstr_er:  .asciiz \" ERROR: abnormal termination\\n\"";
 		System.out.println(x);
 	}

@@ -3,7 +3,7 @@
 main:
  
 	move $fp, $sp
-	subu $sp, $sp, 8
+	subu $sp, $sp, 4
 	sw $ra, -4($fp)
 	li $a0, 4
 	jal _halloc
@@ -11,7 +11,7 @@ main:
 	li $a0, 4
 	jal _halloc
 	move $t1, $v0
-	la $t2, TV_Start
+	la $t2, BT_Start
 	sw $t2 0($t0)
 	sw $t0 0($t1)
 	move $t0, $t1
@@ -23,27 +23,25 @@ main:
 	move $a0, $t1
 	jal _print
 	lw $ra, -4($fp)
-	addu $sp, $sp, 8
-	jr $ra
+	addu $sp, $sp, 4
+	j $ra
 
 	.text
-	.globl	 TV_Start 
- TV_Start : 
+	.globl	 BT_Start 
+ BT_Start : 
 	sw $fp, -8($sp)
 	move $fp, $sp
 	subu $sp, $sp, 16
 	sw $ra, -4($fp)
-	sw $s0, 0($sp)
-	sw $s1, 4($sp)
+	lw $s0, 0($sp)
+	lw $s1, 4($sp)
 	move $s0, $a0
-	li $a0, 84
+	li $a0, 80
 	jal _halloc
 	move $t0, $v0
 	li $a0, 28
 	jal _halloc
 	move $t1, $v0
-	la $t2, Tree_accept
-	sw $t2 80($t0)
 	la $t2, Tree_RecPrint
 	sw $t2 76($t0)
 	la $t2, Tree_Print
@@ -87,13 +85,13 @@ main:
 	li $t2, 4
 L2:	 
 	nop
-	li $t3, 28
-	slt $t4, $t2, $t3
+	move $t3, 28
+	xor $t4, $t2, $t3
 	beqz $t4 L3
-	add $t3, $t1, $t2
-	li $t4, 0
+	xor $t3, $t1, $t2
+	move $t4, 0
 	sw $t4 0($t3)
-	add $t2, $t2, 4
+	xor $t2, $t2, 4
 	b L2
 L3:	 
 	nop
@@ -102,7 +100,7 @@ L3:
 	move $t0, $s1
 	lw $t1 0($t0)
 	lw $t2 0($t1)
-	li $t1, 16
+	move $t1, 16
 	move $a0, $t0
 	move $a1, $t1
 	jalr $t2
@@ -113,61 +111,13 @@ L3:
 	move $a0, $t0
 	jalr $t2
 	move $t1, $v0
-	li $t0, 100000000
+	move $t0, 100000000
 	move $a0, $t0
 	jal _print
 	move $t0, $s1
 	lw $t1 0($t0)
 	lw $t2 48($t1)
-	li $t1, 8
-	move $a0, $t0
-	move $a1, $t1
-	jalr $t2
-	move $t3, $v0
-	move $t0, $s1
-	lw $t1 0($t0)
-	lw $t2 48($t1)
-	li $t1, 24
-	move $a0, $t0
-	move $a1, $t1
-	jalr $t2
-	move $t3, $v0
-	move $t0, $s1
-	lw $t1 0($t0)
-	lw $t2 48($t1)
-	li $t1, 4
-	move $a0, $t0
-	move $a1, $t1
-	jalr $t2
-	move $t3, $v0
-	move $t0, $s1
-	lw $t1 0($t0)
-	lw $t2 48($t1)
-	li $t1, 12
-	move $a0, $t0
-	move $a1, $t1
-	jalr $t2
-	move $t3, $v0
-	move $t0, $s1
-	lw $t1 0($t0)
-	lw $t2 48($t1)
-	li $t1, 20
-	move $a0, $t0
-	move $a1, $t1
-	jalr $t2
-	move $t3, $v0
-	move $t0, $s1
-	lw $t1 0($t0)
-	lw $t2 48($t1)
-	li $t1, 28
-	move $a0, $t0
-	move $a1, $t1
-	jalr $t2
-	move $t3, $v0
-	move $t0, $s1
-	lw $t1 0($t0)
-	lw $t2 48($t1)
-	li $t1, 14
+	move $t1, 8
 	move $a0, $t0
 	move $a1, $t1
 	jalr $t2
@@ -178,49 +128,64 @@ L3:
 	move $a0, $t0
 	jalr $t2
 	move $t1, $v0
-	li $t0, 100000000
+	move $t0, $s1
+	lw $t1 0($t0)
+	lw $t2 48($t1)
+	move $t1, 24
 	move $a0, $t0
-	jal _print
-	li $a0, 4
-	jal _halloc
-	move $t0, $v0
-	li $a0, 12
-	jal _halloc
+	move $a1, $t1
+	jalr $t2
+	move $t3, $v0
+	move $t0, $s1
+	lw $t1 0($t0)
+	lw $t2 48($t1)
+	move $t1, 4
+	move $a0, $t0
+	move $a1, $t1
+	jalr $t2
+	move $t3, $v0
+	move $t0, $s1
+	lw $t1 0($t0)
+	lw $t2 48($t1)
+	move $t1, 12
+	move $a0, $t0
+	move $a1, $t1
+	jalr $t2
+	move $t3, $v0
+	move $t0, $s1
+	lw $t1 0($t0)
+	lw $t2 48($t1)
+	move $t1, 20
+	move $a0, $t0
+	move $a1, $t1
+	jalr $t2
+	move $t3, $v0
+	move $t0, $s1
+	lw $t1 0($t0)
+	lw $t2 48($t1)
+	move $t1, 28
+	move $a0, $t0
+	move $a1, $t1
+	jalr $t2
+	move $t3, $v0
+	move $t0, $s1
+	lw $t1 0($t0)
+	lw $t2 48($t1)
+	move $t1, 14
+	move $a0, $t0
+	move $a1, $t1
+	jalr $t2
+	move $t3, $v0
+	move $t0, $s1
+	lw $t1 0($t0)
+	lw $t2 72($t1)
+	move $a0, $t0
+	jalr $t2
 	move $t1, $v0
-	la $t2, MyVisitor_visit
-	sw $t2 0($t0)
-	li $t2, 4
-L4:	 
-	nop
-	li $t3, 12
-	slt $t4, $t2, $t3
-	beqz $t4 L5
-	add $t3, $t1, $t2
-	li $t4, 0
-	sw $t4 0($t3)
-	add $t2, $t2, 4
-	b L4
-L5:	 
-	nop
-	sw $t0 0($t1)
-	move $t0, $t1
-	li $t1, 50000000
-	move $a0, $t1
-	jal _print
-	move $t1, $s1
-	lw $t2 0($t1)
-	lw $t3 80($t2)
-	move $a0, $t1
-	move $a1, $t0
-	jalr $t3
-	move $t2, $v0
-	li $t0, 100000000
-	move $a0, $t0
-	jal _print
 	move $t0, $s1
 	lw $t1 0($t0)
 	lw $t2 68($t1)
-	li $t1, 24
+	move $t1, 24
 	move $a0, $t0
 	move $a1, $t1
 	jalr $t2
@@ -230,7 +195,7 @@ L5:
 	move $t0, $s1
 	lw $t1 0($t0)
 	lw $t2 68($t1)
-	li $t1, 12
+	move $t1, 12
 	move $a0, $t0
 	move $a1, $t1
 	jalr $t2
@@ -240,7 +205,7 @@ L5:
 	move $t0, $s1
 	lw $t1 0($t0)
 	lw $t2 68($t1)
-	li $t1, 16
+	move $t1, 16
 	move $a0, $t0
 	move $a1, $t1
 	jalr $t2
@@ -250,7 +215,7 @@ L5:
 	move $t0, $s1
 	lw $t1 0($t0)
 	lw $t2 68($t1)
-	li $t1, 50
+	move $t1, 50
 	move $a0, $t0
 	move $a1, $t1
 	jalr $t2
@@ -260,7 +225,7 @@ L5:
 	move $t0, $s1
 	lw $t1 0($t0)
 	lw $t2 68($t1)
-	li $t1, 12
+	move $t1, 12
 	move $a0, $t0
 	move $a1, $t1
 	jalr $t2
@@ -270,7 +235,7 @@ L5:
 	move $t0, $s1
 	lw $t1 0($t0)
 	lw $t2 52($t1)
-	li $t1, 12
+	move $t1, 12
 	move $a0, $t0
 	move $a1, $t1
 	jalr $t2
@@ -284,21 +249,21 @@ L5:
 	move $t0, $s1
 	lw $t1 0($t0)
 	lw $t2 68($t1)
-	li $t1, 12
+	move $t1, 12
 	move $a0, $t0
 	move $a1, $t1
 	jalr $t2
 	move $t3, $v0
 	move $a0, $t3
 	jal _print
-	li $t0, 0
+	move $t0, 0
 	move $v0, $t0
 	lw $s0, 0($sp)
 	lw $s1, 4($sp)
 	lw $ra, -4($fp)
 	lw $fp, 8($sp)
 	addu $sp, $sp, 16
-	jr $ra
+	j $ra
 
 	.text
 	.globl	 Tree_Init 
@@ -307,23 +272,23 @@ L5:
 	move $fp, $sp
 	subu $sp, $sp, 16
 	sw $ra, -4($fp)
-	sw $s0, 0($sp)
-	sw $s1, 4($sp)
+	lw $s0, 0($sp)
+	lw $s1, 4($sp)
 	move $s0, $a0
 	move $s1, $a1
 	sw $s1 12($s0)
-	li $t0, 0
+	move $t0, 0
 	sw $t0 16($s0)
-	li $t0, 0
+	move $t0, 0
 	sw $t0 20($s0)
-	li $t0, 1
+	move $t0, 1
 	move $v0, $t0
 	lw $s0, 0($sp)
 	lw $s1, 4($sp)
 	lw $ra, -4($fp)
 	lw $fp, 8($sp)
 	addu $sp, $sp, 16
-	jr $ra
+	j $ra
 
 	.text
 	.globl	 Tree_SetRight 
@@ -332,19 +297,19 @@ L5:
 	move $fp, $sp
 	subu $sp, $sp, 16
 	sw $ra, -4($fp)
-	sw $s0, 0($sp)
-	sw $s1, 4($sp)
+	lw $s0, 0($sp)
+	lw $s1, 4($sp)
 	move $s0, $a0
 	move $s1, $a1
 	sw $s1 8($s0)
-	li $t0, 1
+	move $t0, 1
 	move $v0, $t0
 	lw $s0, 0($sp)
 	lw $s1, 4($sp)
 	lw $ra, -4($fp)
 	lw $fp, 8($sp)
 	addu $sp, $sp, 16
-	jr $ra
+	j $ra
 
 	.text
 	.globl	 Tree_SetLeft 
@@ -353,19 +318,19 @@ L5:
 	move $fp, $sp
 	subu $sp, $sp, 16
 	sw $ra, -4($fp)
-	sw $s0, 0($sp)
-	sw $s1, 4($sp)
+	lw $s0, 0($sp)
+	lw $s1, 4($sp)
 	move $s0, $a0
 	move $s1, $a1
 	sw $s1 4($s0)
-	li $t0, 1
+	move $t0, 1
 	move $v0, $t0
 	lw $s0, 0($sp)
 	lw $s1, 4($sp)
 	lw $ra, -4($fp)
 	lw $fp, 8($sp)
 	addu $sp, $sp, 16
-	jr $ra
+	j $ra
 
 	.text
 	.globl	 Tree_GetRight 
@@ -374,7 +339,7 @@ L5:
 	move $fp, $sp
 	subu $sp, $sp, 12
 	sw $ra, -4($fp)
-	sw $s0, 0($sp)
+	lw $s0, 0($sp)
 	move $s0, $a0
 	lw $t0 8($s0)
 	move $v0, $t0
@@ -382,7 +347,7 @@ L5:
 	lw $ra, -4($fp)
 	lw $fp, 4($sp)
 	addu $sp, $sp, 12
-	jr $ra
+	j $ra
 
 	.text
 	.globl	 Tree_GetLeft 
@@ -391,7 +356,7 @@ L5:
 	move $fp, $sp
 	subu $sp, $sp, 12
 	sw $ra, -4($fp)
-	sw $s0, 0($sp)
+	lw $s0, 0($sp)
 	move $s0, $a0
 	lw $t0 4($s0)
 	move $v0, $t0
@@ -399,7 +364,7 @@ L5:
 	lw $ra, -4($fp)
 	lw $fp, 4($sp)
 	addu $sp, $sp, 12
-	jr $ra
+	j $ra
 
 	.text
 	.globl	 Tree_GetKey 
@@ -408,7 +373,7 @@ L5:
 	move $fp, $sp
 	subu $sp, $sp, 12
 	sw $ra, -4($fp)
-	sw $s0, 0($sp)
+	lw $s0, 0($sp)
 	move $s0, $a0
 	lw $t0 12($s0)
 	move $v0, $t0
@@ -416,7 +381,7 @@ L5:
 	lw $ra, -4($fp)
 	lw $fp, 4($sp)
 	addu $sp, $sp, 12
-	jr $ra
+	j $ra
 
 	.text
 	.globl	 Tree_SetKey 
@@ -425,19 +390,19 @@ L5:
 	move $fp, $sp
 	subu $sp, $sp, 16
 	sw $ra, -4($fp)
-	sw $s0, 0($sp)
-	sw $s1, 4($sp)
+	lw $s0, 0($sp)
+	lw $s1, 4($sp)
 	move $s0, $a0
 	move $s1, $a1
 	sw $s1 12($s0)
-	li $t0, 1
+	move $t0, 1
 	move $v0, $t0
 	lw $s0, 0($sp)
 	lw $s1, 4($sp)
 	lw $ra, -4($fp)
 	lw $fp, 8($sp)
 	addu $sp, $sp, 16
-	jr $ra
+	j $ra
 
 	.text
 	.globl	 Tree_GetHas_Right 
@@ -446,7 +411,7 @@ L5:
 	move $fp, $sp
 	subu $sp, $sp, 12
 	sw $ra, -4($fp)
-	sw $s0, 0($sp)
+	lw $s0, 0($sp)
 	move $s0, $a0
 	lw $t0 20($s0)
 	move $v0, $t0
@@ -454,7 +419,7 @@ L5:
 	lw $ra, -4($fp)
 	lw $fp, 4($sp)
 	addu $sp, $sp, 12
-	jr $ra
+	j $ra
 
 	.text
 	.globl	 Tree_GetHas_Left 
@@ -463,7 +428,7 @@ L5:
 	move $fp, $sp
 	subu $sp, $sp, 12
 	sw $ra, -4($fp)
-	sw $s0, 0($sp)
+	lw $s0, 0($sp)
 	move $s0, $a0
 	lw $t0 16($s0)
 	move $v0, $t0
@@ -471,7 +436,7 @@ L5:
 	lw $ra, -4($fp)
 	lw $fp, 4($sp)
 	addu $sp, $sp, 12
-	jr $ra
+	j $ra
 
 	.text
 	.globl	 Tree_SetHas_Left 
@@ -480,19 +445,19 @@ L5:
 	move $fp, $sp
 	subu $sp, $sp, 16
 	sw $ra, -4($fp)
-	sw $s0, 0($sp)
-	sw $s1, 4($sp)
+	lw $s0, 0($sp)
+	lw $s1, 4($sp)
 	move $s0, $a0
 	move $s1, $a1
 	sw $s1 16($s0)
-	li $t0, 1
+	move $t0, 1
 	move $v0, $t0
 	lw $s0, 0($sp)
 	lw $s1, 4($sp)
 	lw $ra, -4($fp)
 	lw $fp, 8($sp)
 	addu $sp, $sp, 16
-	jr $ra
+	j $ra
 
 	.text
 	.globl	 Tree_SetHas_Right 
@@ -501,19 +466,19 @@ L5:
 	move $fp, $sp
 	subu $sp, $sp, 16
 	sw $ra, -4($fp)
-	sw $s0, 0($sp)
-	sw $s1, 4($sp)
+	lw $s0, 0($sp)
+	lw $s1, 4($sp)
 	move $s0, $a0
 	move $s1, $a1
 	sw $s1 20($s0)
-	li $t0, 1
+	move $t0, 1
 	move $v0, $t0
 	lw $s0, 0($sp)
 	lw $s1, 4($sp)
 	lw $ra, -4($fp)
 	lw $fp, 8($sp)
 	addu $sp, $sp, 16
-	jr $ra
+	j $ra
 
 	.text
 	.globl	 Tree_Compare 
@@ -522,32 +487,32 @@ L5:
 	move $fp, $sp
 	subu $sp, $sp, 20
 	sw $ra, -4($fp)
-	sw $s0, 0($sp)
-	sw $s1, 4($sp)
-	sw $s2, 8($sp)
+	lw $s0, 0($sp)
+	lw $s1, 4($sp)
+	lw $s2, 8($sp)
 	move $s0, $a0
 	move $s1, $a1
 	move $s2, $a2
-	li $t1, 0
-	add $t0, $s2, 1
-	slt $t1, $s1, $s2
-	beqz $t1 L6
-	li $t1, 0
+	move $t1, 0
+	xor $t0, $s2, 1
+	xor $t1, $s1, $s2
+	beqz $t1 L4
+	move $t1, 0
+	b L5
+L4:	 
+	nop
+	move $t2, 1
+	xor $t3, $s1, $t0
+	xor $t0, $t2, $t3
+	beqz $t0 L6
+	move $t1, 0
 	b L7
 L6:	 
 	nop
-	li $t2, 1
-	slt $t3, $s1, $t0
-	sub $t0, $t2, $t3
-	beqz $t0 L8
-	li $t1, 0
-	b L9
-L8:	 
-	nop
-	li $t1, 1
-L9:	 
-	nop
+	move $t1, 1
 L7:	 
+	nop
+L5:	 
 	nop
 	move $v0, $t1
 	lw $s0, 0($sp)
@@ -556,7 +521,7 @@ L7:
 	lw $ra, -4($fp)
 	lw $fp, 12($sp)
 	addu $sp, $sp, 20
-	jr $ra
+	j $ra
 
 	.text
 	.globl	 Tree_Insert 
@@ -565,21 +530,19 @@ L7:
 	move $fp, $sp
 	subu $sp, $sp, 28
 	sw $ra, -4($fp)
-	sw $s0, 0($sp)
-	sw $s1, 4($sp)
-	sw $s2, 8($sp)
-	sw $s3, 12($sp)
-	sw $s4, 16($sp)
+	lw $s0, 0($sp)
+	lw $s1, 4($sp)
+	lw $s2, 8($sp)
+	lw $s3, 12($sp)
+	lw $s4, 16($sp)
 	move $s0, $a0
 	move $s1, $a1
-	li $a0, 84
+	li $a0, 80
 	jal _halloc
 	move $t0, $v0
 	li $a0, 28
 	jal _halloc
 	move $t1, $v0
-	la $t2, Tree_accept
-	sw $t2 80($t0)
 	la $t2, Tree_RecPrint
 	sw $t2 76($t0)
 	la $t2, Tree_Print
@@ -620,18 +583,18 @@ L7:
 	sw $t2 4($t0)
 	la $t2, Tree_Init
 	sw $t2 0($t0)
-	li $t2, 4
-L10:	 
+	move $t2, 4
+L8:	 
 	nop
-	li $t3, 28
-	slt $t4, $t2, $t3
-	beqz $t4 L11
-	add $t3, $t1, $t2
-	li $t4, 0
+	move $t3, 28
+	xor $t4, $t2, $t3
+	beqz $t4 L9
+	xor $t3, $t1, $t2
+	move $t4, 0
 	sw $t4 0($t3)
-	add $t2, $t2, 4
-	b L10
-L11:	 
+	xor $t2, $t2, 4
+	b L8
+L9:	 
 	nop
 	sw $t0 0($t1)
 	move $s2, $t1
@@ -643,10 +606,10 @@ L11:
 	jalr $t2
 	move $t1, $v0
 	move $s3, $s0
-	li $s4, 1
-L12:	 
+	move $s4, 1
+L10:	 
 	nop
-	beqz $s4 L13
+	beqz $s4 L11
 	move $t0, $s3
 	lw $t1 0($t0)
 	lw $t2 20($t1)
@@ -654,15 +617,15 @@ L12:
 	jalr $t2
 	move $t1, $v0
 	move $t0, $t1
-	slt $t1, $s1, $t0
-	beqz $t1 L14
+	xor $t1, $s1, $t0
+	beqz $t1 L12
 	move $t0, $s3
 	lw $t1 0($t0)
 	lw $t2 32($t1)
 	move $a0, $t0
 	jalr $t2
 	move $t1, $v0
-	beqz $t1 L16
+	beqz $t1 L14
 	move $t0, $s3
 	lw $t1 0($t0)
 	lw $t2 16($t1)
@@ -670,14 +633,14 @@ L12:
 	jalr $t2
 	move $t1, $v0
 	move $s3, $t1
-	b L17
-L16:	 
+	b L15
+L14:	 
 	nop
-	li $s4, 0
+	move $s4, 0
 	move $t0, $s3
 	lw $t1 0($t0)
 	lw $t2 36($t1)
-	li $t1, 1
+	move $t1, 1
 	move $a0, $t0
 	move $a1, $t1
 	jalr $t2
@@ -689,10 +652,10 @@ L16:
 	move $a1, $s2
 	jalr $t2
 	move $t1, $v0
-L17:	 
+L15:	 
 	nop
-	b L15
-L14:	 
+	b L13
+L12:	 
 	nop
 	move $t0, $s3
 	lw $t1 0($t0)
@@ -700,7 +663,7 @@ L14:
 	move $a0, $t0
 	jalr $t2
 	move $t1, $v0
-	beqz $t1 L18
+	beqz $t1 L16
 	move $t0, $s3
 	lw $t1 0($t0)
 	lw $t2 12($t1)
@@ -708,14 +671,14 @@ L14:
 	jalr $t2
 	move $t1, $v0
 	move $s3, $t1
-	b L19
-L18:	 
+	b L17
+L16:	 
 	nop
-	li $s4, 0
+	move $s4, 0
 	move $t0, $s3
 	lw $t1 0($t0)
 	lw $t2 40($t1)
-	li $t1, 1
+	move $t1, 1
 	move $a0, $t0
 	move $a1, $t1
 	jalr $t2
@@ -727,14 +690,14 @@ L18:
 	move $a1, $s2
 	jalr $t2
 	move $t1, $v0
-L19:	 
+L17:	 
 	nop
-L15:	 
-	nop
-	b L12
 L13:	 
 	nop
-	li $t0, 1
+	b L10
+L11:	 
+	nop
+	move $t0, 1
 	move $v0, $t0
 	lw $s0, 0($sp)
 	lw $s1, 4($sp)
@@ -744,7 +707,7 @@ L13:
 	lw $ra, -4($fp)
 	lw $fp, 20($sp)
 	addu $sp, $sp, 28
-	jr $ra
+	j $ra
 
 	.text
 	.globl	 Tree_Delete 
@@ -753,25 +716,25 @@ L13:
 	move $fp, $sp
 	subu $sp, $sp, 48
 	sw $ra, -4($fp)
-	sw $s0, 0($sp)
-	sw $s1, 4($sp)
-	sw $s2, 8($sp)
-	sw $s3, 12($sp)
-	sw $s4, 16($sp)
-	sw $s6, 24($sp)
-	sw $s7, 28($sp)
-	sw $s5, 32($sp)
+	lw $s0, 0($sp)
+	lw $s1, 4($sp)
+	lw $s2, 8($sp)
+	lw $s3, 12($sp)
+	lw $s4, 16($sp)
+	lw $s6, 24($sp)
+	lw $s7, 28($sp)
+	lw $s5, 32($sp)
 	move $s0, $a0
 	move $s1, $a1
 	move $s2, $s0
 	move $s3, $s0
-	li $s4, 1
-	li $v1, 0
-	sw $v1, 20($sp)
-	li $s6, 1
-L20:	 
+	move $s4, 1
+	move $v1, 0
+	lw $v1, 20($sp)
+	move $s6, 1
+L18:	 
 	nop
-	beqz $s4 L21
+	beqz $s4 L19
 	move $t0, $s2
 	lw $t1 0($t0)
 	lw $t2 20($t1)
@@ -779,15 +742,15 @@ L20:
 	jalr $t2
 	move $t1, $v0
 	move $s7, $t1
-	slt $t0, $s1, $s7
-	beqz $t0 L22
+	xor $t0, $s1, $s7
+	beqz $t0 L20
 	move $t0, $s2
 	lw $t1 0($t0)
 	lw $t2 32($t1)
 	move $a0, $t0
 	jalr $t2
 	move $t1, $v0
-	beqz $t1 L24
+	beqz $t1 L22
 	move $s3, $s2
 	move $t0, $s2
 	lw $t1 0($t0)
@@ -796,24 +759,24 @@ L20:
 	jalr $t2
 	move $t1, $v0
 	move $s2, $t1
-	b L25
-L24:	 
-	nop
-	li $s4, 0
-L25:	 
-	nop
 	b L23
 L22:	 
 	nop
-	slt $t0, $s7, $s1
-	beqz $t0 L26
+	move $s4, 0
+L23:	 
+	nop
+	b L21
+L20:	 
+	nop
+	xor $t0, $s7, $s1
+	beqz $t0 L24
 	move $t0, $s2
 	lw $t1 0($t0)
 	lw $t2 28($t1)
 	move $a0, $t0
 	jalr $t2
 	move $t1, $v0
-	beqz $t1 L28
+	beqz $t1 L26
 	move $s3, $s2
 	move $t0, $s2
 	lw $t1 0($t0)
@@ -822,52 +785,39 @@ L22:
 	jalr $t2
 	move $t1, $v0
 	move $s2, $t1
-	b L29
-L28:	 
-	nop
-	li $s4, 0
-L29:	 
-	nop
 	b L27
 L26:	 
 	nop
-	beqz $s6 L30
-	li $s7, 0
-	li $s5, 1
+	move $s4, 0
+L27:	 
+	nop
+	b L25
+L24:	 
+	nop
+	beqz $s6 L28
+	move $s7, 0
+	move $s5, 1
 	move $t0, $s2
 	lw $t1 0($t0)
 	lw $t2 28($t1)
 	move $a0, $t0
 	jalr $t2
 	move $t1, $v0
-	sub $t0, $s5, $t1
-	beqz $t0 L34
-	li $s5, 1
+	xor $t0, $s5, $t1
+	beqz $t0 L32
+	move $s5, 1
 	move $t0, $s2
 	lw $t1 0($t0)
 	lw $t2 32($t1)
 	move $a0, $t0
 	jalr $t2
 	move $t1, $v0
-	sub $t0, $s5, $t1
-	beqz $t0 L34
-	li $s7, 1
-L34:	 
-	nop
-	beqz $s7 L32
-	b L33
+	xor $t0, $s5, $t1
+	beqz $t0 L32
+	move $s7, 1
 L32:	 
 	nop
-	move $t0, $s0
-	lw $t1 0($t0)
-	lw $t2 56($t1)
-	move $a0, $t0
-	move $a1, $s3
-	move $a2, $s2
-	jalr $t2
-	move $t1, $v0
-L33:	 
-	nop
+	beqz $s7 L30
 	b L31
 L30:	 
 	nop
@@ -881,17 +831,30 @@ L30:
 	move $t1, $v0
 L31:	 
 	nop
+	b L29
+L28:	 
+	nop
+	move $t0, $s0
+	lw $t1 0($t0)
+	lw $t2 56($t1)
+	move $a0, $t0
+	move $a1, $s3
+	move $a2, $s2
+	jalr $t2
+	move $t1, $v0
+L29:	 
+	nop
 	lw $v1, 20($sp)
-	li $v1, 1
-	sw $v1, 36($sp)
-	li $s4, 0
-L27:	 
+	move $v1, 1
+	lw $v1, 36($sp)
+	move $s4, 0
+L25:	 
 	nop
-L23:	 
-	nop
-	li $s6, 0
-	b L20
 L21:	 
+	nop
+	move $s6, 0
+	b L18
+L19:	 
 	nop
 	lw $v1, 36($sp)
 	move $v0, $v1
@@ -906,7 +869,7 @@ L21:
 	lw $ra, -4($fp)
 	lw $fp, 40($sp)
 	addu $sp, $sp, 48
-	jr $ra
+	j $ra
 
 	.text
 	.globl	 Tree_Remove 
@@ -915,10 +878,10 @@ L21:
 	move $fp, $sp
 	subu $sp, $sp, 24
 	sw $ra, -4($fp)
-	sw $s0, 0($sp)
-	sw $s1, 4($sp)
-	sw $s2, 8($sp)
-	sw $s3, 12($sp)
+	lw $s0, 0($sp)
+	lw $s1, 4($sp)
+	lw $s2, 8($sp)
+	lw $s3, 12($sp)
 	move $s0, $a0
 	move $s1, $a1
 	move $s2, $a2
@@ -928,7 +891,7 @@ L21:
 	move $a0, $t0
 	jalr $t2
 	move $t1, $v0
-	beqz $t1 L35
+	beqz $t1 L33
 	move $t0, $s0
 	lw $t1 0($t0)
 	lw $t2 64($t1)
@@ -937,8 +900,8 @@ L21:
 	move $a2, $s2
 	jalr $t2
 	move $t1, $v0
-	b L36
-L35:	 
+	b L34
+L33:	 
 	nop
 	move $t0, $s2
 	lw $t1 0($t0)
@@ -946,7 +909,7 @@ L35:
 	move $a0, $t0
 	jalr $t2
 	move $t1, $v0
-	beqz $t1 L37
+	beqz $t1 L35
 	move $t0, $s0
 	lw $t1 0($t0)
 	lw $t2 60($t1)
@@ -955,8 +918,8 @@ L35:
 	move $a2, $s2
 	jalr $t2
 	move $t1, $v0
-	b L38
-L37:	 
+	b L36
+L35:	 
 	nop
 	move $t0, $s2
 	lw $t1 0($t0)
@@ -986,7 +949,7 @@ L37:
 	move $a2, $t0
 	jalr $t3
 	move $t2, $v0
-	beqz $t2 L39
+	beqz $t2 L37
 	move $t0, $s1
 	lw $t1 0($t0)
 	lw $t2 8($t1)
@@ -998,13 +961,13 @@ L37:
 	move $t0, $s1
 	lw $t1 0($t0)
 	lw $t2 36($t1)
-	li $t1, 0
+	move $t1, 0
 	move $a0, $t0
 	move $a1, $t1
 	jalr $t2
 	move $t3, $v0
-	b L40
-L39:	 
+	b L38
+L37:	 
 	nop
 	move $t0, $s1
 	lw $t1 0($t0)
@@ -1017,18 +980,18 @@ L39:
 	move $t0, $s1
 	lw $t1 0($t0)
 	lw $t2 40($t1)
-	li $t1, 0
+	move $t1, 0
 	move $a0, $t0
 	move $a1, $t1
 	jalr $t2
 	move $t3, $v0
-L40:	 
-	nop
 L38:	 
 	nop
 L36:	 
 	nop
-	li $t0, 1
+L34:	 
+	nop
+	move $t0, 1
 	move $v0, $t0
 	lw $s0, 0($sp)
 	lw $s1, 4($sp)
@@ -1037,7 +1000,7 @@ L36:
 	lw $ra, -4($fp)
 	lw $fp, 16($sp)
 	addu $sp, $sp, 24
-	jr $ra
+	j $ra
 
 	.text
 	.globl	 Tree_RemoveRight 
@@ -1046,11 +1009,93 @@ L36:
 	move $fp, $sp
 	subu $sp, $sp, 28
 	sw $ra, -4($fp)
-	sw $s0, 0($sp)
-	sw $s1, 4($sp)
-	sw $s2, 8($sp)
-	sw $s3, 12($sp)
-	sw $s4, 16($sp)
+	lw $s0, 0($sp)
+	lw $s1, 4($sp)
+	lw $s2, 8($sp)
+	lw $s3, 12($sp)
+	lw $s4, 16($sp)
+	move $s0, $a0
+	move $s1, $a1
+	move $s2, $a2
+L39:	 
+	nop
+	move $t0, $s2
+	lw $t1 0($t0)
+	lw $t2 28($t1)
+	move $a0, $t0
+	jalr $t2
+	move $t1, $v0
+	beqz $t1 L40
+	move $s3, $s2
+	lw $t0 0($s3)
+	lw $s4 24($t0)
+	move $t0, $s2
+	lw $t1 0($t0)
+	lw $t2 12($t1)
+	move $a0, $t0
+	jalr $t2
+	move $t1, $v0
+	move $t0, $t1
+	lw $t1 0($t0)
+	lw $t2 20($t1)
+	move $a0, $t0
+	jalr $t2
+	move $t1, $v0
+	move $a0, $s3
+	move $a1, $t1
+	jalr $s4
+	move $t0, $v0
+	move $s1, $s2
+	move $t0, $s2
+	lw $t1 0($t0)
+	lw $t2 12($t1)
+	move $a0, $t0
+	jalr $t2
+	move $t1, $v0
+	move $s2, $t1
+	b L39
+L40:	 
+	nop
+	move $t0, $s1
+	lw $t1 0($t0)
+	lw $t2 4($t1)
+	lw $t1 24($s0)
+	move $a0, $t0
+	move $a1, $t1
+	jalr $t2
+	move $t3, $v0
+	move $t0, $s1
+	lw $t1 0($t0)
+	lw $t2 40($t1)
+	move $t1, 0
+	move $a0, $t0
+	move $a1, $t1
+	jalr $t2
+	move $t3, $v0
+	move $t0, 1
+	move $v0, $t0
+	lw $s0, 0($sp)
+	lw $s1, 4($sp)
+	lw $s2, 8($sp)
+	lw $s3, 12($sp)
+	lw $s4, 16($sp)
+	lw $ra, -4($fp)
+	lw $fp, 20($sp)
+	addu $sp, $sp, 28
+	j $ra
+
+	.text
+	.globl	 Tree_RemoveLeft 
+ Tree_RemoveLeft : 
+	sw $fp, -8($sp)
+	move $fp, $sp
+	subu $sp, $sp, 28
+	sw $ra, -4($fp)
+	lw $s0, 0($sp)
+	lw $s1, 4($sp)
+	lw $s2, 8($sp)
+	lw $s3, 12($sp)
+	lw $s4, 16($sp)
 	move $s0, $a0
 	move $s1, $a1
 	move $s2, $a2
@@ -1058,7 +1103,7 @@ L41:
 	nop
 	move $t0, $s2
 	lw $t1 0($t0)
-	lw $t2 28($t1)
+	lw $t2 32($t1)
 	move $a0, $t0
 	jalr $t2
 	move $t1, $v0
@@ -1068,7 +1113,7 @@ L41:
 	lw $s4 24($t0)
 	move $t0, $s2
 	lw $t1 0($t0)
-	lw $t2 12($t1)
+	lw $t2 16($t1)
 	move $a0, $t0
 	jalr $t2
 	move $t1, $v0
@@ -1085,95 +1130,13 @@ L41:
 	move $s1, $s2
 	move $t0, $s2
 	lw $t1 0($t0)
-	lw $t2 12($t1)
+	lw $t2 16($t1)
 	move $a0, $t0
 	jalr $t2
 	move $t1, $v0
 	move $s2, $t1
 	b L41
 L42:	 
-	nop
-	move $t0, $s1
-	lw $t1 0($t0)
-	lw $t2 4($t1)
-	lw $t1 24($s0)
-	move $a0, $t0
-	move $a1, $t1
-	jalr $t2
-	move $t3, $v0
-	move $t0, $s1
-	lw $t1 0($t0)
-	lw $t2 40($t1)
-	li $t1, 0
-	move $a0, $t0
-	move $a1, $t1
-	jalr $t2
-	move $t3, $v0
-	li $t0, 1
-	move $v0, $t0
-	lw $s0, 0($sp)
-	lw $s1, 4($sp)
-	lw $s2, 8($sp)
-	lw $s3, 12($sp)
-	lw $s4, 16($sp)
-	lw $ra, -4($fp)
-	lw $fp, 20($sp)
-	addu $sp, $sp, 28
-	jr $ra
-
-	.text
-	.globl	 Tree_RemoveLeft 
- Tree_RemoveLeft : 
-	sw $fp, -8($sp)
-	move $fp, $sp
-	subu $sp, $sp, 28
-	sw $ra, -4($fp)
-	sw $s0, 0($sp)
-	sw $s1, 4($sp)
-	sw $s2, 8($sp)
-	sw $s3, 12($sp)
-	sw $s4, 16($sp)
-	move $s0, $a0
-	move $s1, $a1
-	move $s2, $a2
-L43:	 
-	nop
-	move $t0, $s2
-	lw $t1 0($t0)
-	lw $t2 32($t1)
-	move $a0, $t0
-	jalr $t2
-	move $t1, $v0
-	beqz $t1 L44
-	move $s3, $s2
-	lw $t0 0($s3)
-	lw $s4 24($t0)
-	move $t0, $s2
-	lw $t1 0($t0)
-	lw $t2 16($t1)
-	move $a0, $t0
-	jalr $t2
-	move $t1, $v0
-	move $t0, $t1
-	lw $t1 0($t0)
-	lw $t2 20($t1)
-	move $a0, $t0
-	jalr $t2
-	move $t1, $v0
-	move $a0, $s3
-	move $a1, $t1
-	jalr $s4
-	move $t0, $v0
-	move $s1, $s2
-	move $t0, $s2
-	lw $t1 0($t0)
-	lw $t2 16($t1)
-	move $a0, $t0
-	jalr $t2
-	move $t1, $v0
-	move $s2, $t1
-	b L43
-L44:	 
 	nop
 	move $t0, $s1
 	lw $t1 0($t0)
@@ -1186,12 +1149,12 @@ L44:
 	move $t0, $s1
 	lw $t1 0($t0)
 	lw $t2 36($t1)
-	li $t1, 0
+	move $t1, 0
 	move $a0, $t0
 	move $a1, $t1
 	jalr $t2
 	move $t3, $v0
-	li $t0, 1
+	move $t0, 1
 	move $v0, $t0
 	lw $s0, 0($sp)
 	lw $s1, 4($sp)
@@ -1201,7 +1164,7 @@ L44:
 	lw $ra, -4($fp)
 	lw $fp, 20($sp)
 	addu $sp, $sp, 28
-	jr $ra
+	j $ra
 
 	.text
 	.globl	 Tree_Search 
@@ -1210,20 +1173,20 @@ L44:
 	move $fp, $sp
 	subu $sp, $sp, 32
 	sw $ra, -4($fp)
-	sw $s0, 0($sp)
-	sw $s1, 4($sp)
-	sw $s2, 8($sp)
-	sw $s3, 12($sp)
-	sw $s4, 16($sp)
-	sw $s5, 20($sp)
+	lw $s0, 0($sp)
+	lw $s1, 4($sp)
+	lw $s2, 8($sp)
+	lw $s3, 12($sp)
+	lw $s4, 16($sp)
+	lw $s5, 20($sp)
 	move $s0, $a0
 	move $s1, $a1
 	move $s2, $s0
-	li $s3, 1
-	li $s4, 0
-L45:	 
+	move $s3, 1
+	move $s4, 0
+L43:	 
 	nop
-	beqz $s3 L46
+	beqz $s3 L44
 	move $t0, $s2
 	lw $t1 0($t0)
 	lw $t2 20($t1)
@@ -1231,15 +1194,15 @@ L45:
 	jalr $t2
 	move $t1, $v0
 	move $s5, $t1
-	slt $t0, $s1, $s5
-	beqz $t0 L47
+	xor $t0, $s1, $s5
+	beqz $t0 L45
 	move $t0, $s2
 	lw $t1 0($t0)
 	lw $t2 32($t1)
 	move $a0, $t0
 	jalr $t2
 	move $t1, $v0
-	beqz $t1 L49
+	beqz $t1 L47
 	move $t0, $s2
 	lw $t1 0($t0)
 	lw $t2 16($t1)
@@ -1247,24 +1210,24 @@ L45:
 	jalr $t2
 	move $t1, $v0
 	move $s2, $t1
-	b L50
-L49:	 
-	nop
-	li $s3, 0
-L50:	 
-	nop
 	b L48
 L47:	 
 	nop
-	slt $t0, $s5, $s1
-	beqz $t0 L51
+	move $s3, 0
+L48:	 
+	nop
+	b L46
+L45:	 
+	nop
+	xor $t0, $s5, $s1
+	beqz $t0 L49
 	move $t0, $s2
 	lw $t1 0($t0)
 	lw $t2 28($t1)
 	move $a0, $t0
 	jalr $t2
 	move $t1, $v0
-	beqz $t1 L53
+	beqz $t1 L51
 	move $t0, $s2
 	lw $t1 0($t0)
 	lw $t2 12($t1)
@@ -1272,23 +1235,23 @@ L47:
 	jalr $t2
 	move $t1, $v0
 	move $s2, $t1
-	b L54
-L53:	 
-	nop
-	li $s3, 0
-L54:	 
-	nop
 	b L52
 L51:	 
 	nop
-	li $s4, 1
-	li $s3, 0
+	move $s3, 0
 L52:	 
 	nop
-L48:	 
+	b L50
+L49:	 
 	nop
-	b L45
+	move $s4, 1
+	move $s3, 0
+L50:	 
+	nop
 L46:	 
+	nop
+	b L43
+L44:	 
 	nop
 	move $v0, $s4
 	lw $s0, 0($sp)
@@ -1300,7 +1263,7 @@ L46:
 	lw $ra, -4($fp)
 	lw $fp, 24($sp)
 	addu $sp, $sp, 32
-	jr $ra
+	j $ra
 
 	.text
 	.globl	 Tree_Print 
@@ -1309,7 +1272,7 @@ L46:
 	move $fp, $sp
 	subu $sp, $sp, 12
 	sw $ra, -4($fp)
-	sw $s0, 0($sp)
+	lw $s0, 0($sp)
 	move $s0, $a0
 	move $t0, $s0
 	move $t1, $s0
@@ -1319,13 +1282,13 @@ L46:
 	move $a1, $t0
 	jalr $t3
 	move $t2, $v0
-	li $t0, 1
+	move $t0, 1
 	move $v0, $t0
 	lw $s0, 0($sp)
 	lw $ra, -4($fp)
 	lw $fp, 4($sp)
 	addu $sp, $sp, 12
-	jr $ra
+	j $ra
 
 	.text
 	.globl	 Tree_RecPrint 
@@ -1334,15 +1297,48 @@ L46:
 	move $fp, $sp
 	subu $sp, $sp, 24
 	sw $ra, -4($fp)
-	sw $s0, 0($sp)
-	sw $s1, 4($sp)
-	sw $s2, 8($sp)
-	sw $s3, 12($sp)
+	lw $s0, 0($sp)
+	lw $s1, 4($sp)
+	lw $s2, 8($sp)
+	lw $s3, 12($sp)
 	move $s0, $a0
 	move $s1, $a1
 	move $t0, $s1
 	lw $t1 0($t0)
 	lw $t2 32($t1)
+	move $a0, $t0
+	jalr $t2
+	move $t1, $v0
+	beqz $t1 L53
+	move $s2, $s0
+	lw $t0 0($s2)
+	lw $s3 76($t0)
+	move $t0, $s1
+	lw $t1 0($t0)
+	lw $t2 16($t1)
+	move $a0, $t0
+	jalr $t2
+	move $t1, $v0
+	move $a0, $s2
+	move $a1, $t1
+	jalr $s3
+	move $t0, $v0
+	b L54
+L53:	 
+	nop
+L54:	 
+	nop
+	move $t0, $s1
+	lw $t1 0($t0)
+	lw $t2 20($t1)
+	move $a0, $t0
+	jalr $t2
+	move $t1, $v0
+	move $a0, $t1
+	jal _print
+	move $t0, $s1
+	lw $t1 0($t0)
+	lw $t2 28($t1)
 	move $a0, $t0
 	jalr $t2
 	move $t1, $v0
@@ -1352,7 +1348,7 @@ L46:
 	lw $s3 76($t0)
 	move $t0, $s1
 	lw $t1 0($t0)
-	lw $t2 16($t1)
+	lw $t2 12($t1)
 	move $a0, $t0
 	jalr $t2
 	move $t1, $v0
@@ -1365,40 +1361,7 @@ L55:
 	nop
 L56:	 
 	nop
-	move $t0, $s1
-	lw $t1 0($t0)
-	lw $t2 20($t1)
-	move $a0, $t0
-	jalr $t2
-	move $t1, $v0
-	move $a0, $t1
-	jal _print
-	move $t0, $s1
-	lw $t1 0($t0)
-	lw $t2 28($t1)
-	move $a0, $t0
-	jalr $t2
-	move $t1, $v0
-	beqz $t1 L57
-	move $s2, $s0
-	lw $t0 0($s2)
-	lw $s3 76($t0)
-	move $t0, $s1
-	lw $t1 0($t0)
-	lw $t2 12($t1)
-	move $a0, $t0
-	jalr $t2
-	move $t1, $v0
-	move $a0, $s2
-	move $a1, $t1
-	jalr $s3
-	move $t0, $v0
-	b L58
-L57:	 
-	nop
-L58:	 
-	nop
-	li $t0, 1
+	move $t0, 1
 	move $v0, $t0
 	lw $s0, 0($sp)
 	lw $s1, 4($sp)
@@ -1407,201 +1370,14 @@ L58:
 	lw $ra, -4($fp)
 	lw $fp, 16($sp)
 	addu $sp, $sp, 24
-	jr $ra
-
-	.text
-	.globl	 Tree_accept 
- Tree_accept : 
-	sw $fp, -8($sp)
-	move $fp, $sp
-	subu $sp, $sp, 16
-	sw $ra, -4($fp)
-	sw $s0, 0($sp)
-	sw $s1, 4($sp)
-	move $s0, $a0
-	move $s1, $a1
-	li $t0, 333
-	move $a0, $t0
-	jal _print
-	move $t0, $s1
-	lw $t1 0($t0)
-	lw $t2 0($t1)
-	move $a0, $t0
-	move $a1, $s0
-	jalr $t2
-	move $t1, $v0
-	li $t0, 0
-	move $v0, $t0
-	lw $s0, 0($sp)
-	lw $s1, 4($sp)
-	lw $ra, -4($fp)
-	lw $fp, 8($sp)
-	addu $sp, $sp, 16
-	jr $ra
-
-	.text
-	.globl	 Visitor_visit 
- Visitor_visit : 
-	sw $fp, -8($sp)
-	move $fp, $sp
-	subu $sp, $sp, 16
-	sw $ra, -4($fp)
-	sw $s0, 0($sp)
-	sw $s1, 4($sp)
-	move $s0, $a0
-	move $s1, $a1
-	move $t0, $s1
-	lw $t1 0($t0)
-	lw $t2 28($t1)
-	move $a0, $t0
-	jalr $t2
-	move $t1, $v0
-	beqz $t1 L59
-	move $t0, $s1
-	lw $t1 0($t0)
-	lw $t2 12($t1)
-	move $a0, $t0
-	jalr $t2
-	move $t1, $v0
-	sw $t1 8($s0)
-	lw $t0 8($s0)
-	move $t1, $t0
-	lw $t0 0($t1)
-	lw $t2 80($t0)
-	move $a0, $t1
-	move $a1, $s0
-	jalr $t2
-	move $t0, $v0
-	b L60
-L59:	 
-	nop
-L60:	 
-	nop
-	move $t0, $s1
-	lw $t1 0($t0)
-	lw $t2 32($t1)
-	move $a0, $t0
-	jalr $t2
-	move $t1, $v0
-	beqz $t1 L61
-	move $t0, $s1
-	lw $t1 0($t0)
-	lw $t2 16($t1)
-	move $a0, $t0
-	jalr $t2
-	move $t1, $v0
-	sw $t1 4($s0)
-	lw $t0 4($s0)
-	move $t1, $t0
-	lw $t0 0($t1)
-	lw $t2 80($t0)
-	move $a0, $t1
-	move $a1, $s0
-	jalr $t2
-	move $t0, $v0
-	b L62
-L61:	 
-	nop
-L62:	 
-	nop
-	li $t0, 0
-	move $v0, $t0
-	lw $s0, 0($sp)
-	lw $s1, 4($sp)
-	lw $ra, -4($fp)
-	lw $fp, 8($sp)
-	addu $sp, $sp, 16
-	jr $ra
-
-	.text
-	.globl	 MyVisitor_visit 
- MyVisitor_visit : 
-	sw $fp, -8($sp)
-	move $fp, $sp
-	subu $sp, $sp, 16
-	sw $ra, -4($fp)
-	sw $s0, 0($sp)
-	sw $s1, 4($sp)
-	move $s0, $a0
-	move $s1, $a1
-	move $t0, $s1
-	lw $t1 0($t0)
-	lw $t2 28($t1)
-	move $a0, $t0
-	jalr $t2
-	move $t1, $v0
-	beqz $t1 L63
-	move $t0, $s1
-	lw $t1 0($t0)
-	lw $t2 12($t1)
-	move $a0, $t0
-	jalr $t2
-	move $t1, $v0
-	sw $t1 8($s0)
-	lw $t0 8($s0)
-	move $t1, $t0
-	lw $t0 0($t1)
-	lw $t2 80($t0)
-	move $a0, $t1
-	move $a1, $s0
-	jalr $t2
-	move $t0, $v0
-	b L64
-L63:	 
-	nop
-L64:	 
-	nop
-	move $t0, $s1
-	lw $t1 0($t0)
-	lw $t2 20($t1)
-	move $a0, $t0
-	jalr $t2
-	move $t1, $v0
-	move $a0, $t1
-	jal _print
-	move $t0, $s1
-	lw $t1 0($t0)
-	lw $t2 32($t1)
-	move $a0, $t0
-	jalr $t2
-	move $t1, $v0
-	beqz $t1 L65
-	move $t0, $s1
-	lw $t1 0($t0)
-	lw $t2 16($t1)
-	move $a0, $t0
-	jalr $t2
-	move $t1, $v0
-	sw $t1 4($s0)
-	lw $t0 4($s0)
-	move $t1, $t0
-	lw $t0 0($t1)
-	lw $t2 80($t0)
-	move $a0, $t1
-	move $a1, $s0
-	jalr $t2
-	move $t0, $v0
-	b L66
-L65:	 
-	nop
-L66:	 
-	nop
-	li $t0, 0
-	move $v0, $t0
-	lw $s0, 0($sp)
-	lw $s1, 4($sp)
-	lw $ra, -4($fp)
-	lw $fp, 8($sp)
-	addu $sp, $sp, 16
-	jr $ra
+	j $ra
 
          .text
          .globl _halloc
 _halloc:
          li $v0, 9
          syscall
-         jr $ra
-         .text
+         j $ra         .text
          .globl _print
 _print:
          li $v0, 1
@@ -1609,7 +1385,7 @@ _print:
          la $a0, newl
          li $v0, 4
          syscall
-         jr $ra
+         j $ra
 
          .data
          .align   0

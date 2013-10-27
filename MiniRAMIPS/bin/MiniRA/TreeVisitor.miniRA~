@@ -1251,4 +1251,4 @@ L65    NOOP
        ALOAD s0 SPILLEDARG 0
        ALOAD s1 SPILLEDARG 1
 END
-// Number of  vars after packing = 0; Number of Spilled vars = 0
+// Number of vars after packing = 0; Number of Spilled vars = 0
